@@ -1,6 +1,7 @@
-﻿
-using Microsoft.AspNetCore.Mvc.Versioning;
+﻿using E.API.Contracts.Common;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace E.API.Registrars;
 
@@ -8,7 +9,6 @@ public class MvcRegistar : IWebApplicationBuilderRegistrar
 {
     public void RegisterServices(WebApplicationBuilder builder)
     {
-
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddApiVersioning(config =>
@@ -24,6 +24,8 @@ public class MvcRegistar : IWebApplicationBuilderRegistrar
             config.GroupNameFormat = "'v'VVV";
             config.SubstituteApiVersionInUrl = true;
         });
-
+        builder.Services.AddMediatR(typeof(Program));
+        builder.Services.AddAutoMapper(typeof(Program));
+        builder.Services.AddScoped<IErrorResponseHandler, ErrorResponseHandler>();
     }
 }

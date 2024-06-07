@@ -4,7 +4,7 @@ namespace E.API.Registrars;
 
 public class SwaggerWebAppRegistrar : IWebApplicationRegistrar
 {
-    public void RegisterPiplelineComponents(WebApplication app)
+    public void RegisterPipelineComponents(WebApplication app)
     {
         app.UseSwagger();
         app.UseSwaggerUI(options =>

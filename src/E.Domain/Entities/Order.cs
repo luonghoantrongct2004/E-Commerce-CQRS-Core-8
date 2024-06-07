@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using E.Domain.Entities.Users;
 
 namespace E.Domain.Models
 {
@@ -21,7 +22,7 @@ namespace E.Domain.Models
         public DateTime CreatedAt { get; set; }
 
         public int? ShipperId { get; set; }
-        public User User { get; set; }
+        public BasicUser User { get; set; }
         public string Status { get; set; }
         [Required(ErrorMessage = "Vui lòng chọn phương thức thanh toán")]
         [Display(Name = "Phương thức thanh toán")]

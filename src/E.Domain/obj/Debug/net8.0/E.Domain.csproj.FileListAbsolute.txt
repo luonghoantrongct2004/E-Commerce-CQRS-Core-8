@@ -1,0 +1,15 @@
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\bin\Debug\net8.0\E.Domain.deps.json
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\bin\Debug\net8.0\E.Domain.runtimeconfig.json
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\bin\Debug\net8.0\E.Domain.dll
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\bin\Debug\net8.0\E.Domain.pdb
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\obj\Debug\net8.0\E.Domain.csproj.AssemblyReference.cache
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\obj\Debug\net8.0\E.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\obj\Debug\net8.0\E.Domain.AssemblyInfoInputs.cache
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\obj\Debug\net8.0\E.Domain.AssemblyInfo.cs
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\obj\Debug\net8.0\E.Domain.csproj.CoreCompileInputs.cache
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\obj\Debug\net8.0\E.Domain.sourcelink.json
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\obj\Debug\net8.0\E.Domain.dll
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\obj\Debug\net8.0\refint\E.Domain.dll
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\obj\Debug\net8.0\E.Domain.pdb
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\obj\Debug\net8.0\E.Domain.genruntimeconfig.cache
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Domain\obj\Debug\net8.0\ref\E.Domain.dll

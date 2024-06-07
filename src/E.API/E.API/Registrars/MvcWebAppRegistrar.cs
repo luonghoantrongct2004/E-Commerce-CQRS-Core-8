@@ -2,9 +2,10 @@
 
 public class MvcWebAppRegistrar : IWebApplicationRegistrar
 {
-    public void RegisterPiplelineComponents(WebApplication app)
+    public void RegisterPipelineComponents(WebApplication app)
     {
         app.UseAuthorization();
+        app.UseAuthentication();
 
         app.MapControllers();
     }

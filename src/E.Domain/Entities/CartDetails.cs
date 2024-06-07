@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using E.Domain.Entities.Products;
+using E.Domain.Entities.Users;
 
 namespace E.Domain.Models
 {
@@ -20,6 +22,6 @@ namespace E.Domain.Models
         [NotMapped]
         [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
         public decimal CartTotal { get; set; }
-        public User? User { get; set; }
+        public BasicUser? User { get; set; }
     }
 }

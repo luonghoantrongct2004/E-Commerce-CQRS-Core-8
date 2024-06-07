@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "vRfAdDNvBWg2dqtBj2qw+4zeqJXtDMS0z61yZzS7jPxW7brtsrZq9ff4yhr5wYVxoFmKAzfrOwYgQ4NKVPf2gA==",
+  "dgSpecHash": "AmDaX9yfLHegFDJzkJ2I6tVzXae3Qx8ZW+T5fs1CpeL0cSb07W7Th6giuIfyOHMgevdm7lMEKm9cL4cp0Z7taw==",
   "success": true,
   "projectFilePath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PREDATOR\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\PREDATOR\\.nuget\\packages\\fluentvalidation\\11.9.1\\fluentvalidation.11.9.1.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",

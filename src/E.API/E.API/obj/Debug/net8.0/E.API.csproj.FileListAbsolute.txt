@@ -1,0 +1,7 @@
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.API\E.API\obj\Debug\net8.0\E.API.csproj.AssemblyReference.cache
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.API\E.API\obj\Debug\net8.0\E.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.API\E.API\obj\Debug\net8.0\E.API.AssemblyInfoInputs.cache
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.API\E.API\obj\Debug\net8.0\E.API.AssemblyInfo.cs
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.API\E.API\obj\Debug\net8.0\E.API.csproj.CoreCompileInputs.cache
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.API\E.API\obj\Debug\net8.0\E.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.API\E.API\obj\Debug\net8.0\E.API.sourcelink.json

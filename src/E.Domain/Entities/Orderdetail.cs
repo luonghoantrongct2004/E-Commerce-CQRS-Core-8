@@ -1,4 +1,6 @@
-﻿namespace E.Domain.Models
+﻿using E.Domain.Entities.Products;
+
+namespace E.Domain.Models
 {
     public class Orderdetail
     {

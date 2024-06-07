@@ -1,14 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using E.API.Contracts.Common;
+using E.API.Contracts.Products.Responses;
+using E.Application.Products.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace E.API.Controllers.V1;
 
-[ApiVersion("1.0")]
-[ApiController]
-[Route("api/v{version:apiVersion}/[controller]")]
-public class ProductController : Controller
+public class ProductController : BaseController
 {
-    public IActionResult Index()
+    public ProductController(IMediator mediator, IMapper mapper, IErrorResponseHandler errorResponseHandler, ILogger<BaseController> logger) : base(mediator, mapper, errorResponseHandler, logger)
     {
-        return View();
+    }
+    [HttpGet]
+    public async Task<IActionResult> GetAllProduct()
+    {
+        var result = await _mediator.Send(new GetAllProducts());
+        var mapper = _mapper.Map<IEnumerable<ProductResponse>>(result.Payload);
+        return result.IsError ? HandleErrorResponse(result.Errors) : Ok(mapper);
     }
 }

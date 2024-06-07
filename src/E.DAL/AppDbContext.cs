@@ -1,4 +1,8 @@
-﻿using E.Domain.Models;
+﻿using E.Domain.Entities.Brand;
+using E.Domain.Entities.Comment;
+using E.Domain.Entities.Products;
+using E.Domain.Entities.Users;
+using E.Domain.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,8 +17,7 @@ public class AppDbContext : IdentityDbContext
         base.OnConfiguring(optionsBuilder);
     }
 
-    public DbSet<User> Users { get; set; }
-    public DbSet<Role> Roles { get; set; }
+    public DbSet<BasicUser> Users { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Product> Products { get; set; }
 

@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.5" />
@@ -24,9 +26,12 @@
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Agregrates\" />
+    <Folder Include="Contracts\UserInfo\Requests\" />
+    <Folder Include="Contracts\Products\Requests\" />
+    <Folder Include="Contracts\UserInfo\Responses\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\E.Application\E.Application.csproj" />
     <ProjectReference Include="..\..\E.DAL\E.DAL.csproj" />
   </ItemGroup>
 
