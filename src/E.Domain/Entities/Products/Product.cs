@@ -15,10 +15,10 @@ public class Product
 
     public List<string>? Images { get; set; }
 
-    public int? CategoryId { get; set; }
+    public Guid? CategoryId { get; set; }
 
-    public int? BrandId { get; set; }
-    public int? CommentId { get; set; }
+    public Guid? BrandId { get; set; }
+    public Guid? CommentId { get; set; }
 
     public int StockQuantity { get; set; }
     public int? SoldQuantity { get; set; } = 0;

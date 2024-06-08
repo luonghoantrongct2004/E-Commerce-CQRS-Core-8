@@ -3,10 +3,11 @@ using E.Domain.Entities.Comment;
 using E.Domain.Entities.Products;
 using E.Domain.Entities.Users;
 using E.Domain.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class AppDbContext : IdentityDbContext
+public class AppDbContext : IdentityDbContext<BasicUser, IdentityRole<Guid>, Guid>
 {
     public AppDbContext(DbContextOptions opt) : base(opt)
     {

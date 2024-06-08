@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using E.Application.Models;
 using E.Application.Products.Commands;
+using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using E.Domain.Entities.Products;
 using MediatR;
@@ -11,11 +12,13 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IEventPublisher _eventPublisher;
 
-    public CreateProductCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateProductCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IEventPublisher eventPublisher)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _eventPublisher = eventPublisher;
     }
 
     public async Task<OperationResult<Product>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
@@ -26,6 +29,9 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
             var product = _mapper.Map<Product>(request);
             await _unitOfWork.Products.AddAsync(product);
             await _unitOfWork.CompleteAsync();
+
+            await _eventPublisher.PublishAsync(product);
+
             result.Payload = product;
         }
         catch (Exception e)

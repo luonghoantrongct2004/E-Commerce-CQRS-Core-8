@@ -1,6 +1,10 @@
-﻿using E.Domain.Entities.Users;
+﻿using E.DAL;
+using E.Domain.Entities.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 namespace E.API.Registrars;
 
@@ -12,7 +16,19 @@ public class DbRegister : IWebApplicationBuilderRegistrar
         {
             opts.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));
         });
-        builder.Services.AddIdentity<BasicUser, IdentityRole>()
+        builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
+        builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
+        {
+            var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
+            return new MongoClient(settings.ConnectionString);
+        });
+        builder.Services.AddScoped<IMongoDatabase>(sp =>
+        {
+            var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
+            var client = sp.GetRequiredService<IMongoClient>();
+            return client.GetDatabase(settings.DatabaseName);
+        });
+        builder.Services.AddIdentity<BasicUser, IdentityRole<Guid>>()
         .AddEntityFrameworkStores<AppDbContext>()
         .AddDefaultTokenProviders();
         builder.Services.Configure<IdentityOptions>(options =>

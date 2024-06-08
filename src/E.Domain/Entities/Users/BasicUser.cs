@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace E.Domain.Entities.Users;
 
-public class BasicUser
+public class BasicUser:IdentityUser<Guid>
 {
     [Required(ErrorMessage = "Full name is required")]
     [Display(Name = "Full Name")]

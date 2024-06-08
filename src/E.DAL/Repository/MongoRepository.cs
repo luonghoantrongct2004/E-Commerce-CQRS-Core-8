@@ -1,0 +1,30 @@
+﻿using MongoDB.Driver;
+using System.Collections;
+using System.Linq.Expressions;
+
+namespace E.DAL.Repository;
+
+public class MongoRepository<T> : IReadRepository<T> where T : class
+{
+    private readonly IMongoCollection<T> _collection;
+
+    public MongoRepository(IMongoDatabase database, string collection)
+    {
+        _collection = database.GetCollection<T>(collection);
+    }
+
+    public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await _collection.Find(predicate).FirstOrDefaultAsync();
+    }
+
+    public async Task<IEnumerable<T>> GetAllAsync()
+    {
+        return await _collection.Find(Builders<T>.Filter.Empty).ToListAsync();
+    }
+
+    public async Task<T> GetByIdAsync(Guid id)
+    {
+        return await _collection.Find(Builders<T>.Filter.Eq("Id", id)).FirstOrDefaultAsync();
+    }
+}

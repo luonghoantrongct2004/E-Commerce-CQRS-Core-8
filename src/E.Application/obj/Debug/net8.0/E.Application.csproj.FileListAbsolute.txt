@@ -4,3 +4,15 @@ C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\obj\Debug\
 C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\obj\Debug\net8.0\E.Application.AssemblyInfo.cs
 C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\obj\Debug\net8.0\E.Application.csproj.CoreCompileInputs.cache
 C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\obj\Debug\net8.0\E.Application.sourcelink.json
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\bin\Debug\net8.0\E.Application.deps.json
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\bin\Debug\net8.0\E.Application.dll
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\bin\Debug\net8.0\E.Application.pdb
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\bin\Debug\net8.0\E.DAL.dll
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\bin\Debug\net8.0\E.Domain.dll
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\bin\Debug\net8.0\E.DAL.pdb
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\bin\Debug\net8.0\E.Domain.pdb
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\obj\Debug\net8.0\E.Application.csproj.CopyComplete
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\obj\Debug\net8.0\E.Application.dll
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\obj\Debug\net8.0\refint\E.Application.dll
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\obj\Debug\net8.0\E.Application.pdb
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.Application\obj\Debug\net8.0\ref\E.Application.dll

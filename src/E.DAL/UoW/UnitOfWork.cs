@@ -11,10 +11,10 @@ public class UnitOfWork : IUnitOfWork
     private IRepository<Product>? _productRepository;
     private IRepository<Category>? _categoryRepository;
     private IRepository<Brand>? _brandRepository;
-    public IRepository<Product> Products => _productRepository ??= new Repository<Product>(_context);
-    public IRepository<Category> Categories => _categoryRepository ??= new Repository<Category>(_context);
+    public IRepository<Product> Products => _productRepository ??= new SqlRepository<Product>(_context);
+    public IRepository<Category> Categories => _categoryRepository ??= new SqlRepository<Category>(_context);
 
-    public IRepository<Brand> Brands => _brandRepository ??= new Repository<Brand>(_context);
+    public IRepository<Brand> Brands => _brandRepository ??= new SqlRepository<Brand>(_context);
 
     public async Task<int> CompleteAsync()
     {
