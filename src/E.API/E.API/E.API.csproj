@@ -27,9 +27,7 @@
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Contracts\UserInfo\Requests\" />
     <Folder Include="Contracts\Products\Requests\" />
-    <Folder Include="Contracts\UserInfo\Responses\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\E.Application\E.Application.csproj" />

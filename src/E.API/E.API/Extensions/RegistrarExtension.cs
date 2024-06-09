@@ -1,4 +1,4 @@
-﻿using E.API.Registrars;
+﻿using E.API.Registrars.RegistrarBase;
 
 namespace E.API.Extensions;
 

@@ -1,0 +1,34 @@
+﻿using E.API.Contracts.Common;
+using E.API.Registrars.RegistrarBase;
+using E.Application.Models;
+using E.Application.Products.CommandHandlers;
+using E.Application.Products.Commands;
+using E.Application.Products.Queries;
+using E.Application.Products.QueryHandlers;
+using E.DAL.EventPublishers;
+using E.DAL.Repository;
+using E.DAL.UoW;
+using E.Domain.Entities.Products;
+using MediatR;
+
+namespace E.API.Registrars.DependencyInjection;
+
+public class DependencyInjection : IWebApplicationBuilderRegistrar
+{
+    public void RegisterServices(WebApplicationBuilder builder)
+    {
+        builder.Services.AddSingleton<IEventPublisher, InMemoryEventPublisher>();
+
+        builder.Services.AddScoped<IErrorResponseHandler, ErrorResponseHandler>();
+        builder.Services.AddScoped(typeof(IRepository<>), typeof(SqlRepository<>));
+        builder.Services.AddScoped(typeof(IReadRepository<>), typeof(MongoRepository<>));
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+        builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();
+
+        builder.Services.AddTransient<IRequestHandler<GetAllProducts, OperationResult<IEnumerable<Product>>>, GetAllProductQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<GetProductById, OperationResult<Product>>, GetProductByIdQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<CreateProductCommand, OperationResult<Product>>, CreateProductCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<DeleteProductCommand, OperationResult<Product>>, DeleteProductCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<UpdateProductCommand, OperationResult<Product>>, UpdateProductCommandHandler>();
+    }
+}
