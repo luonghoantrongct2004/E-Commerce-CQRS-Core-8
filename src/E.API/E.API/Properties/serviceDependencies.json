@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "mongodb1": {
+      "ignored": "true",
+      "type": "mongodb"
+    },
+    "mssql1": {
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:ConnectionSQL"
+    }
+  }
+}

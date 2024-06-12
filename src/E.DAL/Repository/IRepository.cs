@@ -16,6 +16,7 @@ public interface IRepository<T> where T : class
 }
 public interface IReadRepository<T> where T : class
 {
+    Task AddAsync(T entity);
     Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
     Task<T> GetByIdAsync(Guid id);
     Task<IEnumerable<T>> GetAllAsync();

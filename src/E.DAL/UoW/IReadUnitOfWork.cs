@@ -1,7 +1,7 @@
 ﻿using E.DAL.Repository;
 using E.Domain.Entities.Brand;
+using E.Domain.Entities.Categories;
 using E.Domain.Entities.Products;
-using E.Domain.Models;
 using MongoDB.Driver;
 
 namespace E.DAL.UoW;

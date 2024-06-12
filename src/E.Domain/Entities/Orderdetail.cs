@@ -4,11 +4,11 @@ namespace E.Domain.Models
 {
     public class Orderdetail
     {
-        public int OrderdetailId { get; set; }
+        public Guid OrderdetailId { get; set; }
 
-        public int OrderId { get; set; }
+        public Guid OrderId { get; set; }
 
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
 
         public int Quantity { get; set; }
 

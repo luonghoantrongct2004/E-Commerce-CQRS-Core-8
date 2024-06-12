@@ -13,6 +13,11 @@ public class MongoRepository<T> : IReadRepository<T> where T : class
         _collection = database.GetCollection<T>(collection);
     }
 
+    public async Task AddAsync(T entity)
+    {
+        await _collection.InsertOneAsync(entity);
+    }
+
     public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
     {
         return await _collection.Find(predicate).FirstOrDefaultAsync();

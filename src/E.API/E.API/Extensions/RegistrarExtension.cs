@@ -30,4 +30,5 @@ public static class RegistrarExtension
             .Select(Activator.CreateInstance)
             .Cast<T>();
     }
+
 }

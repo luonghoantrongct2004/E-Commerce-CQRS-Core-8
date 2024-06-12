@@ -9,12 +9,14 @@ public class ProductValidator:AbstractValidator<Product>
         RuleFor(p => p.ProductName)
             .NotEmpty().WithMessage("Product can't be empty!");
         RuleFor(p => p.Price)
-            .NotEmpty().WithMessage("Price can't be empty!");
-        RuleFor(p => p.Price)
-            .LessThan(0).WithMessage("Price can't less than 0!");
+            .NotEmpty().WithMessage("Price can't be empty!")
+            .GreaterThanOrEqualTo(0).WithMessage("Price can't be less than 0!");
+
         RuleFor(p => p.StockQuantity)
-            .NotEmpty().WithMessage("Stock quantity can't be empty!");
+            .NotEmpty().WithMessage("Stock quantity can't be empty!")
+            .GreaterThanOrEqualTo(0).WithMessage("Stock quantity can't be less than 0!");
+
         RuleFor(p => p.StockQuantity)
-            .LessThan(0).WithMessage("Stock quantity can't less than 0!");
+            .GreaterThanOrEqualTo(0).WithMessage("Stock quantity can't less than 0!");
     }
 }

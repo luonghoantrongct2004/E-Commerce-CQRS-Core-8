@@ -11,13 +11,11 @@ namespace E.Application.Products.CommandHandlers;
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, OperationResult<Product>>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
     private readonly IEventPublisher _eventPublisher;
 
-    public CreateProductCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IEventPublisher eventPublisher)
+    public CreateProductCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
     {
         _unitOfWork = unitOfWork;
-        _mapper = mapper;
         _eventPublisher = eventPublisher;
     }
 
@@ -26,7 +24,8 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         var result = new OperationResult<Product>();
         try
         {
-            var product = _mapper.Map<Product>(request);
+            var product = Product.CreateProduct(request.ProductName, request.Description, request.Price, request.Images,
+                request.CategoryId, request.BrandId, request.StockQuantity, request.Discount);
             await _unitOfWork.Products.AddAsync(product);
             await _unitOfWork.CompleteAsync();
 

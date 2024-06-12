@@ -1,4 +1,4 @@
-﻿using E.Domain.Models;
+﻿using E.Domain.Entities.Categories;
 using System.ComponentModel.DataAnnotations;
 
 namespace E.API.Contracts.Products.Responses;

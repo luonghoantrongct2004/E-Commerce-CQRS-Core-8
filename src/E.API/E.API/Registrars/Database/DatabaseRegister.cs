@@ -9,14 +9,16 @@ using MongoDB.Driver;
 
 namespace E.API.Registrars.Database;
 
-public class DbRegister : IWebApplicationBuilderRegistrar
+public class DatabaseRegister : IWebApplicationBuilderRegistrar
 {
     public void RegisterServices(WebApplicationBuilder builder)
     {
         builder.Services.AddDbContext<AppDbContext>(opts =>
         {
-            opts.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));
+            opts.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionSQL"),
+                b => b.MigrationsAssembly("E.API"));
         });
+
         builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
         builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
         {
@@ -29,6 +31,9 @@ public class DbRegister : IWebApplicationBuilderRegistrar
             var client = sp.GetRequiredService<IMongoClient>();
             return client.GetDatabase(settings.DatabaseName);
         });
+
+        builder.Services.AddSingleton<MongoDbContext>();
+
         builder.Services.AddIdentity<BasicUser, IdentityRole<Guid>>()
         .AddEntityFrameworkStores<AppDbContext>()
         .AddDefaultTokenProviders();

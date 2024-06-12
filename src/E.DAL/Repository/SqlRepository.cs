@@ -10,8 +10,8 @@ public class SqlRepository<T> : IRepository<T> where T : class
 
     public SqlRepository(AppDbContext context)
     {
-        _context = context;
-        _dbSet = _context.Set<T>();
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _dbSet = _context.Set<T>() ?? throw new ArgumentNullException(nameof(_dbSet));
     }
 
     public async Task<T> AddAsync(T entity)
