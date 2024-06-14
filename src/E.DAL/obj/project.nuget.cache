@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vs/XFsXn3p8PxSHgjT435+GqlNw2m57eTQZ9P8D4iFO8Kx0b6yGjgEFjEbQuQlmAUSaDlfMMlzq/wA/NPFTovg==",
+  "dgSpecHash": "TZjXrPX/TFU6qI01mijOhOhUlE/J466T6ngEgfrdM7n7zZB3SQeAe2nt5j/fdwO9rdoKUKPqn8GyYB0CilpFEg==",
   "success": true,
   "projectFilePath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.DAL\\E.DAL.csproj",
   "expectedPackageFiles": [
@@ -60,7 +60,7 @@
     "C:\\Users\\PREDATOR\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
-    "C:\\Users\\PREDATOR\\.nuget\\packages\\mongodb.bson\\2.25.0\\mongodb.bson.2.25.0.nupkg.sha512",
+    "C:\\Users\\PREDATOR\\.nuget\\packages\\mongodb.bson\\2.26.0\\mongodb.bson.2.26.0.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\mongodb.driver\\2.25.0\\mongodb.driver.2.25.0.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\mongodb.driver.core\\2.25.0\\mongodb.driver.core.2.25.0.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\mongodb.libmongocrypt\\1.8.2\\mongodb.libmongocrypt.1.8.2.nupkg.sha512",

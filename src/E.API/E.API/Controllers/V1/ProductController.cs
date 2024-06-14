@@ -9,18 +9,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E.API.Controllers.V1;
 
+[ApiController]
+[Route("api/v1/[controller]")]
 public class ProductController : BaseController
 {
-    public ProductController(IMediator mediator, IMapper mapper, IErrorResponseHandler errorResponseHandler, ILogger<BaseController> logger) : base(mediator, mapper, errorResponseHandler, logger)
+    public ProductController(IMediator mediator, IMapper mapper, IErrorResponseHandler errorResponseHandler, ILogger<BaseController> logger)
+        : base(mediator, mapper, errorResponseHandler, logger)
     {
     }
+
     [HttpGet]
-    public async Task<IActionResult> GetAllProduct()
+    public async Task<IActionResult> GetAllProducts()
     {
         var result = await _mediator.Send(new GetAllProducts());
-        var mapper = _mapper.Map<IEnumerable<ProductResponse>>(result.Payload);
-        return result.IsError ? HandleErrorResponse(result.Errors) : Ok(mapper);
+        var mapped = _mapper.Map<IEnumerable<ProductResponse>>(result.Payload);
+        return result.IsError ? HandleErrorResponse(result.Errors) : Ok(mapped);
     }
+
     [HttpPost]
     public async Task<IActionResult> CreateProduct([FromBody] ProductCreate newProduct, CancellationToken cancellationToken)
     {
@@ -30,15 +35,49 @@ public class ProductController : BaseController
             Description = newProduct.Description,
             Price = newProduct.Price,
             Images = newProduct.Images,
-            CategoryId = (Guid)newProduct.CategoryId,
-            BrandId = (Guid)newProduct.BrandId,
+            CategoryId = newProduct.CategoryId ?? Guid.Empty,
+            BrandId = newProduct.BrandId ?? Guid.Empty,
             StockQuantity = newProduct.StockQuantity,
-            CreatedAt = newProduct.CreatedAt,
-            Discount = (int)newProduct.Discount,
+            CreatedAt = newProduct.CreatedAt ?? DateTime.UtcNow,
+            Discount = newProduct.Discount ?? 0,
         };
         var result = await _mediator.Send(command);
         var mapped = _mapper.Map<ProductResponse>(result.Payload);
         return result.IsError ? HandleErrorResponse(result.Errors)
-                : CreatedAtAction(nameof(GetAllProduct), mapped);
+            : CreatedAtAction(nameof(GetAllProducts), new { id = mapped.ProductId }, mapped);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] ProductUpdate updatedProduct)
+    {
+        var command = new UpdateProductCommand
+        {
+            ProductId = id,
+            ProductName = updatedProduct.ProductName,
+            Description = updatedProduct.Description,
+            Price = updatedProduct.Price,
+            Images = updatedProduct.Images,
+            CategoryId = updatedProduct.CategoryId ?? Guid.Empty,
+            BrandId = updatedProduct.BrandId ?? Guid.Empty,
+            StockQuantity = updatedProduct.StockQuantity,
+            CreatedAt = updatedProduct.CreatedAt ?? DateTime.UtcNow,
+            Discount = updatedProduct.Discount ?? 0,
+        };
+        var result = await _mediator.Send(command);
+        var mapped = _mapper.Map<ProductResponse>(result.Payload);
+        return result.IsError ? HandleErrorResponse(result.Errors)
+            : Ok(mapped);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteProduct(Guid id)
+    {
+        var command = new DeleteProductCommand
+        {
+            ProductId = id
+        };
+        var result = await _mediator.Send(command);
+        return result.IsError ? HandleErrorResponse(result.Errors)
+            : NoContent();
     }
 }

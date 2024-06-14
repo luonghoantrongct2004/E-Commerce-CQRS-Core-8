@@ -32,4 +32,14 @@ public class MongoRepository<T> : IReadRepository<T> where T : class
     {
         return await _collection.Find(Builders<T>.Filter.Eq("Id", id)).FirstOrDefaultAsync();
     }
+
+    public async Task RemoveAsync(Guid id)
+    {
+        await _collection.DeleteOneAsync(Builders<T>.Filter.Eq("_id", id));
+    }
+
+    public async Task UpdateAsync(Guid id, T entity)
+    {
+        await _collection.ReplaceOneAsync(Builders<T>.Filter.Eq("_id", id), entity);
+    }
 }

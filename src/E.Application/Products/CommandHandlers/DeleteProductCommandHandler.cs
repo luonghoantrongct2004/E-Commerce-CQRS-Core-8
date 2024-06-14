@@ -5,6 +5,7 @@ using E.Application.Products.Commands;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using E.Domain.Entities.Products;
+using E.Domain.Entities.Products.Events;
 using MediatR;
 
 namespace E.Application.Products.CommandHandlers;
@@ -27,7 +28,9 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
         var result = new OperationResult<Product>();
         try
         {
-            var product = await _unitOfWork.Products.FirstOrDefaultAsync(p => p.ProductId == request.ProductId);
+            await _unitOfWork.BeginTransactionAsync();
+
+            var product = await _unitOfWork.Products.FirstOrDefaultAsync(p => p.ProductId.Equals(request.ProductId));
             if (product is null)
             {
                 result.AddError(ErrorCode.NotFound,
@@ -42,10 +45,14 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
             _unitOfWork.Products.Remove(product);
             await _unitOfWork.CompleteAsync();
 
-            await _eventPublisher.PublishAsync(product);
+            var productEvent = new ProductDeleteEvent(product.ProductId);
+            await _eventPublisher.PublishAsync(productEvent);
+
+            await _unitOfWork.CommitAsync();
             result.Payload = product;
         }catch (Exception ex)
         {
+            await _unitOfWork.RollbackAsync();
             result.AddUnknownError(ex.Message);
         }
         return result;

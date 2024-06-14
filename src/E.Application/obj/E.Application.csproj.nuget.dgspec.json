@@ -238,6 +238,10 @@
               "target": "Package",
               "version": "[8.0.6, )"
             },
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[2.26.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"

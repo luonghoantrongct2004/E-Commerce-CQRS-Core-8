@@ -1,11 +1,15 @@
 ﻿using E.Domain.Entities.Brand.BrandValidators;
 using E.Domain.Entities.Products;
 using E.Domain.Exceptions;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace E.Domain.Entities.Brand;
 
-public class Brand 
+public class Brand
 {
+    [BsonId]
+    [BsonRepresentation(BsonType.String)]
     public Guid BrandId { get; set; }
 
     public string BrandName { get; set; }
@@ -15,6 +19,7 @@ public class Brand
         var validator = new BrandValidator();
         var objectToValidate = new Brand
         {
+            BrandId = Guid.NewGuid(),
             BrandName = brandName,
         };
         var validationResult = validator.Validate(objectToValidate);

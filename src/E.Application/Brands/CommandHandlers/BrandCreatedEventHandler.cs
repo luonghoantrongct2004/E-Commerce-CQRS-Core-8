@@ -1,5 +1,4 @@
-﻿using E.DAL.Repository;
-using E.DAL.UoW;
+﻿using E.DAL.UoW;
 using E.Domain.Entities.Brand;
 using E.Domain.Entities.Brands.Events;
 using MediatR;
@@ -24,6 +23,5 @@ public class BrandCreatedEventHandler : INotificationHandler<BrandCreatedEvent>
         };
 
         await _readUnitOfWork.Brands.AddAsync(brand);
-
     }
 }
