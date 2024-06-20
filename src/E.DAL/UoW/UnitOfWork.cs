@@ -2,6 +2,7 @@
 using E.Domain.Entities.Brand;
 using E.Domain.Entities.Categories;
 using E.Domain.Entities.Products;
+using E.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace E.DAL.UoW;
@@ -12,6 +13,7 @@ public class UnitOfWork : IUnitOfWork
     private IRepository<Product>? _productRepository;
     private IRepository<Category>? _categoryRepository;
     private IRepository<Brand>? _brandRepository;
+    private IRepository<User>? _userRepository;
     private IDbContextTransaction _transaction;
 
     public UnitOfWork(AppDbContext context)
@@ -23,6 +25,8 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<Category> Categories => _categoryRepository ??= new SqlRepository<Category>(_context);
 
     public IRepository<Brand> Brands => _brandRepository ??= new SqlRepository<Brand>(_context);
+
+    public IRepository<User> Users => _userRepository ??= new SqlRepository<User>(_context);
 
     public async Task BeginTransactionAsync()
     {

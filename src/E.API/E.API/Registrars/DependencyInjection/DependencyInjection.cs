@@ -4,6 +4,11 @@ using E.Application.Brands.CommandHandlers;
 using E.Application.Brands.Commands;
 using E.Application.Categories.CommandHanlders;
 using E.Application.Categories.Commands;
+using E.Application.Identity.CommandHandlers;
+using E.Application.Identity.Commands;
+using E.Application.Identity.EventHandlers;
+using E.Application.Identity.Queries;
+using E.Application.Identity.QueryHandlers;
 using E.Application.Models;
 using E.Application.Products.CommandHandlers;
 using E.Application.Products.Commands;
@@ -19,6 +24,8 @@ using E.Domain.Entities.Categories;
 using E.Domain.Entities.Categories.Events;
 using E.Domain.Entities.Products;
 using E.Domain.Entities.Products.Events;
+using E.Domain.Entities.Users.Dto;
+using E.Domain.Entities.Users.Events;
 using MediatR;
 
 namespace E.API.Registrars.DependencyInjection;
@@ -46,5 +53,10 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
 
         builder.Services.AddTransient<INotificationHandler<CategoryCreateEvent>, CategoryCreateEventHandler>();
         builder.Services.AddTransient<IRequestHandler<CreateCategoryCommand, OperationResult<Category>>, CategoryCreateCommandHandler>();
+
+        builder.Services.AddTransient<INotificationHandler<UserRegisterEvent>, RegisterUserCommandEventHandler>();
+        builder.Services.AddTransient<IRequestHandler<RegisterUserCommand, OperationResult<IdentityUserDto>>, RegisterUserCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<GetCurrentUserQuery, OperationResult<IdentityUserDto>>, GetCurrentUserQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<LoginQuery, OperationResult<IdentityUserDto>>, LoginQueryHandler>();
     }
 }

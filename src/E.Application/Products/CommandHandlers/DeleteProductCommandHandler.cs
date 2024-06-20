@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using E.Application.Enums;
+﻿using E.Application.Enums;
 using E.Application.Models;
 using E.Application.Products.Commands;
 using E.DAL.EventPublishers;
@@ -13,13 +12,11 @@ namespace E.Application.Products.CommandHandlers;
 public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, OperationResult<Product>>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
     private readonly IEventPublisher _eventPublisher;
 
-    public DeleteProductCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IEventPublisher eventPublisher)
+    public DeleteProductCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
     {
         _unitOfWork = unitOfWork;
-        _mapper = mapper;
         _eventPublisher = eventPublisher;
     }
 
@@ -37,7 +34,7 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
                     string.Format(ProductErrorMessage.ProductNotFound, request.ProductId));
                 return result;
             }
-            if(product.ProductId != request.ProductId)
+            if (product.ProductId != request.ProductId)
             {
                 result.AddError(ErrorCode.PostDeleteNotPossible, ProductErrorMessage.ProductDeleteNotPossible);
                 return result;
@@ -50,7 +47,8 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
 
             await _unitOfWork.CommitAsync();
             result.Payload = product;
-        }catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             await _unitOfWork.RollbackAsync();
             result.AddUnknownError(ex.Message);

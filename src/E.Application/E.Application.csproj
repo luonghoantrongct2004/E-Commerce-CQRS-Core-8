@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="Brands\QueryHandlers\" />
-    <Folder Include="Brands\Queries\" />
     <Folder Include="Users\CommandHandlers\" />
     <Folder Include="Users\Commands\" />
     <Folder Include="Users\Queries\" />

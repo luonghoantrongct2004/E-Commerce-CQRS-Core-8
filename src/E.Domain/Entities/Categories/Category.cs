@@ -25,7 +25,7 @@ public class Category
         };
         var validationResult = validator.Validate(objectToValidate);
         if (validationResult.IsValid) return objectToValidate;
-        var exception = new CategoryInvailidException($"{validationResult}");
+        var exception = new CategoryInvalidException($"{validationResult}");
         foreach (var error in validationResult.Errors)
         {
             exception.ValidationErrors.Add($"Field {error.PropertyName}: {error.ErrorMessage}");

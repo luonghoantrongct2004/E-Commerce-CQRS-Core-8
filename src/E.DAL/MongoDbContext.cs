@@ -19,7 +19,7 @@ public class MongoDbContext
     }
     public IMongoDatabase Database => _database;
 
-    public IMongoCollection<BasicUser> Users => _database.GetCollection<BasicUser>("Users");
+    public IMongoCollection<User> Users => _database.GetCollection<User>("Users");
     public IMongoCollection<Order> Orders => _database.GetCollection<Order>("Orders");
     public IMongoCollection<Product> Products => _database.GetCollection<Product>("Products");
     public IMongoCollection<Orderdetail> Orderdetails => _database.GetCollection<Orderdetail>("Orderdetails");

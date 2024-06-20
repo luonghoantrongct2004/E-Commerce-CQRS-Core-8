@@ -57,11 +57,11 @@ public class ProductController : BaseController
             Description = updatedProduct.Description,
             Price = updatedProduct.Price,
             Images = updatedProduct.Images,
-            CategoryId = updatedProduct.CategoryId ?? Guid.Empty,
-            BrandId = updatedProduct.BrandId ?? Guid.Empty,
+            CategoryId = updatedProduct.CategoryId,
+            BrandId = updatedProduct.BrandId,
             StockQuantity = updatedProduct.StockQuantity,
             CreatedAt = updatedProduct.CreatedAt ?? DateTime.UtcNow,
-            Discount = updatedProduct.Discount ?? 0,
+            Discount = updatedProduct.Discount,
         };
         var result = await _mediator.Send(command);
         var mapped = _mapper.Map<ProductResponse>(result.Payload);
