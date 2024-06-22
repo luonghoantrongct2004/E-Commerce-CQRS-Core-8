@@ -24,7 +24,7 @@ public class Brand
         };
         var validationResult = validator.Validate(objectToValidate);
         if (validationResult.IsValid) return objectToValidate;
-        var exception = new BrandInvailidException($"{validationResult}");
+        var exception = new BrandInvalidException($"{validationResult}");
         foreach (var error in validationResult.Errors)
         {
             exception.ValidationErrors.Add($"Field {error.PropertyName}: {error.ErrorMessage}");

@@ -13,7 +13,8 @@ namespace E.API.Controllers.V1;
 [Route("api/v1/[controller]")]
 public class ProductController : BaseController
 {
-    public ProductController(IMediator mediator, IMapper mapper, IErrorResponseHandler errorResponseHandler, ILogger<BaseController> logger)
+    public ProductController(IMediator mediator, IMapper mapper,
+        IErrorResponseHandler errorResponseHandler, ILogger<BaseController> logger)
         : base(mediator, mapper, errorResponseHandler, logger)
     {
     }

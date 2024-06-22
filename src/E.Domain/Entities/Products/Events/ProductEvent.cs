@@ -1,10 +1,13 @@
 ﻿using MediatR;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
 
 namespace E.Domain.Entities.Products.Events;
 
 public class ProductEvent: INotification
 {
+    [BsonRepresentation(BsonType.String)]
     public Guid ProductId { get; set; }
     public string ProductName { get; set; }
 

@@ -67,7 +67,6 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Opera
                 username: request.Username,
                 password: hashedPassword,
                 fullName: request.FullName,
-                email: request.Email,
                 avatar: request.Avatar,
                 address: request.Address,
                 currentCity: request.CurrentCity
@@ -81,9 +80,8 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Opera
 
             result.Payload = new IdentityUserDto
             {
-                UserName = identityUser.UserName,
+                Email = identityUser.Email,
                 FullName = userProfile.BasicInfo.FullName,
-                Email = userProfile.BasicInfo.Email,
                 Avatar = userProfile.BasicInfo.Avatar,
                 Address = userProfile.BasicInfo.Address,
                 CurrentCity = userProfile.BasicInfo.CurrentCity

@@ -9,7 +9,6 @@ namespace E.Domain.Entities.Users;
 public class BasicUser : IdentityUser<Guid>
 {
     public string FullName { get; set; }
-    public string Email { get; set; }
 
     [DataType(DataType.Date)]
     public DateTime CreatedDate { get; set; }
@@ -20,14 +19,13 @@ public class BasicUser : IdentityUser<Guid>
     public ICollection<CartDetails> CartDetails { get; set; } = new List<CartDetails>();
     public ICollection<Order> Orders { get; set; } = new List<Order>();
 
-    public static BasicUser CreateBasicInfo(string fullName, string email, string avatar,
+    public static BasicUser CreateBasicInfo(string fullName, string avatar,
     string address, string currentCity)
     {
         var validator = new UserValidator();
         var objectToValidate = new BasicUser
         {
             FullName = fullName,
-            Email = email,
             Avatar = avatar,
             Address = address,
             CurrentCity = currentCity,
@@ -42,13 +40,12 @@ public class BasicUser : IdentityUser<Guid>
         }
         throw exception;
     }
-    public void UpdateBasicInfo(string username,string password,string fullName, string email, string avatar,
+    public void UpdateBasicInfo(string username,string password,string fullName, string avatar,
     string address, string currentCity)
     {
         UserName = username;
         PasswordHash = password;
         FullName = fullName;
-        Email = email;
         Avatar = avatar;
         Address = address;
         CurrentCity = currentCity;

@@ -5,6 +5,7 @@ using E.Application.Models;
 using E.Application.Services;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
+using E.Domain.Entities.Products;
 using E.Domain.Entities.Users;
 using E.Domain.Entities.Users.Dto;
 using E.Domain.Entities.Users.Events;
@@ -19,12 +20,12 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<BasicUser> _userManager;
     private readonly IdentityService _identityService;
     private OperationResult<IdentityUserDto> _result = new();
     private readonly IMapper _mapper;
 
-    public RegisterUserCommandHandler(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager,
+    public RegisterUserCommandHandler(IUnitOfWork unitOfWork, UserManager<BasicUser> userManager,
         IdentityService identityService, IMapper mapper, IEventPublisher eventPublisher)
     {
         _unitOfWork = unitOfWork;
@@ -37,25 +38,32 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
     public async Task<OperationResult<IdentityUserDto>> Handle(RegisterUserCommand request,
         CancellationToken cancellationToken)
     {
-        await ValidateIdentityDoesNotExist(request);
-        if (_result.IsError) return _result;
+        try
+        {
+            await ValidateIdentityDoesNotExist(request);
+            if (_result.IsError) return _result;
 
-        await _unitOfWork.BeginTransactionAsync();
+            await _unitOfWork.BeginTransactionAsync();
+            var identity = await CreateIdentityUserAsync(request);
+            await _unitOfWork.CompleteAsync();
 
-        var identity = await CreateIdentityUserAsync(request);
+            if (_result.IsError) return _result;
 
-        if (_result.IsError) return _result;
+            var userEvent = new UserRegisterEvent(identity.Id, identity.UserName,
+                identity.PasswordHash, identity.FullName, identity.CreatedDate, 
+                identity.Avatar,identity.Address, identity.CurrentCity);
+            await _eventPublisher.PublishAsync(userEvent);
 
-        var user = await CreateUserAsync(request, identity);
-        var userEvent = new UserRegisterEvent(user.UserProfileId, user.IdentityId,
-            user.BasicInfo, user.DateCreated, user.LastModified);
-        await _eventPublisher.PublishAsync(userEvent);
+            await _unitOfWork.CommitAsync();
 
-        await _unitOfWork.CommitAsync();
-
-        _result.Payload = _mapper.Map<IdentityUserDto>(user);
-        _result.Payload.UserName = identity.UserName;
-        _result.Payload.Token = GetJwtString(identity, user);
+            _result.Payload = _mapper.Map<IdentityUserDto>(identity);
+            _result.Payload.Email = identity.Email;
+            _result.Payload.Token = GetJwtString(identity);
+        }catch(Exception ex)
+        {
+            await _unitOfWork.RollbackAsync();
+            _result.AddUnknownError(ex.Message);
+        }
         return _result;
     }
 
@@ -67,53 +75,40 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
             _result.AddError(ErrorCode.IdentityUserAlreadyExists, IdentityErrorMessages.IdentityUserAlreadyExists);
     }
 
-    private async Task<IdentityUser> CreateIdentityUserAsync(RegisterUserCommand request)
+    private async Task<BasicUser> CreateIdentityUserAsync(RegisterUserCommand request)
     {
-        var identity = new IdentityUser
+        var identity = new BasicUser
         {
             Email = request.Username,
-            UserName = request.Username
+            UserName = request.Username,
+            NormalizedEmail = request.Username.ToUpper(),
+            FullName = request.FullName,
+            CreatedDate = request.CreatedDate,
+            Avatar = request.Avatar,
+            Address = request.Address,
+            CurrentCity = request.CurrentCity,
         };
+        
         var createdIdentity = await _userManager.CreateAsync(identity, request.Password);
         if (!createdIdentity.Succeeded)
         {
-            await _unitOfWork.BeginTransactionAsync();
             foreach (var identityError in createdIdentity.Errors)
             {
                 _result.AddError(ErrorCode.IdentityCreationFailed, identityError.Description);
             }
         }
+
         return identity;
     }
 
-    private async Task<User> CreateUserAsync(RegisterUserCommand request,
-        IdentityUser identity)
-    {
-        try
-        {
-            var profileInfo = BasicUser.CreateBasicInfo(request.FullName, request.Email,
-                request.Avatar, request.Address, request.CurrentCity);
-            var user = User.CreateUser(identity.Id, profileInfo);
-            await _unitOfWork.Users.AddAsync(user);
-            await _unitOfWork.CompleteAsync();
-            return user;
-        }
-        catch (Exception e)
-        {
-            await _unitOfWork.RollbackAsync();
-            throw;
-        }
-    }
-
-    private string GetJwtString(IdentityUser identity, User user)
+    private string GetJwtString(BasicUser identity)
     {
         var claimsIdentity = new ClaimsIdentity(new Claim[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, identity.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Email, identity.Email),
-            new Claim("IdentityId", identity.Id),
-            new Claim("UserProfileId", user.UserProfileId.ToString())
+            new Claim("IdentityId", identity.Id.ToString())
         });
         var token = _identityService.CreateSecurityToken(claimsIdentity);
         return _identityService.WriteToken(token);

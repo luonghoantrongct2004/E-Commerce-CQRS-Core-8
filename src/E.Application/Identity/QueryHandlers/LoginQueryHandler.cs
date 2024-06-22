@@ -16,12 +16,12 @@ namespace E.Application.Identity.QueryHandlers;
 public class LoginQueryHandler : IRequestHandler<LoginQuery, OperationResult<IdentityUserDto>>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<BasicUser> _userManager;
     private readonly IdentityService _identityService;
     private readonly IMapper _mapper;
     private OperationResult<IdentityUserDto> _result = new();
 
-    public LoginQueryHandler(IReadUnitOfWork readUnitOfWork, UserManager<IdentityUser> userManager,
+    public LoginQueryHandler(IReadUnitOfWork readUnitOfWork, UserManager<BasicUser> userManager,
         IdentityService identityService, IMapper mapper)
     {
         _readUnitOfWork = readUnitOfWork;
@@ -36,14 +36,14 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, OperationResult<Ide
 
         if (_result.IsError) return _result;
 
-        var userProfile = await _readUnitOfWork.Users.FirstOrDefaultAsync(u => u.IdentityId == identityUser.Id);
+        var userProfile = await _readUnitOfWork.Users.FirstOrDefaultAsync(u => u.Id == identityUser.Id);
         _result.Payload = _mapper.Map<IdentityUserDto>(userProfile);
-        _result.Payload.UserName = identityUser.UserName;
-        _result.Payload.Token = GetJwtString(identityUser, userProfile);
+        _result.Payload.Email = identityUser.Email;
+        _result.Payload.Token = GetJwtString(identityUser);
 
         return _result;
     }
-    private async Task<IdentityUser> ValidateAndGetIdentityAsync(LoginQuery request)
+    private async Task<BasicUser> ValidateAndGetIdentityAsync(LoginQuery request)
     {
         var identityUser = await _userManager.FindByEmailAsync(request.UserName);
         if (identityUser is null) _result.AddError(ErrorCode.IdentityUserDoesNotExist,
@@ -52,15 +52,14 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, OperationResult<Ide
         if (!validPassword) _result.AddError(ErrorCode.IncorrectPassword, IdentityErrorMessages.IncorrectPassword);
         return identityUser;
     }
-    private string GetJwtString(IdentityUser identityUser, User user)
+    private string GetJwtString(BasicUser identityUser)
     {
         var claimsIdentity = new ClaimsIdentity(new Claim[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, identityUser.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Email, identityUser.Email),
-            new Claim("IdentityId", identityUser.Id),
-            new Claim("UserProfileId", user.UserProfileId.ToString())
+            new Claim("IdentityId", identityUser.Id.ToString()),
         });
         var token = _identityService.CreateSecurityToken(claimsIdentity);
         return _identityService.WriteToken(token);

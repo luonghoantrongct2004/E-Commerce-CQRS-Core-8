@@ -1,0 +1,31 @@
+﻿using AutoMapper;
+using E.API.Agregrates;
+using E.API.Contracts.Common;
+using E.API.Contracts.Identities;
+using E.Application.Identity.Commands;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+
+namespace E.API.Controllers.V1;
+
+[ApiController]
+[Route("api/v1/[controller]")]
+public class IdentityController : BaseController
+{
+    public IdentityController(IMediator mediator, IMapper mapper,
+        IErrorResponseHandler errorResponseHandler, ILogger<BaseController> logger) :
+        base(mediator, mapper, errorResponseHandler, logger)
+    {
+    }
+
+    [HttpPost]
+    [Route(ApiRoutes.Identity.Register)]
+    public async Task<IActionResult> Register(UserRegister registration)
+    {
+        var command = _mapper.Map<RegisterUserCommand>(registration);
+        var result = await _mediator.Send(command);
+
+        if (result.IsError) return HandleErrorResponse(result.Errors);
+        return Ok(_mapper.Map<IdentityUser>(result.Payload));
+    }
+}

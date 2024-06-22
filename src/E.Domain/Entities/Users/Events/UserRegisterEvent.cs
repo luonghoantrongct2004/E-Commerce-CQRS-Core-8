@@ -1,21 +1,36 @@
 ﻿using MediatR;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations;
 
 namespace E.Domain.Entities.Users.Events;
 
 public class UserRegisterEvent : INotification
 {
-    public Guid UserProfileId { get; private set; }
-    public string IdentityId { get; private set; }
-    public BasicUser BasicInfo { get; private set; }
-    public DateTime DateCreated { get; private set; }
-    public DateTime LastModified { get; private set; }
+    [BsonRepresentation(BsonType.String)]
+    public Guid UserId { get; set; }
+    public string Username { get; set; }
+    public string PasswordHash { get; set; }
+    public string FullName { get; set; }
 
-    public UserRegisterEvent(Guid userProfileId, string identityId, BasicUser basicInfo, DateTime dateCreated, DateTime lastModified)
+    [DataType(DataType.Date)]
+    public DateTime CreatedDate { get; set; }
+
+    public string? Avatar { get; set; }
+    public string? Address { get; set; }
+    public string? CurrentCity { get; set; }
+
+    public UserRegisterEvent(Guid userId, string username,
+        string passwordHash, string fullName, DateTime createdDate,
+        string? avatar, string? address, string? currentCity)
     {
-        UserProfileId = userProfileId;
-        IdentityId = identityId;
-        BasicInfo = basicInfo;
-        DateCreated = dateCreated;
-        LastModified = lastModified;
+        UserId = userId;
+        Username = username;
+        PasswordHash = passwordHash;
+        FullName = fullName;
+        CreatedDate = createdDate;
+        Avatar = avatar;
+        Address = address;
+        CurrentCity = currentCity;
     }
 }

@@ -7,6 +7,7 @@ using E.Application.Categories.Commands;
 using E.Application.Identity.CommandHandlers;
 using E.Application.Identity.Commands;
 using E.Application.Identity.EventHandlers;
+using E.Application.Identity.Options;
 using E.Application.Identity.Queries;
 using E.Application.Identity.QueryHandlers;
 using E.Application.Models;
@@ -15,6 +16,7 @@ using E.Application.Products.Commands;
 using E.Application.Products.EventHandlers;
 using E.Application.Products.Queries;
 using E.Application.Products.QueryHandlers;
+using E.Application.Services;
 using E.DAL.EventPublishers;
 using E.DAL.Repository;
 using E.DAL.UoW;
@@ -27,6 +29,7 @@ using E.Domain.Entities.Products.Events;
 using E.Domain.Entities.Users.Dto;
 using E.Domain.Entities.Users.Events;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 
 namespace E.API.Registrars.DependencyInjection;
 
@@ -36,10 +39,13 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
     {
         builder.Services.AddScoped<IEventPublisher, InMemoryEventPublisher>();
         builder.Services.AddScoped<IErrorResponseHandler, ErrorResponseHandler>();
+        builder.Services.AddTransient<IErrorResponseHandler, ErrorResponseHandler>();
         builder.Services.AddScoped(typeof(IRepository<>), typeof(SqlRepository<>));
         builder.Services.AddScoped(typeof(IReadRepository<>), typeof(MongoRepository<>));
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();
+        builder.Services.AddScoped<IdentityService>();
+        builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 
         builder.Services.AddTransient<INotificationHandler<ProductEvent>, ProductEventHandler>();
         builder.Services.AddTransient<IRequestHandler<GetAllProducts, OperationResult<IEnumerable<Product>>>, GetAllProductQueryHandler>();
@@ -54,9 +60,12 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
         builder.Services.AddTransient<INotificationHandler<CategoryCreateEvent>, CategoryCreateEventHandler>();
         builder.Services.AddTransient<IRequestHandler<CreateCategoryCommand, OperationResult<Category>>, CategoryCreateCommandHandler>();
 
+        builder.Services.AddMediatR(typeof(RegisterUserCommandHandler).Assembly);
         builder.Services.AddTransient<INotificationHandler<UserRegisterEvent>, RegisterUserCommandEventHandler>();
+        builder.Services.AddTransient<INotificationHandler<UserRemoveEvent>, RemoveUserCommandEventHandler>();
         builder.Services.AddTransient<IRequestHandler<RegisterUserCommand, OperationResult<IdentityUserDto>>, RegisterUserCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<GetCurrentUserQuery, OperationResult<IdentityUserDto>>, GetCurrentUserQueryHandler>();
         builder.Services.AddTransient<IRequestHandler<LoginQuery, OperationResult<IdentityUserDto>>, LoginQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<RemoveUserCommand, OperationResult<bool>>, RemoveUserCommandHandler>();
     }
 }

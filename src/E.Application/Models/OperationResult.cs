@@ -23,6 +23,11 @@ public class OperationResult<T>
         IsError = false;
     }
 
+    internal void AddUnknownError(Exception? innerException)
+    {
+        throw new NotImplementedException();
+    }
+
     #region Private methods
 
     private void HandleError(ErrorCode code, string message)

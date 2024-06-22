@@ -16,14 +16,21 @@ public class RegisterUserCommandEventHandler : INotificationHandler<UserRegister
 
     public async Task Handle(UserRegisterEvent notification, CancellationToken cancellationToken)
     {
-        var user = new User
+        var existingUser = await _readUnitOfWork.Users.FirstOrDefaultAsync(u => u.Id == notification.UserId);
+        if (existingUser == null)
         {
-            UserProfileId = notification.UserProfileId,
-            IdentityId = notification.IdentityId,
-            BasicInfo = notification.BasicInfo,
-            DateCreated = notification.DateCreated,
-            LastModified = notification.LastModified,
-        };
-        await _readUnitOfWork.Users.AddAsync(user);
+            var user = new BasicUser
+            {
+                Id = notification.UserId,
+                UserName = notification.Username,
+                PasswordHash = notification.PasswordHash,
+                FullName = notification.FullName,
+                CreatedDate = notification.CreatedDate,
+                Avatar = notification.Avatar,
+                Address = notification.Address,
+                CurrentCity = notification.CurrentCity,
+            };
+            await _readUnitOfWork.Users.AddAsync(user);
+        }
     }
 }

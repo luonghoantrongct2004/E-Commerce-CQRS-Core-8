@@ -7,10 +7,10 @@ namespace E.Application.Identity.Commands;
 
 public class RegisterUserCommand : IRequest<OperationResult<IdentityUserDto>>
 {
+    [EmailAddress]
     public string Username { get; set; }
     public string Password { get; set; }
     public string FullName { get; set; }
-    public string Email { get; set; }
     [DataType(DataType.Date)]
     public DateTime CreatedDate { get; set; }
     public string? Avatar { get; set; }
