@@ -30,7 +30,7 @@ public class GetCurrentUserQueryHandler :
         var user = await _readUnitOfWork.Users.FirstOrDefaultAsync(u => u.Id == request.UserProfileId);
 
         _result.Payload = _mapper.Map<IdentityUserDto>(user);
-        _result.Payload.Email = identity.Email;
+        _result.Payload.UserName = identity.Email;
         return _result;
     }
 }

@@ -45,7 +45,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Opera
                 return result;
             }
             var userProfile = await _unitOfWork.Users.
-                FirstOrDefaultAsync(up => up.IdentityId == request.UserId.ToString());
+                FirstOrDefaultAsync(up => up.Id == request.UserId);
             if (userProfile is null)
             {
                 result.AddError(ErrorCode.NotFound, IdentityErrorMessages.NonExistentIdentityUser);
@@ -71,21 +71,24 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Opera
                 address: request.Address,
                 currentCity: request.CurrentCity
             );
-            userProfile.UpdateBasicUser(basicUser);
+
+            await _unitOfWork.CompleteAsync();
 
             var userEvent = new UserUpdateEvent(basicUser.UserName, hashedPassword,
                 basicUser.FullName, basicUser.Email, basicUser.Avatar, basicUser.Address,
                 basicUser.CurrentCity);
             await _eventPublisher.PublishAsync(userEvent);
 
+            await _unitOfWork.CommitAsync();
+
             result.Payload = new IdentityUserDto
             {
-                Email = identityUser.Email,
-                FullName = userProfile.BasicInfo.FullName,
-                Avatar = userProfile.BasicInfo.Avatar,
-                Address = userProfile.BasicInfo.Address,
-                CurrentCity = userProfile.BasicInfo.CurrentCity
-            }; ;
+                UserName = identityUser.Email,
+                FullName = userProfile.FullName,
+                Avatar = userProfile.Avatar,
+                Address = userProfile.Address,
+                CurrentCity = userProfile.CurrentCity
+            }; 
         }
         catch (Exception ex)
         {

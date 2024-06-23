@@ -4,7 +4,7 @@ namespace E.Domain.Entities.Users.Dto;
 
 public class IdentityUserDto
 {
-    public string Email { get; set; }
+    public string UserName { get; set; }
     public string FullName { get; set; }
     [DataType(DataType.Date)]
     public DateTime CreatedDate { get; set; }

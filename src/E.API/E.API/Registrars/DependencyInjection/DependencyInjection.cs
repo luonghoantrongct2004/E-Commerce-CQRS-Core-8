@@ -65,7 +65,7 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
         builder.Services.AddTransient<INotificationHandler<UserRemoveEvent>, RemoveUserCommandEventHandler>();
         builder.Services.AddTransient<IRequestHandler<RegisterUserCommand, OperationResult<IdentityUserDto>>, RegisterUserCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<GetCurrentUserQuery, OperationResult<IdentityUserDto>>, GetCurrentUserQueryHandler>();
-        builder.Services.AddTransient<IRequestHandler<LoginQuery, OperationResult<IdentityUserDto>>, LoginQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<LoginCommand, OperationResult<IdentityUserDto>>, LoginCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<RemoveUserCommand, OperationResult<bool>>, RemoveUserCommandHandler>();
     }
 }

@@ -13,7 +13,7 @@ public class UnitOfWork : IUnitOfWork
     private IRepository<Product>? _productRepository;
     private IRepository<Category>? _categoryRepository;
     private IRepository<Brand>? _brandRepository;
-    private IRepository<User>? _userRepository;
+    private IRepository<BasicUser>? _userRepository;
     private IDbContextTransaction _transaction;
 
     public UnitOfWork(AppDbContext context)
@@ -26,7 +26,7 @@ public class UnitOfWork : IUnitOfWork
 
     public IRepository<Brand> Brands => _brandRepository ??= new SqlRepository<Brand>(_context);
 
-    public IRepository<User> Users => _userRepository ??= new SqlRepository<User>(_context);
+    public IRepository<BasicUser> Users => _userRepository ??= new SqlRepository<BasicUser>(_context);
 
     public async Task BeginTransactionAsync()
     {

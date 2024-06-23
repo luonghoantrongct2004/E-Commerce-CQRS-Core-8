@@ -1,5 +1,6 @@
 ﻿using E.DAL.UoW;
 using E.Domain.Entities.Users;
+using E.Domain.Entities.Users.Dto;
 using E.Domain.Entities.Users.Events;
 using MediatR;
 
@@ -17,9 +18,10 @@ public class RegisterUserCommandEventHandler : INotificationHandler<UserRegister
     public async Task Handle(UserRegisterEvent notification, CancellationToken cancellationToken)
     {
         var existingUser = await _readUnitOfWork.Users.FirstOrDefaultAsync(u => u.Id == notification.UserId);
+
         if (existingUser == null)
         {
-            var user = new BasicUser
+            var user = new UserMongo
             {
                 Id = notification.UserId,
                 UserName = notification.Username,

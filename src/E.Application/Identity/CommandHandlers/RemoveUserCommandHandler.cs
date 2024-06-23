@@ -38,7 +38,7 @@ public class RemoveUserCommandHandler : IRequestHandler<RemoveUserCommand, Opera
                 return result;
             }
             var userProfile = await _unitOfWork.Users.
-                FirstOrDefaultAsync(up => up.IdentityId == request.IdentityUserId.ToString());
+                FirstOrDefaultAsync(up => up.Id == request.IdentityUserId);
             if (userProfile is null)
             {
                 result.AddError(ErrorCode.NotFound, IdentityErrorMessages.NonExistentIdentityUser);

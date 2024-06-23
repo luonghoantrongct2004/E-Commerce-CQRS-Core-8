@@ -2,6 +2,8 @@
 using E.Domain.Exceptions;
 using E.Domain.Models;
 using Microsoft.AspNetCore.Identity;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
 
 namespace E.Domain.Entities.Users;

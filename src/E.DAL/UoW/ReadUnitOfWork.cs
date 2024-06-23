@@ -13,13 +13,13 @@ public class ReadUnitOfWork : IReadUnitOfWork
     public IReadRepository<Category> Categories { get; }
     public IReadRepository<Brand> Brands { get; }
 
-    public IReadRepository<BasicUser> Users { get; }
+    public IReadRepository<UserMongo> Users { get; }
 
     public ReadUnitOfWork(IMongoDatabase database)
     {
         Products = new MongoRepository<Product>(database, "Products");
         Categories = new MongoRepository<Category>(database, "Categories");
         Brands = new MongoRepository<Brand>(database, "Brands");
-        Users = new MongoRepository<BasicUser>(database, "Users");
+        Users = new MongoRepository<UserMongo>(database, "Users");
     }
 }

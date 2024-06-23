@@ -57,7 +57,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
             await _unitOfWork.CommitAsync();
 
             _result.Payload = _mapper.Map<IdentityUserDto>(identity);
-            _result.Payload.Email = identity.Email;
+            _result.Payload.UserName = identity.Email;
             _result.Payload.Token = GetJwtString(identity);
         }catch(Exception ex)
         {
