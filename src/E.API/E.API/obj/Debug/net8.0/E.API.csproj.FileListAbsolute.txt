@@ -168,3 +168,4 @@ C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.API\E.API\obj\Debug\ne
 C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.API\E.API\obj\Debug\net8.0\E.API.genruntimeconfig.cache
 C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.API\E.API\obj\Debug\net8.0\ref\E.API.dll
 C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.API\e.api\obj\Debug\net8.0\E.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\PREDATOR\OneDrive\Tài liệu\eCormmerce\src\E.API\E.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

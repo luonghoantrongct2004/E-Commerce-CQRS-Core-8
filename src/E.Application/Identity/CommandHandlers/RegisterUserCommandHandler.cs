@@ -108,7 +108,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
             new Claim(JwtRegisteredClaimNames.Sub, identity.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Email, identity.Email),
-            new Claim("IdentityId", identity.Id.ToString())
+            new Claim("IdentityId", identity.Id.ToString()),
         });
         var token = _identityService.CreateSecurityToken(claimsIdentity);
         return _identityService.WriteToken(token);

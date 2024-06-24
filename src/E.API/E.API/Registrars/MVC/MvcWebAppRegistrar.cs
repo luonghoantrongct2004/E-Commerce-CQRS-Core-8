@@ -9,7 +9,6 @@ public class MvcWebAppRegistrar : IWebApplicationRegistrar
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.UseAuthentication();
-
         app.MapControllers();
     }
 }

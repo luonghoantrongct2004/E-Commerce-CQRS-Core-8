@@ -37,6 +37,8 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
 {
     public void RegisterServices(WebApplicationBuilder builder)
     {
+        builder.Services.AddSingleton<IdentityService>();
+
         builder.Services.AddScoped<IEventPublisher, InMemoryEventPublisher>();
         builder.Services.AddScoped<IErrorResponseHandler, ErrorResponseHandler>();
         builder.Services.AddTransient<IErrorResponseHandler, ErrorResponseHandler>();
@@ -44,8 +46,7 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
         builder.Services.AddScoped(typeof(IReadRepository<>), typeof(MongoRepository<>));
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();
-        builder.Services.AddScoped<IdentityService>();
-        builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+        builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(nameof(JwtSettings)));
 
         builder.Services.AddTransient<INotificationHandler<ProductEvent>, ProductEventHandler>();
         builder.Services.AddTransient<IRequestHandler<GetAllProducts, OperationResult<IEnumerable<Product>>>, GetAllProductQueryHandler>();

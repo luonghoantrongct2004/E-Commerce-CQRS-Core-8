@@ -2,9 +2,13 @@
 using E.API.Agregrates;
 using E.API.Contracts.Common;
 using E.API.Contracts.Identities;
+using E.API.Extension;
 using E.Application.Identity.Commands;
+using E.Application.Identity.Queries;
 using E.Domain.Entities.Users.Dto;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E.API.Controllers.V1;
@@ -18,6 +22,22 @@ public class IdentityController : BaseController
         base(mediator, mapper, errorResponseHandler, logger)
     {
     }
+
+    [HttpGet]
+    [Route(ApiRoutes.Identity.CurrentUser)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> GetCurentUser()
+    {
+        var userId = HttpContext.GetIdentityIdClaimValue();
+
+        var query = new GetCurrentUserQuery { UserProfileId = userId, ClaimsPrincipal = HttpContext.User };
+        var result = await _mediator.Send(query);
+
+        if (result.IsError) return HandleErrorResponse(result.Errors);
+
+        return Ok(_mapper.Map<IdentityUserDto>(result.Payload));
+    }
+
     [HttpPost]
     [Route(ApiRoutes.Identity.Login)]
     public async Task<IActionResult> Login(Login login)

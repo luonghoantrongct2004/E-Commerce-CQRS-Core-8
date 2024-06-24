@@ -9,6 +9,6 @@ public class ApiRoutes
         public const string Login = "login";
         public const string Register = "register";
         public const string IdentitybyId = "{userId}";
-        public const string CurrentIdentity = "currentUser";
+        public const string CurrentUser = "currentUser";
     }
 }
