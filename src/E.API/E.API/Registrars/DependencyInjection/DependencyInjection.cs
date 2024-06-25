@@ -29,7 +29,6 @@ using E.Domain.Entities.Products.Events;
 using E.Domain.Entities.Users.Dto;
 using E.Domain.Entities.Users.Events;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 
 namespace E.API.Registrars.DependencyInjection;
 
@@ -62,7 +61,7 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
         builder.Services.AddTransient<IRequestHandler<CreateCategoryCommand, OperationResult<Category>>, CategoryCreateCommandHandler>();
 
         builder.Services.AddMediatR(typeof(RegisterUserCommandHandler).Assembly);
-        builder.Services.AddTransient<INotificationHandler<UserRegisterEvent>, RegisterUserCommandEventHandler>();
+        builder.Services.AddTransient<INotificationHandler<UserRegisterAndUpdateEvent>, RegisterUserCommandEventHandler>();
         builder.Services.AddTransient<INotificationHandler<UserRemoveEvent>, RemoveUserCommandEventHandler>();
         builder.Services.AddTransient<IRequestHandler<RegisterUserCommand, OperationResult<IdentityUserDto>>, RegisterUserCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<GetCurrentUserQuery, OperationResult<IdentityUserDto>>, GetCurrentUserQueryHandler>();

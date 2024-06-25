@@ -20,7 +20,7 @@ public class ProductController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllProducts()
+    public async Task<IActionResult> Get()
     {
         var result = await _mediator.Send(new GetAllProducts());
         var mapped = _mapper.Map<IEnumerable<ProductResponse>>(result.Payload);
@@ -28,7 +28,7 @@ public class ProductController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateProduct([FromBody] ProductCreate newProduct, CancellationToken cancellationToken)
+    public async Task<IActionResult> Post([FromBody] ProductCreate newProduct, CancellationToken cancellationToken)
     {
         var command = new CreateProductCommand
         {
@@ -49,7 +49,7 @@ public class ProductController : BaseController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] ProductUpdate updatedProduct)
+    public async Task<IActionResult> Put(Guid id, [FromBody] ProductUpdate updatedProduct)
     {
         var command = new UpdateProductCommand
         {
@@ -71,7 +71,7 @@ public class ProductController : BaseController
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteProduct(Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var command = new DeleteProductCommand
         {

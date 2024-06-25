@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class AppDbContext : IdentityDbContext<BasicUser, IdentityRole<Guid>, Guid>
+public class AppDbContext : IdentityDbContext<DomainUser, IdentityRole<Guid>, Guid>
 {
     public AppDbContext(DbContextOptions<AppDbContext> opt) : base(opt)
     {
@@ -64,7 +64,7 @@ public class AppDbContext : IdentityDbContext<BasicUser, IdentityRole<Guid>, Gui
             .Property(o => o.TotalPrice)
             .HasColumnType("decimal(18,0)");
     }
-    public DbSet<BasicUser> Users { get; set; }
+    public DbSet<DomainUser> Users { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Product> Products { get; set; }
 

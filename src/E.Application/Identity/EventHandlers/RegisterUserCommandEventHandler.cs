@@ -6,7 +6,7 @@ using MediatR;
 
 namespace E.Application.Identity.EventHandlers;
 
-public class RegisterUserCommandEventHandler : INotificationHandler<UserRegisterEvent>
+public class RegisterUserCommandEventHandler : INotificationHandler<UserRegisterAndUpdateEvent>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
 
@@ -15,7 +15,7 @@ public class RegisterUserCommandEventHandler : INotificationHandler<UserRegister
         _readUnitOfWork = readUnitOfWork;
     }
 
-    public async Task Handle(UserRegisterEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(UserRegisterAndUpdateEvent notification, CancellationToken cancellationToken)
     {
         var existingUser = await _readUnitOfWork.Users.FirstOrDefaultAsync(u => u.Id == notification.UserId);
 

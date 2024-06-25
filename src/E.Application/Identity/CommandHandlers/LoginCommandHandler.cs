@@ -16,12 +16,12 @@ namespace E.Application.Identity.CommandHandlers;
 public class LoginCommandHandler : IRequestHandler<LoginCommand, OperationResult<IdentityUserDto>>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly UserManager<BasicUser> _userManager;
+    private readonly UserManager<DomainUser> _userManager;
     private readonly IdentityService _identityService;
     private readonly IMapper _mapper;
     private OperationResult<IdentityUserDto> _result = new();
 
-    public LoginCommandHandler(IUnitOfWork unitOfWork, UserManager<BasicUser> userManager,
+    public LoginCommandHandler(IUnitOfWork unitOfWork, UserManager<DomainUser> userManager,
         IdentityService identityService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
@@ -43,7 +43,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, OperationResult
 
         return _result;
     }
-    private async Task<BasicUser> ValidateAndGetIdentityAsync(LoginCommand request)
+    private async Task<DomainUser> ValidateAndGetIdentityAsync(LoginCommand request)
     {
         var identityUser = await _userManager.FindByEmailAsync(request.UserName);
         if (identityUser is null) _result.AddError(ErrorCode.IdentityUserDoesNotExist,
@@ -52,7 +52,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, OperationResult
         if (!validPassword) _result.AddError(ErrorCode.IncorrectPassword, IdentityErrorMessages.IncorrectPassword);
         return identityUser;
     }
-    private string GetJwtString(BasicUser identityUser)
+    private string GetJwtString(DomainUser identityUser)
     {
         var claimsIdentity = new ClaimsIdentity(new Claim[]
         {

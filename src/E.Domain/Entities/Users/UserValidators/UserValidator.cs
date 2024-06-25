@@ -2,7 +2,7 @@
 
 namespace E.Domain.Entities.Users.UserValidators;
 
-public class UserValidator : AbstractValidator<BasicUser>
+public class UserValidator : AbstractValidator<DomainUser>
 {
     public UserValidator()
     {

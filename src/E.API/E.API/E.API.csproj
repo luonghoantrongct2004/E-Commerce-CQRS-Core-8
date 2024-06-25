@@ -29,6 +29,7 @@
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Contracts\Users\Requests\" />
     <Folder Include="Controllers\V2\" />
     <Folder Include="Migrations\" />
   </ItemGroup>

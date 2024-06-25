@@ -22,6 +22,6 @@ namespace E.Domain.Models
         [NotMapped]
         [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
         public decimal CartTotal { get; set; }
-        public BasicUser? User { get; set; }
+        public DomainUser? User { get; set; }
     }
 }

@@ -34,7 +34,7 @@ public class DatabaseRegister : IWebApplicationBuilderRegistrar
 
         builder.Services.AddSingleton<MongoDbContext>();
 
-        builder.Services.AddIdentity<BasicUser, IdentityRole<Guid>>()
+        builder.Services.AddIdentity<DomainUser, IdentityRole<Guid>>()
         .AddEntityFrameworkStores<AppDbContext>()
         .AddDefaultTokenProviders();
         builder.Services.Configure<IdentityOptions>(options =>

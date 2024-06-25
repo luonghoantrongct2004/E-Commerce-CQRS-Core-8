@@ -2,13 +2,11 @@
 using E.Domain.Exceptions;
 using E.Domain.Models;
 using Microsoft.AspNetCore.Identity;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
 
 namespace E.Domain.Entities.Users;
 
-public class BasicUser : IdentityUser<Guid>
+public class DomainUser : IdentityUser<Guid>
 {
     public string FullName { get; set; }
 
@@ -21,11 +19,11 @@ public class BasicUser : IdentityUser<Guid>
     public ICollection<CartDetails> CartDetails { get; set; } = new List<CartDetails>();
     public ICollection<Order> Orders { get; set; } = new List<Order>();
 
-    public static BasicUser CreateBasicInfo(string fullName, string avatar,
+    public static DomainUser CreateBasicInfo(string fullName, string avatar,
     string address, string currentCity)
     {
         var validator = new UserValidator();
-        var objectToValidate = new BasicUser
+        var objectToValidate = new DomainUser
         {
             FullName = fullName,
             Avatar = avatar,
@@ -42,7 +40,8 @@ public class BasicUser : IdentityUser<Guid>
         }
         throw exception;
     }
-    public void UpdateBasicInfo(string username,string password,string fullName, string avatar,
+
+    public void UpdateBasicInfo(string username, string password, string fullName, string avatar,
     string address, string currentCity)
     {
         UserName = username;

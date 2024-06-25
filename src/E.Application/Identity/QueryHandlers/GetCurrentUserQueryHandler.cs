@@ -13,11 +13,11 @@ public class GetCurrentUserQueryHandler :
     IRequestHandler<GetCurrentUserQuery, OperationResult<IdentityUserDto>>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
-    private readonly UserManager<BasicUser> _userManager;
+    private readonly UserManager<DomainUser> _userManager;
     private readonly IMapper _mapper;
     private OperationResult<IdentityUserDto> _result = new();
 
-    public GetCurrentUserQueryHandler(IReadUnitOfWork readUnitOfWork, UserManager<BasicUser> userManager, IMapper mapper)
+    public GetCurrentUserQueryHandler(IReadUnitOfWork readUnitOfWork, UserManager<DomainUser> userManager, IMapper mapper)
     {
         _readUnitOfWork = readUnitOfWork;
         _userManager = userManager;
@@ -26,7 +26,13 @@ public class GetCurrentUserQueryHandler :
 
     public async Task<OperationResult<IdentityUserDto>> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
     {
-        var identity = await _userManager.GetUserAsync(request.ClaimsPrincipal);
+        var identityIdClaim = request.ClaimsPrincipal.Claims.FirstOrDefault(c => c.Type == "IdentityId")?.Value;
+        if (identityIdClaim == null || !Guid.TryParse(identityIdClaim, out Guid userIdGuid))
+        {
+            return _result;
+        }
+
+        var identity = await _userManager.FindByIdAsync(identityIdClaim);
         var user = await _readUnitOfWork.Users.FirstOrDefaultAsync(u => u.Id == request.UserProfileId);
 
         _result.Payload = _mapper.Map<IdentityUserDto>(user);

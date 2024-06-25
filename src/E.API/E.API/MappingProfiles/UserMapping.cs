@@ -11,16 +11,13 @@ public class UserMapping : Profile
     public UserMapping()
     {
         CreateMap<UserRegister, RegisterUserCommand>();
-        CreateMap<BasicUser, IdentityUserDto>();
+        CreateMap<DomainUser, IdentityUserDto>();
         CreateMap<IdentityUserDto, IdentityUser>();
         CreateMap<Login, LoginCommand>();
-        CreateMap<BasicUser, IdentityUserDto>()
-            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
-            .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
-            .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate))
-            .ForMember(dest => dest.Avatar, opt => opt.MapFrom(src => src.Avatar))
-            .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
-            .ForMember(dest => dest.CurrentCity, opt => opt.MapFrom(src => src.CurrentCity))
-            .ForMember(dest => dest.Token, opt => opt.Ignore());
+        CreateMap<DomainUser, IdentityUserDto>();
+        CreateMap<UserMongo, DomainUser>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()));
+        CreateMap<DomainUser, IdentityUserDto>();
+        CreateMap<UserMongo, IdentityUserDto>();
     }
 }

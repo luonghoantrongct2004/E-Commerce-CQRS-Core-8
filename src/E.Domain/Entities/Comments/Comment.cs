@@ -14,7 +14,7 @@ public class Comment
     public DateTime PostedAt { get; set; }
     public Guid ProductId { get; set; }
     public int StarRating { get; set; }
-    public BasicUser User { get; set; }
+    public DomainUser User { get; set; }
     public static Comment CreateProductComment(Guid commentId, Guid productId, Guid userId, int rating, string content)
     {
         var validator = new CommentValidator();

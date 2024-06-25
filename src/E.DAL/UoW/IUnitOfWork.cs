@@ -11,7 +11,7 @@ public interface IUnitOfWork
     IRepository<Product> Products { get; }
     IRepository<Category> Categories { get; }
     IRepository<Brand> Brands { get; }
-    IRepository<BasicUser> Users { get; }
+    IRepository<DomainUser> Users { get; }
     Task BeginTransactionAsync();
     Task CommitAsync();
     Task RollbackAsync();

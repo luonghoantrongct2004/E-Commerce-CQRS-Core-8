@@ -14,12 +14,12 @@ public class BrandController : BaseController
     {
     }
     [HttpGet]
-    public IActionResult GetAllBrand()
+    public IActionResult Get()
     {
         return Ok();
     }
     [HttpPost]
-    public async Task<IActionResult> CreateBrand([FromBody] BrandCreate newBrand)
+    public async Task<IActionResult> Post([FromBody] BrandCreate newBrand)
     {
         var command = new CreateBrandCommand
         {
@@ -28,6 +28,6 @@ public class BrandController : BaseController
         var result = await _mediator.Send(command);
         var mapped = _mapper.Map<BrandResponse>(result.Payload);
         return result.IsError ? HandleErrorResponse(result.Errors)
-                : CreatedAtAction(nameof(GetAllBrand), mapped);
+                : CreatedAtAction(nameof(Get), mapped);
     }
 }

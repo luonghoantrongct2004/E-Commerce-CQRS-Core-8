@@ -22,7 +22,7 @@ public class Order
     public DateTime CreatedAt { get; set; }
 
     public Guid? ShipperId { get; set; }
-    public BasicUser User { get; set; }
+    public DomainUser User { get; set; }
     public string Status { get; set; }
     [Required(ErrorMessage = "Vui lòng chọn phương thức thanh toán")]
     [Display(Name = "Phương thức thanh toán")]

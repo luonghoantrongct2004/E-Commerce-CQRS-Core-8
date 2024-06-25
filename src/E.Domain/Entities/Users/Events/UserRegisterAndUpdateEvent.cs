@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace E.Domain.Entities.Users.Events;
 
-public class UserRegisterEvent : INotification
+public class UserRegisterAndUpdateEvent : INotification
 {
     [BsonRepresentation(BsonType.String)]
     public Guid UserId { get; set; }
@@ -20,7 +20,7 @@ public class UserRegisterEvent : INotification
     public string? Address { get; set; }
     public string? CurrentCity { get; set; }
 
-    public UserRegisterEvent(Guid userId, string username,
+    public UserRegisterAndUpdateEvent(Guid userId, string username,
         string passwordHash, string fullName, DateTime createdDate,
         string? avatar, string? address, string? currentCity)
     {

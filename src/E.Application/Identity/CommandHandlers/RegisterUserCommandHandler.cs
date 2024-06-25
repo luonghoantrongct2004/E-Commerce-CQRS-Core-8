@@ -20,12 +20,12 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
-    private readonly UserManager<BasicUser> _userManager;
+    private readonly UserManager<DomainUser> _userManager;
     private readonly IdentityService _identityService;
     private OperationResult<IdentityUserDto> _result = new();
     private readonly IMapper _mapper;
 
-    public RegisterUserCommandHandler(IUnitOfWork unitOfWork, UserManager<BasicUser> userManager,
+    public RegisterUserCommandHandler(IUnitOfWork unitOfWork, UserManager<DomainUser> userManager,
         IdentityService identityService, IMapper mapper, IEventPublisher eventPublisher)
     {
         _unitOfWork = unitOfWork;
@@ -49,7 +49,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
 
             if (_result.IsError) return _result;
 
-            var userEvent = new UserRegisterEvent(identity.Id, identity.UserName,
+            var userEvent = new UserRegisterAndUpdateEvent(identity.Id, identity.UserName,
                 identity.PasswordHash, identity.FullName, identity.CreatedDate, 
                 identity.Avatar,identity.Address, identity.CurrentCity);
             await _eventPublisher.PublishAsync(userEvent);
@@ -75,9 +75,9 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
             _result.AddError(ErrorCode.IdentityUserAlreadyExists, IdentityErrorMessages.IdentityUserAlreadyExists);
     }
 
-    private async Task<BasicUser> CreateIdentityUserAsync(RegisterUserCommand request)
+    private async Task<DomainUser> CreateIdentityUserAsync(RegisterUserCommand request)
     {
-        var identity = new BasicUser
+        var identity = new DomainUser
         {
             Email = request.Username,
             UserName = request.Username,
@@ -101,7 +101,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
         return identity;
     }
 
-    private string GetJwtString(BasicUser identity)
+    private string GetJwtString(DomainUser identity)
     {
         var claimsIdentity = new ClaimsIdentity(new Claim[]
         {
