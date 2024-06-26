@@ -19,10 +19,6 @@ public class UserValidator : AbstractValidator<DomainUser>
             .NotNull().WithMessage("CreatedDate is required. It is currently null")
             .LessThanOrEqualTo(DateTime.Now).WithMessage("CreatedDate cannot be in the future");
 
-        RuleFor(u => u.Avatar)
-            .Must(avatar => string.IsNullOrEmpty(avatar) || Uri.IsWellFormedUriString(avatar, UriKind.Absolute))
-            .WithMessage("Invalid URL for Avatar");
-
         RuleFor(u => u.Address)
             .MaximumLength(100).WithMessage("Address can contain at most 100 characters long")
             .When(u => !string.IsNullOrEmpty(u.Address));

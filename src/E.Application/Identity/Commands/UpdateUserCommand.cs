@@ -8,11 +8,9 @@ namespace E.Application.Identity.Commands;
 public class UpdateUserCommand : IRequest<OperationResult<IdentityUserDto>>
 {
     public Guid UserId { get; set; }
-    public Guid RequestorGuid { get; set; }
     public string Username { get; set; }
     public string Password { get; set; }
     public string FullName { get; set; }
-    public string Email { get; set; }
     [DataType(DataType.Date)]
     public DateTime CreatedDate { get; set; }
     public string? Avatar { get; set; }

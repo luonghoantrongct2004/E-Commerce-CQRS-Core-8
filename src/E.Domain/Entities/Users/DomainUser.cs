@@ -44,6 +44,7 @@ public class DomainUser : IdentityUser<Guid>
     public void UpdateBasicInfo(string username, string password, string fullName, string avatar,
     string address, string currentCity)
     {
+        Email = username;
         UserName = username;
         PasswordHash = password;
         FullName = fullName;
@@ -53,11 +54,14 @@ public class DomainUser : IdentityUser<Guid>
 
         var validator = new UserValidator();
         var validationResult = validator.Validate(this);
-        var exception = new UserInvalidException($"{validationResult}");
-        foreach (var error in validationResult.Errors)
+        if (!validationResult.IsValid)
         {
-            exception.ValidationErrors.Add($"Field {error.PropertyName}: {error.ErrorMessage}");
+            var exception = new UserInvalidException("User validation failed");
+            foreach (var error in validationResult.Errors)
+            {
+                exception.ValidationErrors.Add($"Field {error.PropertyName}: {error.ErrorMessage}");
+            }
+            throw exception;
         }
-        throw exception;
     }
 }

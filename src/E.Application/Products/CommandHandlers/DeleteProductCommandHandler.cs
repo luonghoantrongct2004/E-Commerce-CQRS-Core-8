@@ -40,7 +40,6 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
                 return result;
             }
             _unitOfWork.Products.Remove(product);
-            await _unitOfWork.CompleteAsync();
 
             var productEvent = new ProductDeleteEvent(product.ProductId);
             await _eventPublisher.PublishAsync(productEvent);

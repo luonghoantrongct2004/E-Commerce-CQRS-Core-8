@@ -48,43 +48,23 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Opera
                     IdentityErrorMessages.NonExistentIdentityUser);
                 return _result;
             }
-            var userProfile = await _unitOfWork.Users.
-                FirstOrDefaultAsync(up => up.Id == request.UserId);
-            if (userProfile is null)
-            {
-                _result.AddError(ErrorCode.NotFound, IdentityErrorMessages.NonExistentIdentityUser);
-                return _result;
-            }
-            if (identityUser.Id != request.RequestorGuid)
-            {
-                _result.AddError(ErrorCode.UnauthorizedAccountRemoval,
-                    IdentityErrorMessages.UnauthorizedAccountRemoval);
-
-                return _result;
-            }
-
-            var hashedPassword = _userManager.PasswordHasher.HashPassword(identityUser, request.Password);
-            identityUser.PasswordHash = hashedPassword;
-
-            var basicUser = new DomainUser();
-            basicUser.UpdateBasicInfo(
+            identityUser.UpdateBasicInfo(
                 username: request.Username,
-                password: hashedPassword,
+                password: request.Password,
                 fullName: request.FullName,
                 avatar: request.Avatar,
                 address: request.Address,
                 currentCity: request.CurrentCity
             );
+            _unitOfWork.Users.Update(identityUser);
 
-            await _unitOfWork.CompleteAsync();
-
-            var userEvent = new UserRegisterAndUpdateEvent(basicUser.Id,basicUser.UserName, hashedPassword,
-                basicUser.FullName, basicUser.CreatedDate, basicUser.Avatar, basicUser.Address,basicUser.CurrentCity);
+            var userEvent = new UserRegisterAndUpdateEvent(identityUser.Id, request.Username, request.Password,
+                request.FullName, request.CreatedDate, request.Avatar, request.Address, request.CurrentCity);
             await _eventPublisher.PublishAsync(userEvent);
 
             await _unitOfWork.CommitAsync();
 
-            _result.Payload = _mapper.Map<IdentityUserDto>(basicUser);
+            _result.Payload = _mapper.Map<IdentityUserDto>(identityUser);
         }
         catch (Exception ex)
         {

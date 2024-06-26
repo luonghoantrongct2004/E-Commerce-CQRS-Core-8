@@ -6,5 +6,4 @@ namespace E.Application.Identity.Commands;
 public class RemoveUserCommand : IRequest<OperationResult<bool>>
 {
     public Guid IdentityUserId { get; set; }
-    public Guid RequestorGuid { get; set; }
 }
