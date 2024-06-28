@@ -40,6 +40,6 @@ public class MongoRepository<T> : IReadRepository<T> where T : class
 
     public async Task UpdateAsync(Guid id, T entity)
     {
-        var result = await _collection.ReplaceOneAsync(Builders<T>.Filter.Eq("Id", id), entity);
+       await _collection.ReplaceOneAsync(Builders<T>.Filter.Eq("Id", id), entity);
     }
 }

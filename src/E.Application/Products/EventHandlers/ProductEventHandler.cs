@@ -5,7 +5,7 @@ using MediatR;
 
 namespace E.Application.Products.EventHandlers;
 
-public class ProductEventHandler : INotificationHandler<ProductEvent>
+public class ProductEventHandler : INotificationHandler<ProductCreateAndUpdateEvent>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
 
@@ -14,11 +14,11 @@ public class ProductEventHandler : INotificationHandler<ProductEvent>
         _readUnitOfWork = readUnitOfWork;
     }
 
-    public async Task Handle(ProductEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(ProductCreateAndUpdateEvent notification, CancellationToken cancellationToken)
     {
         var product = new Product
         {
-            ProductId = notification.ProductId,
+            Id = notification.ProductId,
             ProductName = notification.ProductName,
             Description = notification.Description,
             Price = notification.Price,

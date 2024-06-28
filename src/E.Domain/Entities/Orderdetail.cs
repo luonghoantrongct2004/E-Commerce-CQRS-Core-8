@@ -1,10 +1,10 @@
-﻿using E.Domain.Entities.Products;
+﻿using E.Domain.Entities;
+using E.Domain.Entities.Products;
 
 namespace E.Domain.Models
 {
-    public class Orderdetail
+    public class Orderdetail : BaseEntity
     {
-        public Guid OrderdetailId { get; set; }
 
         public Guid OrderId { get; set; }
 

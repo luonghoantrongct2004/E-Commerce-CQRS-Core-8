@@ -27,21 +27,21 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
         {
             await _unitOfWork.BeginTransactionAsync();
 
-            var product = await _unitOfWork.Products.FirstOrDefaultAsync(p => p.ProductId.Equals(request.ProductId));
+            var product = await _unitOfWork.Products.FirstOrDefaultAsync(p => p.Id.Equals(request.ProductId));
             if (product is null)
             {
                 result.AddError(ErrorCode.NotFound,
                     string.Format(ProductErrorMessage.ProductNotFound, request.ProductId));
                 return result;
             }
-            if (product.ProductId != request.ProductId)
+            if (product.Id != request.ProductId)
             {
                 result.AddError(ErrorCode.PostDeleteNotPossible, ProductErrorMessage.ProductDeleteNotPossible);
                 return result;
             }
             _unitOfWork.Products.Remove(product);
 
-            var productEvent = new ProductDeleteEvent(product.ProductId);
+            var productEvent = new ProductRemoveEvent(product.Id);
             await _eventPublisher.PublishAsync(productEvent);
 
             await _unitOfWork.CommitAsync();

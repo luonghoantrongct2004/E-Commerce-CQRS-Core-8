@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "QR/tH+fu1rpKDWGg071IzNzeaVY76D2rlWP4UHvvPLCBjh9blxFzl3I+LlRE8oJzKgVplQzZZ0vZPQSyyD1aNQ==",
+  "dgSpecHash": "Hc9PJoZAufDGvJw1TqMLmFW0WpN2Vn8Ei2qLg1R5J5ix0JO05dA0u5SlCL63YR0jxsqCXhxVc6L3S/WDhaTS7w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj",
+  "projectFilePath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PREDATOR\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
-    "C:\\Users\\PREDATOR\\.nuget\\packages\\fluentvalidation\\11.9.1\\fluentvalidation.11.9.1.nupkg.sha512",
+    "C:\\Users\\PREDATOR\\.nuget\\packages\\fluentvalidation\\11.9.2\\fluentvalidation.11.9.2.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\mediatr\\11.0.0\\mediatr.11.0.0.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",

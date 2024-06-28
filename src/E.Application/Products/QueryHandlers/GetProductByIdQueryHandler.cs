@@ -19,7 +19,7 @@ public class GetProductByIdQueryHandler : IRequestHandler<GetProductById, Operat
     public async Task<OperationResult<Product>> Handle(GetProductById request, CancellationToken cancellationToken)
     {
         var result = new OperationResult<Product>();
-        var product = await _readUnitOfWork.Products.FirstOrDefaultAsync(p => p.ProductId == request.ProductId);
+        var product = await _readUnitOfWork.Products.FirstOrDefaultAsync(p => p.Id == request.ProductId);
         if (product is null)
         {
             result.AddError(ErrorCode.NotFound,

@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Brands\QueryHandlers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\E.DAL\E.DAL.csproj" />
     <ProjectReference Include="..\E.Domain\E.Domain.csproj" />
   </ItemGroup>

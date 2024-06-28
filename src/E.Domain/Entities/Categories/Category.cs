@@ -6,12 +6,8 @@ using MongoDB.Bson;
 
 namespace E.Domain.Entities.Categories;
 
-public class Category
+public class Category : BaseEntity
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.String)]
-    public Guid CategoryId { get; set; }
-
     public string? CategoryName { get; set; }
     public ICollection<Product> Products { get; set; } = new List<Product>();
 
@@ -20,7 +16,7 @@ public class Category
         var validator = new CategoryValidator();
         var objectToValidate = new Category
         {
-            CategoryId = Guid.NewGuid(),
+            Id = Guid.NewGuid(),
             CategoryName = categoryName,
         };
         var validationResult = validator.Validate(objectToValidate);

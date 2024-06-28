@@ -4,9 +4,8 @@ using FluentValidation;
 
 namespace E.Domain.Entities.Comment;
 
-public class Comment
+public class Comment : BaseEntity
 {
-    public Guid Id { get; set; }
     public Guid UserId { get; set; }
 
     public string? Content { get; set; }

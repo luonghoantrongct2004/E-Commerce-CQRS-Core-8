@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using E.Domain.Entities;
 using E.Domain.Entities.Users;
 
 namespace E.Domain.Models;
 
-public class Order
+public class Order : BaseEntity
 {
-    public Guid OrderId { get; set; }
 
     public Guid UserId { get; set; }
 

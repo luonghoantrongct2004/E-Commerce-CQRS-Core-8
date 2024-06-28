@@ -2,13 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using E.Domain.Entities.Products;
 using E.Domain.Entities.Users;
+using E.Domain.Entities;
 
 namespace E.Domain.Models
 {
-    public class CartDetails
+    public class CartDetails : BaseEntity
     {
-        [Key]
-        public Guid CartDetailsId { get; set; }
         public Guid UserId { get; set; }
         public Guid ProductId { get; set; }
         public int Quantity { get; set; }

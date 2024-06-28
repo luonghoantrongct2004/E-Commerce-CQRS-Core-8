@@ -29,14 +29,14 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
             await _unitOfWork.BeginTransactionAsync();
 
             var product = await _unitOfWork.Products.FirstOrDefaultAsync(
-                p => p.ProductId == request.ProductId);
+                p => p.Id == request.ProductId);
             if (product is null)
             {
                 result.AddError(ErrorCode.NotFound,
                     string.Format(ProductErrorMessage.ProductNotFound, request.ProductId));
                 return result;
             }
-            if (!product.ProductId.Equals(request.ProductId))
+            if (!product.Id.Equals(request.ProductId))
             {
                 result.AddError(ErrorCode.PostDeleteNotPossible,
                     ProductErrorMessage.ProductDeleteNotPossible);
@@ -53,7 +53,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
                 discount: (int)request.Discount
             );
 
-            var productEvent = new ProductUpdateEvent(product.ProductId, product.ProductName,
+            var productEvent = new ProductCreateAndUpdateEvent(product.Id, product.ProductName,
                 product.Description, product.Price, product.Images, product.CategoryId,
                 product.BrandId, product.StockQuantity, product.Discount, product.CreatedAt);
 

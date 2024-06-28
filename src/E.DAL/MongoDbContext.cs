@@ -1,4 +1,5 @@
-﻿using E.Domain.Entities.Brand;
+﻿using E.Domain;
+using E.Domain.Entities.Brand;
 using E.Domain.Entities.Categories;
 using E.Domain.Entities.Comment;
 using E.Domain.Entities.Products;

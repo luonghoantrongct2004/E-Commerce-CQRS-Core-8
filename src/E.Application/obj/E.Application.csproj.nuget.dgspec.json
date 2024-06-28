@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Application\\E.Application.csproj": {}
+    "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Application\\E.Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Application\\E.Application.csproj": {
+    "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Application\\E.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Application\\E.Application.csproj",
+        "projectUniqueName": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Application\\E.Application.csproj",
         "projectName": "E.Application",
-        "projectPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Application\\E.Application.csproj",
+        "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Application\\E.Application.csproj",
         "packagesPath": "C:\\Users\\PREDATOR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Application\\obj\\",
+        "outputPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PREDATOR\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -27,11 +27,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.DAL\\E.DAL.csproj": {
-                "projectPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.DAL\\E.DAL.csproj"
+              "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj": {
+                "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj"
               },
-              "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {
-                "projectPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj"
+              "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {
+                "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj"
               }
             }
           }
@@ -79,14 +79,14 @@
         }
       }
     },
-    "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.DAL\\E.DAL.csproj": {
+    "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.DAL\\E.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj",
         "projectName": "E.DAL",
-        "projectPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.DAL\\E.DAL.csproj",
+        "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj",
         "packagesPath": "C:\\Users\\PREDATOR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.DAL\\obj\\",
+        "outputPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PREDATOR\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -102,8 +102,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {
-                "projectPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj"
+              "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {
+                "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj"
               }
             }
           }
@@ -148,7 +148,7 @@
             },
             "MongoDB.Driver": {
               "target": "Package",
-              "version": "[2.25.0, )"
+              "version": "[2.26.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -175,14 +175,14 @@
         }
       }
     },
-    "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {
+    "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj",
         "projectName": "E.Domain",
-        "projectPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj",
+        "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj",
         "packagesPath": "C:\\Users\\PREDATOR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\obj\\",
+        "outputPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PREDATOR\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -212,7 +212,7 @@
           "dependencies": {
             "FluentValidation": {
               "target": "Package",
-              "version": "[11.9.1, )"
+              "version": "[11.9.2, )"
             },
             "MediatR.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",

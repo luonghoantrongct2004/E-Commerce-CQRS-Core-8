@@ -8,12 +8,8 @@ using MongoDB.Bson;
 
 namespace E.Domain.Entities.Products;
 
-public class Product
+public class Product : BaseEntity
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.String)]
-    public Guid ProductId { get; set; }
-
     public string ProductName { get; set; }
 
     public string? Description { get; set; }
@@ -48,7 +44,7 @@ public class Product
         var validator = new ProductValidator();
         var objectToValidate = new Product
         {
-            ProductId = Guid.NewGuid(),
+            Id = Guid.NewGuid(),
             ProductName = productName,
             Description = description,
             Price = price,
@@ -94,7 +90,7 @@ public class Product
     }
     public void DeleteProduct(Guid productId)
     {
-        ProductId = productId;
+        Id = productId;
         var validator = new ProductValidator();
         var validationResult = validator.Validate(this);
         if (!validationResult.IsValid)

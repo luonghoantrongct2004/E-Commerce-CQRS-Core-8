@@ -1,14 +1,9 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace E.Domain.Entities.Users;
 
-public class UserMongo
+public class UserMongo : BaseEntity
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.String)]
-    public Guid Id { get; set; }
     public string UserName { get; set; }
     public string PasswordHash { get; set; }
     public string FullName { get; set; }

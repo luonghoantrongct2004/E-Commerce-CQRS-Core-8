@@ -6,5 +6,6 @@ namespace E.Application.Brands.Commands;
 
 public class UpdateBrandCommand : IRequest<OperationResult<Brand>>
 {
+    public Guid BrandId { get; set; }
     public string BrandName { get; set; }
 }

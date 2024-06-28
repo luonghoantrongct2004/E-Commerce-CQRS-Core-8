@@ -14,9 +14,11 @@ public class UpdateUserCommandEventHandler : INotificationHandler<UserRegisterAn
         _readUnitOfWork = readUnitOfWork;
     }
 
-    public async Task Handle(UserRegisterAndUpdateEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(UserRegisterAndUpdateEvent notification, 
+        CancellationToken cancellationToken)
     {
-        var existingUser = await _readUnitOfWork.Users.FirstOrDefaultAsync(u => u.Id == notification.UserId);
+        var existingUser = await _readUnitOfWork.Users.FirstOrDefaultAsync(
+            u => u.Id == notification.UserId);
 
         if (existingUser != null)
         {

@@ -120,7 +120,7 @@
           }
         }
       },
-      "FluentValidation/11.9.1": {
+      "FluentValidation/11.9.2": {
         "type": "package",
         "compile": {
           "lib/net8.0/FluentValidation.dll": {
@@ -837,13 +837,13 @@
           }
         }
       },
-      "MongoDB.Driver/2.25.0": {
+      "MongoDB.Driver/2.26.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "2.0.0",
-          "MongoDB.Bson": "2.25.0",
-          "MongoDB.Driver.Core": "2.25.0",
-          "MongoDB.Libmongocrypt": "1.8.2"
+          "MongoDB.Bson": "2.26.0",
+          "MongoDB.Driver.Core": "2.26.0",
+          "MongoDB.Libmongocrypt": "1.9.0"
         },
         "compile": {
           "lib/netstandard2.1/MongoDB.Driver.dll": {
@@ -856,14 +856,14 @@
           }
         }
       },
-      "MongoDB.Driver.Core/2.25.0": {
+      "MongoDB.Driver.Core/2.26.0": {
         "type": "package",
         "dependencies": {
           "AWSSDK.SecurityToken": "3.7.100.14",
           "DnsClient": "1.6.1",
           "Microsoft.Extensions.Logging.Abstractions": "2.0.0",
-          "MongoDB.Bson": "2.25.0",
-          "MongoDB.Libmongocrypt": "1.8.2",
+          "MongoDB.Bson": "2.26.0",
+          "MongoDB.Libmongocrypt": "1.9.0",
           "SharpCompress": "0.30.1",
           "Snappier": "1.0.0",
           "System.Buffers": "4.5.1",
@@ -880,7 +880,7 @@
           }
         }
       },
-      "MongoDB.Libmongocrypt/1.8.2": {
+      "MongoDB.Libmongocrypt/1.9.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.1/MongoDB.Libmongocrypt.dll": {}
@@ -1450,7 +1450,7 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.6",
           "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
-          "MongoDB.Driver": "2.25.0",
+          "MongoDB.Driver": "2.26.0",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
         "compile": {
@@ -1464,7 +1464,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "FluentValidation": "11.9.1",
+          "FluentValidation": "11.9.2",
           "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
           "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
@@ -1628,16 +1628,16 @@
         "lib/netstandard2.1/DnsClient.xml"
       ]
     },
-    "FluentValidation/11.9.1": {
-      "sha512": "C+PqISSMdlOZZJx0Hx25atW32tv4vbpsaiQB+PLjK+ZGLzOFuHl1fUJ3Lny77mIZ31ZtYtNG0JgUjxa3wwLsWg==",
+    "FluentValidation/11.9.2": {
+      "sha512": "XeHp9LvFvu1fsQ/NvDCymV02GOCB1nz7ZUhfpI3uMhCcHTkV1K5bMkv+Nc/kuNYyAsX5+5bcmUanIEMd5QN+Eg==",
       "type": "package",
-      "path": "fluentvalidation/11.9.1",
+      "path": "fluentvalidation/11.9.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
         "fluent-validation-icon.png",
-        "fluentvalidation.11.9.1.nupkg.sha512",
+        "fluentvalidation.11.9.2.nupkg.sha512",
         "fluentvalidation.nuspec",
         "lib/net5.0/FluentValidation.dll",
         "lib/net5.0/FluentValidation.xml",
@@ -2943,10 +2943,10 @@
         "packageIcon.png"
       ]
     },
-    "MongoDB.Driver/2.25.0": {
-      "sha512": "dMqnZTV6MuvoEI4yFtSvKJdAoN6NeyAEvG8aoxnrLIVd7bR84QxLgpsM1nhK17qkOcIx/IrpMIfrvp5iMnYGBg==",
+    "MongoDB.Driver/2.26.0": {
+      "sha512": "PaRNwcnsjh0rXiNqphQZZn0l2Lef/lEvmJSmHQAIX2jcU3XM/WTFezSvaxNNgvGwUS0MunQyPLECBPnZuRaupQ==",
       "type": "package",
-      "path": "mongodb.driver/2.25.0",
+      "path": "mongodb.driver/2.26.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2957,15 +2957,15 @@
         "lib/netstandard2.0/MongoDB.Driver.xml",
         "lib/netstandard2.1/MongoDB.Driver.dll",
         "lib/netstandard2.1/MongoDB.Driver.xml",
-        "mongodb.driver.2.25.0.nupkg.sha512",
+        "mongodb.driver.2.26.0.nupkg.sha512",
         "mongodb.driver.nuspec",
         "packageIcon.png"
       ]
     },
-    "MongoDB.Driver.Core/2.25.0": {
-      "sha512": "oN4nLgO5HQEThTg/zqeoHqaO2+q64DBVb4r7BvhaFb0p0TM9jZKnCKvh1EA8d9E9swIz0CgvMrvL1mPyRCZzag==",
+    "MongoDB.Driver.Core/2.26.0": {
+      "sha512": "y1Gs8a+ON/NqOd0dWfGfxluqitbD2rAecEvg5wN5GfWQf328TKyWZLUBbFG5H70hWZG/RUryZwNGMnBdPFn7QQ==",
       "type": "package",
-      "path": "mongodb.driver.core/2.25.0",
+      "path": "mongodb.driver.core/2.26.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2977,15 +2977,15 @@
         "lib/netstandard2.0/MongoDB.Driver.Core.xml",
         "lib/netstandard2.1/MongoDB.Driver.Core.dll",
         "lib/netstandard2.1/MongoDB.Driver.Core.xml",
-        "mongodb.driver.core.2.25.0.nupkg.sha512",
+        "mongodb.driver.core.2.26.0.nupkg.sha512",
         "mongodb.driver.core.nuspec",
         "packageIcon.png"
       ]
     },
-    "MongoDB.Libmongocrypt/1.8.2": {
-      "sha512": "z/8JCULSHM1+mzkau0ivIkU9kIn8JEFFSkmYTSaMaWMMHt96JjUtMKuXxeGNGSnHZ5290ZPKIlQfjoWFk2sKog==",
+    "MongoDB.Libmongocrypt/1.9.0": {
+      "sha512": "5uMtRXwy2NkSRWVQUkkdtq8BsRiHbE6eX8vX52NtMvDC/T4VTtHZLQb8ogW+mw0WSvM1IIUvz3Gl1iMJmT8HKQ==",
       "type": "package",
-      "path": "mongodb.libmongocrypt/1.8.2",
+      "path": "mongodb.libmongocrypt/1.9.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3002,7 +3002,7 @@
         "contentFiles/any/netstandard2.1/mongocrypt.dll",
         "lib/netstandard2.0/MongoDB.Libmongocrypt.dll",
         "lib/netstandard2.1/MongoDB.Libmongocrypt.dll",
-        "mongodb.libmongocrypt.1.8.2.nupkg.sha512",
+        "mongodb.libmongocrypt.1.9.0.nupkg.sha512",
         "mongodb.libmongocrypt.nuspec",
         "runtimes/linux/native/libmongocrypt.so",
         "runtimes/osx/native/libmongocrypt.dylib",
@@ -4085,11 +4085,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Application\\E.Application.csproj",
+      "projectUniqueName": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Application\\E.Application.csproj",
       "projectName": "E.Application",
-      "projectPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Application\\E.Application.csproj",
+      "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Application\\E.Application.csproj",
       "packagesPath": "C:\\Users\\PREDATOR\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Application\\obj\\",
+      "outputPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PREDATOR\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4105,11 +4105,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.DAL\\E.DAL.csproj": {
-              "projectPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.DAL\\E.DAL.csproj"
+            "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj": {
+              "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj"
             },
-            "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {
-              "projectPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj"
+            "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {
+              "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj"
             }
           }
         }

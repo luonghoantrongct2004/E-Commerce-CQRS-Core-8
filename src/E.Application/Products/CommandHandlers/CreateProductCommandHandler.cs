@@ -40,7 +40,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 
             await _unitOfWork.Products.AddAsync(product);
 
-            var productEvent = new ProductEvent(product.ProductId, product.ProductName,
+            var productEvent = new ProductCreateAndUpdateEvent(product.Id, product.ProductName,
                 product.Description, product.Price, product.Images, product.CategoryId,
                 product.BrandId, product.StockQuantity, product.Discount, product.CreatedAt);
             await _eventPublisher.PublishAsync(productEvent);

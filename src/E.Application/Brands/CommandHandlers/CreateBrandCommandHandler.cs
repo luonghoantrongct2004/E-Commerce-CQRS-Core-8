@@ -29,9 +29,8 @@ public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, Ope
             var brand = Brand.CreateBrand(request.BrandName);
 
             await _unitOfWork.Brands.AddAsync(brand);
-            await _unitOfWork.CompleteAsync();
 
-            var brandCreatedEvent = new BrandCreatedEvent(brand.BrandId, brand.BrandName);
+            var brandCreatedEvent = new BrandCreatedAndUpdateEvent(brand.Id, brand.BrandName);
             await _eventPublisher.PublishAsync(brandCreatedEvent);
 
             await _unitOfWork.CommitAsync();

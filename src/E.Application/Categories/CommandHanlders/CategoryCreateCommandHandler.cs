@@ -29,7 +29,7 @@ public class CategoryCreateCommandHandler : IRequestHandler<CreateCategoryComman
             await _unitOfWork.Categories.AddAsync(category);
             await _unitOfWork.CompleteAsync();
 
-            var categoryCreateEvent = new CategoryCreateEvent(category.CategoryId, category.CategoryName);
+            var categoryCreateEvent = new CategoryCreateEvent(category.Id, category.CategoryName);
             await _eventPublisher.PublishAsync(categoryCreateEvent);
 
             await _unitOfWork.CommitAsync();

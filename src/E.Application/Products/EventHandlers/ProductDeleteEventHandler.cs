@@ -5,7 +5,7 @@ using MediatR;
 
 namespace E.Application.Products.EventHandlers;
 
-public class ProductDeleteEventHandler : INotificationHandler<ProductDeleteEvent>
+public class ProductDeleteEventHandler : INotificationHandler<ProductRemoveEvent>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
 
@@ -13,7 +13,7 @@ public class ProductDeleteEventHandler : INotificationHandler<ProductDeleteEvent
     {
         _readUnitOfWork = readUnitOfWork;
     }
-    public async Task Handle(ProductDeleteEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(ProductRemoveEvent notification, CancellationToken cancellationToken)
     {
         await _readUnitOfWork.Products.RemoveAsync(notification.ProductId);
     }

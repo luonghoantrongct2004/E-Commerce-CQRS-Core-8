@@ -18,7 +18,7 @@ public class CategoryCreateEventHandler : INotificationHandler<CategoryCreateEve
     {
         var category = new Category
         {
-            CategoryId = notification.CategoryId,
+            Id = notification.CategoryId,
             CategoryName = notification.CategoryName,
         };
         await _readUnitOfWork.Categories.AddAsync(category);

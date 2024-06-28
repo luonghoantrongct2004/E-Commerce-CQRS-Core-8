@@ -26,12 +26,15 @@ public class RemoveUserCommandHandler : IRequestHandler<RemoveUserCommand, Opera
         var result = new OperationResult<bool>();
         try
         {
+            await _unitOfWork.BeginTransactionAsync();
+
             var userProfile = await _unitOfWork.Users.
                 FirstOrDefaultAsync(up => up.Id == request.IdentityUserId);
 
             if (userProfile is null)
             {
-                result.AddError(ErrorCode.NotFound, IdentityErrorMessages.NonExistentIdentityUser);
+                result.AddError(ErrorCode.NotFound, 
+                    IdentityErrorMessages.NonExistentIdentityUser);
                 return result;
             }
             _unitOfWork.Users.Remove(userProfile);

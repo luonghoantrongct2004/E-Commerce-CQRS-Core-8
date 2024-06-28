@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using E.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace E.Domain.Models
 {
-    public class Introduction
+    public class Introduction : BaseEntity
     {
-        public int Id { get; set; }
         [Display(Name = "Tiêu đề ")]
         public string Title { get; set; }
         [Display(Name = "Mô tả")]
