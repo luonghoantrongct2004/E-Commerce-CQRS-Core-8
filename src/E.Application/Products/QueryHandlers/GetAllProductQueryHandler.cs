@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using E.Application.Models;
+﻿using E.Application.Models;
 using E.Application.Products.Queries;
 using E.DAL.UoW;
 using E.Domain.Entities.Products;
@@ -9,11 +8,11 @@ namespace E.Application.Products.QueryHandlers;
 
 public class GetAllProductQueryHandler : IRequestHandler<GetAllProducts, OperationResult<IEnumerable<Product>>>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IReadUnitOfWork _readUnitOfWork;
 
-    public GetAllProductQueryHandler(IUnitOfWork unitOfWork)
+    public GetAllProductQueryHandler(IReadUnitOfWork readUnitOfWork)
     {
-        _unitOfWork = unitOfWork;
+        _readUnitOfWork = readUnitOfWork;
     }
 
     public async Task<OperationResult<IEnumerable<Product>>> Handle(GetAllProducts request, CancellationToken cancellationToken)
@@ -21,9 +20,10 @@ public class GetAllProductQueryHandler : IRequestHandler<GetAllProducts, Operati
         var result = new OperationResult<IEnumerable<Product>>();
         try
         {
-            var products = await _unitOfWork.Products.GetAllAsync();
+            var products = await _readUnitOfWork.Products.GetAllAsync();
             result.Payload = products;
-        }catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             result.AddUnknownError(ex.Message);
         }

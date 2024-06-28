@@ -13,11 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Users\CommandHandlers\" />
-    <Folder Include="Users\Commands\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\E.DAL\E.DAL.csproj" />
     <ProjectReference Include="..\E.Domain\E.Domain.csproj" />
   </ItemGroup>

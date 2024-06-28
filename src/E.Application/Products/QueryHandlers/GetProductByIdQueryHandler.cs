@@ -9,17 +9,17 @@ namespace E.Application.Products.QueryHandlers;
 
 public class GetProductByIdQueryHandler : IRequestHandler<GetProductById, OperationResult<Product>>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IReadUnitOfWork _readUnitOfWork;
 
-    public GetProductByIdQueryHandler(IUnitOfWork unitOfWork)
+    public GetProductByIdQueryHandler(IReadUnitOfWork readUnitOfWork)
     {
-        _unitOfWork = unitOfWork;
+        _readUnitOfWork = readUnitOfWork;
     }
 
     public async Task<OperationResult<Product>> Handle(GetProductById request, CancellationToken cancellationToken)
     {
         var result = new OperationResult<Product>();
-        var product = await _unitOfWork.Products.FirstOrDefaultAsync(p => p.ProductId == request.ProductId);
+        var product = await _readUnitOfWork.Products.FirstOrDefaultAsync(p => p.Id == request.ProductId);
         if (product is null)
         {
             result.AddError(ErrorCode.NotFound,

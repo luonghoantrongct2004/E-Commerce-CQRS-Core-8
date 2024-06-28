@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {}
+    "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {
+    "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj",
         "projectName": "E.Domain",
-        "projectPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\E.Domain.csproj",
+        "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj",
         "packagesPath": "C:\\Users\\PREDATOR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PREDATOR\\OneDrive\\Tài liệu\\eCormmerce\\src\\E.Domain\\obj\\",
+        "outputPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PREDATOR\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -21,7 +21,6 @@
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -42,27 +41,35 @@
           "dependencies": {
             "FluentValidation": {
               "target": "Package",
-              "version": "[11.9.1, )"
+              "version": "[11.9.2, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.1.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.5, )"
+              "version": "[8.0.6, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.5, )"
+              "version": "[8.0.6, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[8.0.5, )"
+              "version": "[8.0.6, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.5, )"
+              "version": "[8.0.6, )"
+            },
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[2.26.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
