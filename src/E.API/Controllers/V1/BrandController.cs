@@ -51,7 +51,7 @@ public class BrandController : BaseController
         var result = await _mediator.Send(command);
         var mapped = _mapper.Map<BrandResponse>(result.Payload);
         return result.IsError ? HandleErrorResponse(result.Errors)
-                : CreatedAtAction(nameof(GetById), new { id = mapped.BrandId }, mapped);
+                : CreatedAtAction(nameof(GetById), new { id = mapped.Id }, mapped);
     }
 
     [HttpPut(ApiRoutes.Brand.Update)]
@@ -59,7 +59,7 @@ public class BrandController : BaseController
     public async Task<IActionResult> Put(Guid brandId, [FromBody] BrandUpdate brandUpdate)
     {
         var command = _mapper.Map<UpdateBrandCommand>(brandUpdate);
-        command.BrandId = brandId;
+        command.Id = brandId;
         var response = await _mediator.Send(command);
 
         return response.IsError ? HandleErrorResponse(response.Errors) : NoContent();

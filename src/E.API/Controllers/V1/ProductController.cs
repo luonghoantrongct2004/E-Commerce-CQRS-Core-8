@@ -45,7 +45,7 @@ public class ProductController : BaseController
         var result = await _mediator.Send(command);
         var mapped = _mapper.Map<ProductResponse>(result.Payload);
         return result.IsError ? HandleErrorResponse(result.Errors)
-            : CreatedAtAction(nameof(GetAllProducts), new { id = mapped.ProductId }, mapped);
+            : CreatedAtAction(nameof(GetAllProducts), new { id = mapped.Id }, mapped);
     }
 
     [HttpPut("{id}")]

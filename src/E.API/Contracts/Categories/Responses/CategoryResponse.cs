@@ -1,7 +1,8 @@
-﻿namespace E.API.Contracts.Categories.Responses;
+﻿using E.Domain.Entities;
 
-public class CategoryResponse
+namespace E.API.Contracts.Categories.Responses;
+
+public class CategoryResponse : BaseEntity
 {
-    public Guid CategoryId { get; set; }
     public string CategoryName { get; set; }
 }

@@ -27,13 +27,13 @@ public class UpdateBrandCommandHandler : IRequestHandler<UpdateBrandCommand, Ope
             await _unitOfWork.BeginTransactionAsync();
 
             var brand = await _unitOfWork.Brands.FirstOrDefaultAsync(
-                b => b.Id == request.BrandId);
+                b => b.Id == request.Id);
             if(brand is null)
             {
                 result.AddError(ErrorCode.NotFound,
-                    string.Format(BrandErrorMessage.BrandNotFound, request.BrandId));
+                    string.Format(BrandErrorMessage.BrandNotFound, request.Id));
             }
-            if(brand.Id != request.BrandId)
+            if(brand.Id != request.Id)
             {
                 result.AddError(ErrorCode.PostDeleteNotPossible,
                     BrandErrorMessage.BrandDeleteNotPossible);

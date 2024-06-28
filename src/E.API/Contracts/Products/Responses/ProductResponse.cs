@@ -1,12 +1,11 @@
-﻿using E.Domain.Entities.Categories;
+﻿using E.Domain.Entities;
+using E.Domain.Entities.Categories;
 using System.ComponentModel.DataAnnotations;
 
 namespace E.API.Contracts.Products.Responses;
 
-public class ProductResponse
+public class ProductResponse : BaseEntity
 {
-    public Guid ProductId { get; set; }
-
     public string ProductName { get; set; }
 
     public string? Description { get; set; }

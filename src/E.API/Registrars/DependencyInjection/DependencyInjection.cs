@@ -48,25 +48,19 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
         builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();
         builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(nameof(JwtSettings)));
 
-        builder.Services.AddTransient<INotificationHandler<ProductCreateAndUpdateEvent>, ProductEventHandler>();
         builder.Services.AddTransient<IRequestHandler<GetAllProducts, OperationResult<IEnumerable<Product>>>, GetAllProductQueryHandler>();
         builder.Services.AddTransient<IRequestHandler<GetProductById, OperationResult<Product>>, GetProductByIdQueryHandler>();
         builder.Services.AddTransient<IRequestHandler<CreateProductCommand, OperationResult<Product>>, CreateProductCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<DeleteProductCommand, OperationResult<Product>>, DeleteProductCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<UpdateProductCommand, OperationResult<Product>>, UpdateProductCommandHandler>();
 
-        builder.Services.AddTransient<INotificationHandler<BrandCreatedAndUpdateEvent>, BrandCreatedEventHandler>();
-        builder.Services.AddTransient<INotificationHandler<BrandRemoveEvent>, BrandRemoveEventHandler>();
         builder.Services.AddTransient<IRequestHandler<CreateBrandCommand, OperationResult<Brand>>, CreateBrandCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<UpdateBrandCommand, OperationResult<Brand>>, UpdateBrandCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<RemoveBrandCommand, OperationResult<bool>>, RemoveBrandCommandHandler>();
 
-        builder.Services.AddTransient<INotificationHandler<CategoryCreateEvent>, CategoryCreateEventHandler>();
         builder.Services.AddTransient<IRequestHandler<CreateCategoryCommand, OperationResult<Category>>, CategoryCreateCommandHandler>();
 
         builder.Services.AddMediatR(typeof(RegisterUserCommandHandler).Assembly);
-        builder.Services.AddTransient<INotificationHandler<UserRegisterAndUpdateEvent>, RegisterUserCommandEventHandler>();
-        builder.Services.AddTransient<INotificationHandler<UserRemoveEvent>, RemoveUserCommandEventHandler>();
         builder.Services.AddTransient<IRequestHandler<RegisterUserCommand, OperationResult<IdentityUserDto>>, RegisterUserCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<GetCurrentUserQuery, OperationResult<IdentityUserDto>>, GetCurrentUserQueryHandler>();
         builder.Services.AddTransient<IRequestHandler<LoginCommand, OperationResult<IdentityUserDto>>, LoginCommandHandler>();

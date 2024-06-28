@@ -35,7 +35,12 @@ public class MongoRepository<T> : IReadRepository<T> where T : class
 
     public async Task RemoveAsync(Guid id)
     {
-        await _collection.DeleteOneAsync(Builders<T>.Filter.Eq("Id", id));
+        var result = await _collection.DeleteOneAsync(Builders<T>.Filter.Eq("Id", id));
+
+        if (result.DeletedCount == 0)
+        {
+            throw new Exception($"Not found Id {id}");
+        }
     }
 
     public async Task UpdateAsync(Guid id, T entity)

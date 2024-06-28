@@ -1,8 +1,8 @@
-﻿namespace E.API.Contracts.Brands.Responses;
+﻿using E.Domain.Entities;
 
-public class BrandResponse
+namespace E.API.Contracts.Brands.Responses;
+
+public class BrandResponse : BaseEntity
 {
-    public Guid BrandId { get; set; }
-
     public string BrandName { get; set; }
 }

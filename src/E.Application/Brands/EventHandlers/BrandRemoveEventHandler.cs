@@ -1,8 +1,10 @@
-﻿using E.Application.Models;
-using E.DAL.UoW;
+﻿using E.DAL.UoW;
 using E.Domain.Entities.Brand;
 using E.Domain.Entities.Brands.Events;
 using MediatR;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace E.Application.Brands.EventHandlers;
 
@@ -12,11 +14,17 @@ public class BrandRemoveEventHandler : INotificationHandler<BrandRemoveEvent>
 
     public BrandRemoveEventHandler(IReadUnitOfWork readUnitOfWork)
     {
-        _readUnitOfWork = readUnitOfWork;
+        _readUnitOfWork = readUnitOfWork ?? throw new ArgumentNullException(nameof(readUnitOfWork));
     }
 
     public async Task Handle(BrandRemoveEvent notification, CancellationToken cancellationToken)
     {
-        await _readUnitOfWork.Users.RemoveAsync(notification.BrandId);
+            var existingBrand = await _readUnitOfWork.Brands.FirstOrDefaultAsync(
+                b => b.Id == notification.BrandId);
+
+            if (existingBrand != null)
+            {
+                await _readUnitOfWork.Brands.RemoveAsync(existingBrand.Id);
+            }
     }
 }
