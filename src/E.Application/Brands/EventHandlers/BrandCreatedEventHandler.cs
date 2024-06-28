@@ -5,29 +5,24 @@ using MediatR;
 
 namespace E.Application.Brands.EventHandlers;
 
-public class BrandCreatedEventHandler : INotificationHandler<BrandCreatedAndUpdateEvent>
+public class CategoryCreatedEventHandler : INotificationHandler<BrandCreateEvent>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
 
-    public BrandCreatedEventHandler(IReadUnitOfWork readUnitOfWork)
+    public CategoryCreatedEventHandler(IReadUnitOfWork readUnitOfWork)
     {
         _readUnitOfWork = readUnitOfWork;
     }
 
-    public async Task Handle(BrandCreatedAndUpdateEvent notification,
+    public async Task Handle(BrandCreateEvent notification,
         CancellationToken cancellationToken)
     {
-        var existingBrand = _readUnitOfWork.Brands.FirstOrDefaultAsync(
-            b => b.Id == notification.BrandId);
-        if (existingBrand.Result == null)
+        var brand = new Brand
         {
-            var brand = new Brand
-            {
-                Id = notification.BrandId,
-                BrandName = notification.BrandName
-            };
+            Id = notification.Id,
+            BrandName = notification.BrandName
+        };
 
-            await _readUnitOfWork.Brands.AddAsync(brand);
-        }
+        await _readUnitOfWork.Brands.AddAsync(brand);
     }
 }

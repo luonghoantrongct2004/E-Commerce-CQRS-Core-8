@@ -11,6 +11,7 @@ public class BrandMapping : Profile
     public BrandMapping()
     {
         CreateMap<Brand, BrandResponse>();
+        CreateMap<BrandCreate, CreateBrandCommand>();
         CreateMap<BrandUpdate, UpdateBrandCommand>();
     }
 }

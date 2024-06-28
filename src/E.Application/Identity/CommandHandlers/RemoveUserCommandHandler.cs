@@ -37,6 +37,7 @@ public class RemoveUserCommandHandler : IRequestHandler<RemoveUserCommand, Opera
                     IdentityErrorMessages.NonExistentIdentityUser);
                 return result;
             }
+            userProfile.DeleteUser(request.IdentityUserId);
             _unitOfWork.Users.Remove(userProfile);
 
             var userEvent = new UserRemoveEvent(request.IdentityUserId);

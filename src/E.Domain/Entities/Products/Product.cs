@@ -5,6 +5,7 @@ using E.Domain.Exceptions;
 using E.Domain.Models;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using E.Domain.Entities.Brand.BrandValidators;
 
 namespace E.Domain.Entities.Products;
 
@@ -38,10 +39,27 @@ public class Product : BaseEntity
     public IEnumerable<E.Domain.Entities.Comment.Comment>? Comments { get; set; }
     public ICollection<Orderdetail> Orderdetails { get; set; } = new List<Orderdetail>();
 
+    private readonly ProductValidator _validator;
+    public Product()
+    {
+        _validator = new ProductValidator();
+    }
+    private void ValidateAndThrow()
+    {
+        var validationResult = _validator.Validate(this);
+        if (!validationResult.IsValid)
+        {
+            var exception = new BrandInvalidException($"{validationResult}");
+            foreach (var error in validationResult.Errors)
+            {
+                exception.ValidationErrors.Add($"Field {error.PropertyName}: {error.ErrorMessage}");
+            }
+            throw exception;
+        }
+    }
     public static Product CreateProduct(string productName, string description, int price, List<string> images,
         Guid categoryId, Guid brandId, int stockQuantity, int discount)
     {
-        var validator = new ProductValidator();
         var objectToValidate = new Product
         {
             Id = Guid.NewGuid(),
@@ -55,14 +73,9 @@ public class Product : BaseEntity
             Discount = discount,
             CreatedAt = DateTime.UtcNow
         };
-        var validationResult = validator.Validate(objectToValidate);
-        if (validationResult.IsValid) return objectToValidate;
-        var exception = new ProductInvalidException($"{validationResult}");
-        foreach (var error in validationResult.Errors)
-        {
-            exception.ValidationErrors.Add($"Field {error.PropertyName}: {error.ErrorMessage}");
-        }
-        throw exception;
+        objectToValidate.ValidateAndThrow();
+
+        return objectToValidate;
     }
     public void UpdateProduct(string productName, string? description, int price, List<string>? images,
            Guid categoryId, Guid brandId, int stockQuantity, int discount)
@@ -76,31 +89,11 @@ public class Product : BaseEntity
         StockQuantity = stockQuantity;
         Discount = discount;
 
-        var validator = new ProductValidator();
-        var validationResult = validator.Validate(this);
-        if (!validationResult.IsValid)
-        {
-            var exception = new ProductInvalidException($"{validationResult}");
-            foreach (var error in validationResult.Errors)
-            {
-                exception.ValidationErrors.Add($"Field {error.PropertyName}: {error.ErrorMessage}");
-            }
-            throw exception;
-        }
+        ValidateAndThrow();
     }
     public void DeleteProduct(Guid productId)
     {
         Id = productId;
-        var validator = new ProductValidator();
-        var validationResult = validator.Validate(this);
-        if (!validationResult.IsValid)
-        {
-            var exception = new ProductInvalidException($"{validationResult}");
-            foreach (var error in validationResult.Errors)
-            {
-                exception.ValidationErrors.Add($"Field {error.PropertyName}: {error.ErrorMessage}");
-            }
-            throw exception;
-        }
+        ValidateAndThrow();
     }
 }

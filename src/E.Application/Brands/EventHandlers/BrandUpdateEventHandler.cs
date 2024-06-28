@@ -1,13 +1,13 @@
-﻿using E.Application.Enums;
+﻿using E.Application.Brands.Events;
+using E.Application.Enums;
 using E.Application.Models;
 using E.DAL.UoW;
 using E.Domain.Entities.Brand;
-using E.Domain.Entities.Brands.Events;
 using MediatR;
 
 namespace E.Application.Brands.EventHandlers;
 
-public class BrandUpdateEventHandler : INotificationHandler<BrandCreatedAndUpdateEvent>
+public class BrandUpdateEventHandler : INotificationHandler<BrandUpdateEvent>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
 
@@ -16,12 +16,12 @@ public class BrandUpdateEventHandler : INotificationHandler<BrandCreatedAndUpdat
         _readUnitOfWork = readUnitOfWork;
     }
 
-    public async Task Handle(BrandCreatedAndUpdateEvent notification,
+    public async Task Handle(BrandUpdateEvent notification,
         CancellationToken cancellationToken)
     {
         var result = new OperationResult<Brand>();
         var existingBrand = await _readUnitOfWork.Brands.FirstOrDefaultAsync(
-            b => b.Id == notification.BrandId);
+            b => b.Id == notification.Id);
         if (existingBrand != null)
         {
             existingBrand.BrandName = notification.BrandName;
@@ -31,7 +31,7 @@ public class BrandUpdateEventHandler : INotificationHandler<BrandCreatedAndUpdat
         else
         {
             result.AddError(ErrorCode.NotFound,
-                   string.Format(BrandErrorMessage.BrandNotFound, notification.BrandId));
+                   string.Format(BrandErrorMessage.BrandNotFound, notification.Id));
         }
     }
 }

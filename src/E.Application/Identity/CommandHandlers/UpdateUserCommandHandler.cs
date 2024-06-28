@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
 using E.Application.Enums;
 using E.Application.Identity.Commands;
+using E.Application.Identity.Events;
 using E.Application.Models;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using E.Domain.Entities.Users;
 using E.Domain.Entities.Users.Dto;
-using E.Domain.Entities.Users.Events;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Principal;
 
 namespace E.Application.Identity.CommandHandlers;
 
@@ -58,7 +57,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Opera
             );
             _unitOfWork.Users.Update(identityUser);
 
-            var userEvent = new UserRegisterAndUpdateEvent(identityUser.Id, request.Username, request.Password,
+            var userEvent = new UserUpdateEvent(identityUser.Id, request.Username, request.Password,
                 request.FullName, request.CreatedDate, request.Avatar, request.Address, request.CurrentCity);
             await _eventPublisher.PublishAsync(userEvent);
 

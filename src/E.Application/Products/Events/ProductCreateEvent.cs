@@ -1,14 +1,10 @@
 ﻿using MediatR;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
 
 namespace E.Domain.Entities.Products.Events;
 
-public class ProductCreateAndUpdateEvent: INotification
+public class ProductCreateEvent : BaseEntity, INotification
 {
-    [BsonRepresentation(BsonType.String)]
-    public Guid ProductId { get; set; }
     public string ProductName { get; set; }
 
     public string? Description { get; set; }
@@ -30,10 +26,10 @@ public class ProductCreateAndUpdateEvent: INotification
     [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
     public int Discount { get; set; }
 
-    public ProductCreateAndUpdateEvent(Guid productId, string productName, string description, int price,
-        List<string> images, Guid categoryId,Guid brandId, int stockQuantity, int discount, DateTime createAt)
+    public ProductCreateEvent(Guid productId, string productName, string description, int price,
+        List<string> images, Guid categoryId, Guid brandId, int stockQuantity, int discount, DateTime createAt)
     {
-        ProductId = productId;
+        Id = productId;
         ProductName = productName;
         Description = description;
         Price = price;

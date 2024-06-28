@@ -1,11 +1,13 @@
-﻿using E.DAL.UoW;
+﻿using E.Application.Enums;
+using E.Application.Identity.Events;
+using E.Application.Models;
+using E.DAL.UoW;
 using E.Domain.Entities.Users;
-using E.Domain.Entities.Users.Events;
 using MediatR;
 
 namespace E.Application.Identity.EventHandlers;
 
-public class UpdateUserCommandEventHandler : INotificationHandler<UserRegisterAndUpdateEvent>
+public class UpdateUserCommandEventHandler : INotificationHandler<UserUpdateEvent>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
 
@@ -14,9 +16,10 @@ public class UpdateUserCommandEventHandler : INotificationHandler<UserRegisterAn
         _readUnitOfWork = readUnitOfWork;
     }
 
-    public async Task Handle(UserRegisterAndUpdateEvent notification, 
+    public async Task Handle(UserUpdateEvent notification,
         CancellationToken cancellationToken)
     {
+        var result = new OperationResult<DomainUser>();
         var existingUser = await _readUnitOfWork.Users.FirstOrDefaultAsync(
             u => u.Id == notification.UserId);
 
@@ -34,7 +37,8 @@ public class UpdateUserCommandEventHandler : INotificationHandler<UserRegisterAn
         }
         else
         {
-            throw new Exception($"User not match Id {notification.UserId}");
+            result.AddError(ErrorCode.NotFound,
+            string.Format(UserErrorMessage.UserNotFound, notification.UserId));
         }
     }
 }

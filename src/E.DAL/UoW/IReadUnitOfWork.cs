@@ -12,4 +12,5 @@ public interface IReadUnitOfWork
     IReadRepository<Category> Categories { get; }
     IReadRepository<Brand> Brands { get; }
     IReadRepository<UserMongo> Users { get; }
+    object Category { get; }
 }

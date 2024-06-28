@@ -1,4 +1,4 @@
-﻿using E.API.Registrars.RegistrarBase;
+﻿using E.API.Registrars.RegistrarGeneric;
 using E.Application.Identity.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;

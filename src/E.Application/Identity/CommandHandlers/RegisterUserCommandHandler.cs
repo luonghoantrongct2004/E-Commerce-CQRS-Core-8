@@ -49,7 +49,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
 
             if (_result.IsError) return _result;
 
-            var userEvent = new UserRegisterAndUpdateEvent(identity.Id, identity.UserName,
+            var userEvent = new UserRegisterEvent(identity.Id, identity.UserName,
                 identity.PasswordHash, identity.FullName, identity.CreatedDate, 
                 identity.Avatar,identity.Address, identity.CurrentCity);
             await _eventPublisher.PublishAsync(userEvent);

@@ -9,38 +9,44 @@ public class Brand : BaseEntity
     public string BrandName { get; set; }
     public ICollection<Product> Products { get; set; } = new List<Product>();
 
-    public static Brand CreateBrand(string brandName)
+    private readonly BrandValidator _validator;
+    public Brand()
     {
-        var validator = new BrandValidator();
-        var objectToValidate = new Brand
-        {
-            Id = Guid.NewGuid(),
-            BrandName = brandName,
-        };
-        var validationResult = validator.Validate(objectToValidate);
-        if (validationResult.IsValid) return objectToValidate;
-        var exception = new BrandInvalidException($"{validationResult}");
-        foreach (var error in validationResult.Errors)
-        {
-            exception.ValidationErrors.Add($"Field {error.PropertyName}: {error.ErrorMessage}");
-        }
-        throw exception;
+        _validator = new BrandValidator();
     }
-
-    public void UpdateBrand(string brandName)
+    private void ValidateAndThrow()
     {
-        BrandName = brandName;
-
-        var validator = new BrandValidator();
-        var validationResult = validator.Validate(this);
+        var validationResult = _validator.Validate(this);
         if (!validationResult.IsValid)
         {
-            var exception = new ProductInvalidException($"{validationResult}");
+            var exception = new BrandInvalidException($"{validationResult}");
             foreach (var error in validationResult.Errors)
             {
                 exception.ValidationErrors.Add($"Field {error.PropertyName}: {error.ErrorMessage}");
             }
             throw exception;
         }
+    }
+    public static Brand CreateBrand(string brandName)
+    {
+        var objectToValidate = new Brand
+        {
+            Id = Guid.NewGuid(),
+            BrandName = brandName,
+        };
+        objectToValidate.ValidateAndThrow();
+
+        return objectToValidate;
+    }
+
+    public void UpdateBrand(string brandName)
+    {
+        BrandName = brandName;
+        ValidateAndThrow();
+    }
+    public void DeleteBrand(Guid brandId)
+    {
+        Id = brandId;
+        ValidateAndThrow();
     }
 }

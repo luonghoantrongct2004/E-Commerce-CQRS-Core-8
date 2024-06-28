@@ -1,4 +1,4 @@
-﻿using E.API.Registrars.RegistrarBase;
+﻿using E.API.Registrars.RegistrarGeneric;
 using E.DAL;
 using E.Domain;
 using E.Domain.Entities.Users;

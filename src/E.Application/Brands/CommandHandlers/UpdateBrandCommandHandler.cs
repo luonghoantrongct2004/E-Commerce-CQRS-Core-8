@@ -1,10 +1,10 @@
 ﻿using E.Application.Brands.Commands;
+using E.Application.Brands.Events;
 using E.Application.Enums;
 using E.Application.Models;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using E.Domain.Entities.Brand;
-using E.Domain.Entities.Brands.Events;
 using MediatR;
 
 namespace E.Application.Brands.CommandHandlers;
@@ -19,6 +19,7 @@ public class UpdateBrandCommandHandler : IRequestHandler<UpdateBrandCommand, Ope
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
     }
+
     public async Task<OperationResult<Brand>> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
     {
         var result = new OperationResult<Brand>();
@@ -28,19 +29,13 @@ public class UpdateBrandCommandHandler : IRequestHandler<UpdateBrandCommand, Ope
 
             var brand = await _unitOfWork.Brands.FirstOrDefaultAsync(
                 b => b.Id == request.Id);
-            if(brand is null)
+            if (brand is null)
             {
                 result.AddError(ErrorCode.NotFound,
                     string.Format(BrandErrorMessage.BrandNotFound, request.Id));
             }
-            if(brand.Id != request.Id)
-            {
-                result.AddError(ErrorCode.PostDeleteNotPossible,
-                    BrandErrorMessage.BrandDeleteNotPossible);
-                return result;
-            }
-            brand.UpdateBrand(brandName : request.BrandName);
-            var brandEvent = new BrandCreatedAndUpdateEvent(brand.Id, brand.BrandName);
+            brand.UpdateBrand(brandName: request.BrandName);
+            var brandEvent = new BrandUpdateEvent(brand.Id, brand.BrandName);
             await _eventPublisher.PublishAsync(brandEvent);
 
             await _unitOfWork.CommitAsync();

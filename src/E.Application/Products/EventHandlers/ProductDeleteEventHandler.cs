@@ -15,6 +15,6 @@ public class ProductDeleteEventHandler : INotificationHandler<ProductRemoveEvent
     }
     public async Task Handle(ProductRemoveEvent notification, CancellationToken cancellationToken)
     {
-        await _readUnitOfWork.Products.RemoveAsync(notification.ProductId);
+        await _readUnitOfWork.Products.RemoveAsync(notification.Id);
     }
 }

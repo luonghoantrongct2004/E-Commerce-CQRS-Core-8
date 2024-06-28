@@ -34,6 +34,7 @@ public class RemoveBrandCommandHandler : IRequestHandler<RemoveBrandCommand, Ope
                     string.Format(BrandErrorMessage.BrandNotFound, request.BrandId));
                 return result;
             }
+            brand.DeleteBrand(brandId: brand.Id);
             _unitOfWork.Brands.Remove(brand);
             var brandEvent = new BrandRemoveEvent(request.BrandId);
             await _eventPublisher.PublishAsync(brandEvent);

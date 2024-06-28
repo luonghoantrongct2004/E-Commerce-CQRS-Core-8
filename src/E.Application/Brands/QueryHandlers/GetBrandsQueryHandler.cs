@@ -6,7 +6,7 @@ using MediatR;
 
 namespace E.Application.Brands.QueryHandlers;
 
-public class GetBrandsQueryHandler 
+public class GetBrandsQueryHandler
     : IRequestHandler<GetBrandsQuery, OperationResult<IEnumerable<Brand>>>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;

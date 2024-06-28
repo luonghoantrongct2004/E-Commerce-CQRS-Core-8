@@ -1,20 +1,17 @@
 ﻿using E.API.Contracts.Common;
-using E.API.Registrars.RegistrarBase;
+using E.API.Registrars.RegistrarGeneric;
 using E.Application.Brands.CommandHandlers;
 using E.Application.Brands.Commands;
-using E.Application.Brands.EventHandlers;
 using E.Application.Categories.CommandHanlders;
 using E.Application.Categories.Commands;
 using E.Application.Identity.CommandHandlers;
 using E.Application.Identity.Commands;
-using E.Application.Identity.EventHandlers;
 using E.Application.Identity.Options;
 using E.Application.Identity.Queries;
 using E.Application.Identity.QueryHandlers;
 using E.Application.Models;
 using E.Application.Products.CommandHandlers;
 using E.Application.Products.Commands;
-using E.Application.Products.EventHandlers;
 using E.Application.Products.Queries;
 using E.Application.Products.QueryHandlers;
 using E.Application.Services;
@@ -22,13 +19,9 @@ using E.DAL.EventPublishers;
 using E.DAL.Repository;
 using E.DAL.UoW;
 using E.Domain.Entities.Brand;
-using E.Domain.Entities.Brands.Events;
 using E.Domain.Entities.Categories;
-using E.Domain.Entities.Categories.Events;
 using E.Domain.Entities.Products;
-using E.Domain.Entities.Products.Events;
 using E.Domain.Entities.Users.Dto;
-using E.Domain.Entities.Users.Events;
 using MediatR;
 
 namespace E.API.Registrars.DependencyInjection;
@@ -51,7 +44,7 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
         builder.Services.AddTransient<IRequestHandler<GetAllProducts, OperationResult<IEnumerable<Product>>>, GetAllProductQueryHandler>();
         builder.Services.AddTransient<IRequestHandler<GetProductById, OperationResult<Product>>, GetProductByIdQueryHandler>();
         builder.Services.AddTransient<IRequestHandler<CreateProductCommand, OperationResult<Product>>, CreateProductCommandHandler>();
-        builder.Services.AddTransient<IRequestHandler<DeleteProductCommand, OperationResult<Product>>, DeleteProductCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<RemoveProductCommand, OperationResult<Product>>, RemoveProductCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<UpdateProductCommand, OperationResult<Product>>, UpdateProductCommandHandler>();
 
         builder.Services.AddTransient<IRequestHandler<CreateBrandCommand, OperationResult<Brand>>, CreateBrandCommandHandler>();

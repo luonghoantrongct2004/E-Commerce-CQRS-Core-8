@@ -5,20 +5,20 @@ using MediatR;
 
 namespace E.Application.Products.EventHandlers;
 
-public class ProductEventHandler : INotificationHandler<ProductCreateAndUpdateEvent>
+public class ProductCreateEventHandler : INotificationHandler<ProductCreateEvent>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
 
-    public ProductEventHandler(IReadUnitOfWork readUnitOfWork)
+    public ProductCreateEventHandler(IReadUnitOfWork readUnitOfWork)
     {
         _readUnitOfWork = readUnitOfWork;
     }
 
-    public async Task Handle(ProductCreateAndUpdateEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(ProductCreateEvent notification, CancellationToken cancellationToken)
     {
         var product = new Product
         {
-            Id = notification.ProductId,
+            Id = notification.Id,
             ProductName = notification.ProductName,
             Description = notification.Description,
             Price = notification.Price,

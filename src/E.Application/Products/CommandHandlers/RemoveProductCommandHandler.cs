@@ -9,32 +9,32 @@ using MediatR;
 
 namespace E.Application.Products.CommandHandlers;
 
-public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, OperationResult<Product>>
+public class RemoveProductCommandHandler : IRequestHandler<RemoveProductCommand, OperationResult<Product>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
 
-    public DeleteProductCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
+    public RemoveProductCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
     }
 
-    public async Task<OperationResult<Product>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<Product>> Handle(RemoveProductCommand request, CancellationToken cancellationToken)
     {
         var result = new OperationResult<Product>();
         try
         {
             await _unitOfWork.BeginTransactionAsync();
 
-            var product = await _unitOfWork.Products.FirstOrDefaultAsync(p => p.Id.Equals(request.ProductId));
+            var product = await _unitOfWork.Products.FirstOrDefaultAsync(p => p.Id.Equals(request.Id));
             if (product is null)
             {
                 result.AddError(ErrorCode.NotFound,
-                    string.Format(ProductErrorMessage.ProductNotFound, request.ProductId));
+                    string.Format(ProductErrorMessage.ProductNotFound, request.Id));
                 return result;
             }
-            if (product.Id != request.ProductId)
+            if (product.Id != request.Id)
             {
                 result.AddError(ErrorCode.PostDeleteNotPossible, ProductErrorMessage.ProductDeleteNotPossible);
                 return result;

@@ -15,6 +15,16 @@ public class ReadUnitOfWork : IReadUnitOfWork
 
     public IReadRepository<UserMongo> Users { get; }
 
+    IReadRepository<Product> IReadUnitOfWork.Products => throw new NotImplementedException();
+
+    IReadRepository<Category> IReadUnitOfWork.Categories => throw new NotImplementedException();
+
+    IReadRepository<Brand> IReadUnitOfWork.Brands => throw new NotImplementedException();
+
+    IReadRepository<UserMongo> IReadUnitOfWork.Users => throw new NotImplementedException();
+
+    object IReadUnitOfWork.Category => throw new NotImplementedException();
+
     public ReadUnitOfWork(IMongoDatabase database)
     {
         Products = new MongoRepository<Product>(database, "Products");

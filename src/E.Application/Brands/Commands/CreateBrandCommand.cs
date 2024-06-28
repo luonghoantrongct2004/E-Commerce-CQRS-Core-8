@@ -4,7 +4,7 @@ using MediatR;
 
 namespace E.Application.Brands.Commands;
 
-public class CreateBrandCommand:IRequest<OperationResult<Brand>>
+public class CreateBrandCommand : IRequest<OperationResult<Brand>>
 {
     public string BrandName { get; set; }
 }

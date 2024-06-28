@@ -23,7 +23,7 @@ public class BrandController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Gets()
     {
         var query = new GetBrandsQuery();
         var response = await _mediator.Send(query);
@@ -32,9 +32,9 @@ public class BrandController : BaseController
     }
 
     [HttpGet(ApiRoutes.IdRoute)]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> Get(Guid id)
     {
-        var query = new GetBrandQuery { BrandId = id };
+        var query = new GetBrandQuery { Id = id };
         var response = await _mediator.Send(query);
         var brand = _mapper.Map<BrandResponse>(response.Payload);
         return Ok(brand);
@@ -44,14 +44,11 @@ public class BrandController : BaseController
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Post([FromBody] BrandCreate newBrand)
     {
-        var command = new CreateBrandCommand
-        {
-            BrandName = newBrand.BrandName
-        };
-        var result = await _mediator.Send(command);
-        var mapped = _mapper.Map<BrandResponse>(result.Payload);
-        return result.IsError ? HandleErrorResponse(result.Errors)
-                : CreatedAtAction(nameof(GetById), new { id = mapped.Id }, mapped);
+        var command = _mapper.Map<CreateBrandCommand>(newBrand);
+        var response = await _mediator.Send(command);
+        var mapped = _mapper.Map<BrandResponse>(response.Payload);
+        return response.IsError ? HandleErrorResponse(response.Errors)
+                : CreatedAtAction(nameof(Get), new { id = mapped.Id }, mapped);
     }
 
     [HttpPut(ApiRoutes.Brand.Update)]
@@ -70,9 +67,9 @@ public class BrandController : BaseController
     public async Task<IActionResult> Delete(Guid id)
     {
         var command = new RemoveBrandCommand { BrandId = id };
-        var result = await _mediator.Send(command);
+        var response = await _mediator.Send(command);
 
-        if (result.IsError) return HandleErrorResponse(result.Errors);
+        if (response.IsError) return HandleErrorResponse(response.Errors);
 
         return NoContent();
     }

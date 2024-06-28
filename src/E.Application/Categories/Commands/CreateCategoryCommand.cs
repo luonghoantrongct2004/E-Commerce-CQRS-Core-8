@@ -4,7 +4,7 @@ using MediatR;
 
 namespace E.Application.Categories.Commands;
 
-public class CreateCategoryCommand:IRequest<OperationResult<Category>>
+public class CreateCategoryCommand : IRequest<OperationResult<Category>>
 {
     public string CategoryName { get; set; }
 }

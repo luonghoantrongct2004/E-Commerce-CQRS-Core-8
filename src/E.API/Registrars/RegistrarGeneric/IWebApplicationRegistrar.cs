@@ -1,4 +1,4 @@
-﻿namespace E.API.Registrars.RegistrarBase;
+﻿namespace E.API.Registrars.RegistrarGeneric;
 
 public interface IWebApplicationRegistrar : IRegistrar
 {

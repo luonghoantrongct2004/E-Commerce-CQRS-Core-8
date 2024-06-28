@@ -1,4 +1,5 @@
 ﻿using E.Application.Models;
+using E.Domain.Entities;
 using E.Domain.Entities.Products;
 using MediatR;
 using MongoDB.Bson;
@@ -7,10 +8,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace E.Application.Products.Commands;
 
-public class UpdateProductCommand : IRequest<OperationResult<Product>>
+public class UpdateProductCommand : BaseEntity, IRequest<OperationResult<Product>>
 {
-    public Guid ProductId { get; set; }
-
     public string ProductName { get; set; }
 
     public string? Description { get; set; }

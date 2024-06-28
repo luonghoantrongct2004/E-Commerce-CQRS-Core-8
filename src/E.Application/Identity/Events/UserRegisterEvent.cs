@@ -1,13 +1,10 @@
 ﻿using MediatR;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
 
 namespace E.Domain.Entities.Users.Events;
 
-public class UserRegisterAndUpdateEvent : INotification
+public class UserRegisterEvent : INotification
 {
-    [BsonRepresentation(BsonType.String)]
     public Guid UserId { get; set; }
     public string Username { get; set; }
     public string PasswordHash { get; set; }
@@ -20,7 +17,7 @@ public class UserRegisterAndUpdateEvent : INotification
     public string? Address { get; set; }
     public string? CurrentCity { get; set; }
 
-    public UserRegisterAndUpdateEvent(Guid userId, string username,
+    public UserRegisterEvent(Guid userId, string username,
         string passwordHash, string fullName, DateTime createdDate,
         string? avatar, string? address, string? currentCity)
     {

@@ -27,7 +27,6 @@ public class CategoryCreateCommandHandler : IRequestHandler<CreateCategoryComman
             await _unitOfWork.BeginTransactionAsync();
             var category = Category.CreateCategory(request.CategoryName);
             await _unitOfWork.Categories.AddAsync(category);
-            await _unitOfWork.CompleteAsync();
 
             var categoryCreateEvent = new CategoryCreateEvent(category.Id, category.CategoryName);
             await _eventPublisher.PublishAsync(categoryCreateEvent);
@@ -38,6 +37,7 @@ public class CategoryCreateCommandHandler : IRequestHandler<CreateCategoryComman
         }
         catch (Exception e)
         {
+            await _unitOfWork.RollbackAsync();
             result.AddUnknownError(e.Message);
         }
 

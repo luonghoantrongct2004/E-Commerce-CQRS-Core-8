@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using E.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace E.API.Contracts.Products.Requests;
 
-public class ProductUpdate
+public class ProductUpdate : BaseEntity
 {
     public string ProductName { get; set; }
 

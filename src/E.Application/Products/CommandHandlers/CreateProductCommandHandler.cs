@@ -19,7 +19,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         _eventPublisher = eventPublisher;
     }
 
-    public async Task<OperationResult<Product>> Handle(CreateProductCommand request, 
+    public async Task<OperationResult<Product>> Handle(CreateProductCommand request,
         CancellationToken cancellationToken)
     {
         var result = new OperationResult<Product>();
@@ -27,20 +27,13 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         {
             await _unitOfWork.BeginTransactionAsync();
 
-            var product = Product.CreateProduct(
-                request.ProductName,
-                request.Description,
-                request.Price,
-                request.Images,
-                request.CategoryId,
-                request.BrandId,
-                request.StockQuantity,
-                request.Discount
-                );
+            var product = Product.CreateProduct(request.ProductName,request.Description,
+                request.Price,request.Images,request.CategoryId,request.BrandId,
+                request.StockQuantity,request.Discount);
 
             await _unitOfWork.Products.AddAsync(product);
 
-            var productEvent = new ProductCreateAndUpdateEvent(product.Id, product.ProductName,
+            var productEvent = new ProductCreateEvent(product.Id, product.ProductName,
                 product.Description, product.Price, product.Images, product.CategoryId,
                 product.BrandId, product.StockQuantity, product.Discount, product.CreatedAt);
             await _eventPublisher.PublishAsync(productEvent);
