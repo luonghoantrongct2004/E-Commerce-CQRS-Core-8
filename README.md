@@ -10,13 +10,13 @@ Command Query Responsibility Segregation (CQRS): Separates read and write operat
 
 ✨ Technologies ✨ 
 
-ASP.NET Core 8
-AutoMapper (Automatic mapping)
-FluentValidator (Data validation)
-MediatR (Request/response pipeline)
-Swagger UI  (API documentation)
-SQL Server (Write side)
-MongoDB (Read side)
+- ASP.NET Core 8
+- AutoMapper (Automatic mapping)
+- FluentValidator (Data validation)
+- MediatR (Request/response pipeline)
+- Swagger UI  (API documentation)
+- SQL Server (Write side)
+- MongoDB (Read side)
 
 ⚡ Architecture ⚡
 src
@@ -103,11 +103,11 @@ src
 │       │       └───UserValidators
 │       ├───Exceptions
 
-SOLID Principles (Software design principles)
-Clean Code Practices (Maintainable code)
-Domain-Driven Design (DDD) (Modeling complex business logic)
-Domain Events, Notifications, Validations (Enriching domain logic)
-Unit of Work, Repository Pattern, Result Pattern (Data access and handling)
+- SOLID Principles (Software design principles)
+- Clean Code Practices (Maintainable code)
+- Domain-Driven Design (DDD) (Modeling complex business logic)
+- Domain Events, Notifications, Validations (Enriching domain logic)
+- Unit of Work, Repository Pattern, Result Pattern (Data access and handling)
 
 🌟 Give it a Star 🌟
 💖 Hoan Trong thanks very much 💖
