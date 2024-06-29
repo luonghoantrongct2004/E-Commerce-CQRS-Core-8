@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E.API", "src\E.API\E.API.cs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E.Application", "src\E.Application\E.Application.csproj", "{AF5343F7-BF0C-4860-8DB5-C88834BF1F5A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E.DAL", "src\E.DAL\E.DAL.csproj", "{E9BC62F9-477A-4FB5-921D-6508C18EF717}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E.Infrastructure", "src\E.DAL\E.Infrastructure.csproj", "{E9BC62F9-477A-4FB5-921D-6508C18EF717}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E.Domain", "src\E.Domain\E.Domain.csproj", "{778A2F34-729D-4B20-B4EA-621835E76B19}"
 EndProject

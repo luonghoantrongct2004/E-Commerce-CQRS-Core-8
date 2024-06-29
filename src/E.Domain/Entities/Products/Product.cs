@@ -2,10 +2,10 @@
 using E.Domain.Entities.Categories;
 using E.Domain.Entities.Products.ProductValidators;
 using E.Domain.Exceptions;
-using E.Domain.Models;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 using E.Domain.Entities.Brand.BrandValidators;
+using E.Domain.Entities.Orders;
 
 namespace E.Domain.Entities.Products;
 

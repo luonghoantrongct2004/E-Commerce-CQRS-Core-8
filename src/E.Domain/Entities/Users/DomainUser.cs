@@ -1,7 +1,8 @@
 ﻿using E.Domain.Entities.Brand.BrandValidators;
+using E.Domain.Entities.Carts;
+using E.Domain.Entities.Orders;
 using E.Domain.Entities.Users.UserValidators;
 using E.Domain.Exceptions;
-using E.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 

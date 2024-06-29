@@ -1441,25 +1441,6 @@
           "lib/net7.0/ZstdSharp.dll": {}
         }
       },
-      "E.DAL/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "E.Domain": "1.0.0",
-          "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.6",
-          "Microsoft.EntityFrameworkCore": "8.0.6",
-          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
-          "MongoDB.Driver": "2.26.0",
-          "Swashbuckle.AspNetCore": "6.6.2"
-        },
-        "compile": {
-          "bin/placeholder/E.DAL.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/E.DAL.dll": {}
-        }
-      },
       "E.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -1476,6 +1457,25 @@
         },
         "runtime": {
           "bin/placeholder/E.Domain.dll": {}
+        }
+      },
+      "E.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "E.Domain": "1.0.0",
+          "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.6",
+          "Microsoft.EntityFrameworkCore": "8.0.6",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
+          "MongoDB.Driver": "2.26.0",
+          "Swashbuckle.AspNetCore": "6.6.2"
+        },
+        "compile": {
+          "bin/placeholder/E.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/E.Infrastructure.dll": {}
         }
       }
     }
@@ -4059,22 +4059,22 @@
         "zstdsharp.port.nuspec"
       ]
     },
-    "E.DAL/1.0.0": {
-      "type": "project",
-      "path": "../E.DAL/E.DAL.csproj",
-      "msbuildProject": "../E.DAL/E.DAL.csproj"
-    },
     "E.Domain/1.0.0": {
       "type": "project",
       "path": "../E.Domain/E.Domain.csproj",
       "msbuildProject": "../E.Domain/E.Domain.csproj"
+    },
+    "E.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../E.DAL/E.Infrastructure.csproj",
+      "msbuildProject": "../E.DAL/E.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
-      "E.DAL >= 1.0.0",
       "E.Domain >= 1.0.0",
+      "E.Infrastructure >= 1.0.0",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 11.1.0",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
@@ -4105,8 +4105,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj": {
-              "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj"
+            "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.Infrastructure.csproj"
             },
             "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {
               "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj"

@@ -27,8 +27,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj": {
-                "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj"
+              "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.Infrastructure.csproj"
               },
               "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj": {
                 "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Domain\\E.Domain.csproj"
@@ -79,12 +79,12 @@
         }
       }
     },
-    "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj": {
+    "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj",
-        "projectName": "E.DAL",
-        "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.Infrastructure.csproj",
+        "projectName": "E.Infrastructure",
+        "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\PREDATOR\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\obj\\",
         "projectStyle": "PackageReference",
