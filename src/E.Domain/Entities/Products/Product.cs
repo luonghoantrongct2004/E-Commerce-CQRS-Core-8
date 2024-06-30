@@ -16,6 +16,8 @@ public class Product : BaseEntity
     public string? Description { get; set; }
     [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
     public int Price { get; set; }
+    [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
+    public decimal UnitPrice { get; set; }
 
     public List<string>? Images { get; set; }
 

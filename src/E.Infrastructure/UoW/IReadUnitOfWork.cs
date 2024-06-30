@@ -1,6 +1,12 @@
 ﻿using E.DAL.Repository;
 using E.Domain.Entities.Brand;
+using E.Domain.Entities.Carts;
 using E.Domain.Entities.Categories;
+using E.Domain.Entities.Comment;
+using E.Domain.Entities.Coupons;
+using E.Domain.Entities.Introductions;
+using E.Domain.Entities.News;
+using E.Domain.Entities.Orders;
 using E.Domain.Entities.Products;
 using E.Domain.Entities.Users;
 
@@ -12,5 +18,10 @@ public interface IReadUnitOfWork
     IReadRepository<Category> Categories { get; }
     IReadRepository<Brand> Brands { get; }
     IReadRepository<UserMongo> Users { get; }
-    object Category { get; }
+    IReadRepository<CartDetails> Carts { get; }
+    IReadRepository<Comment> Comments { get; }
+    IReadRepository<Coupon> Coupons { get; }
+    IReadRepository<Introduction> Introductions { get; }
+    IReadRepository<New> News{ get; }
+    IReadRepository<Order> Orders{ get; }
 }

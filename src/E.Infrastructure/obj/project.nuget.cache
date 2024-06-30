@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "k/rjNyVkahkcUrCX2muL4D9P1wXqzR0E84e/gt7G1LxlLGdybYY0izmyYiILmVvNgNREsDqXyHZC8wHHEw5kSA==",
+  "dgSpecHash": "bF4xvRTCUQrzTZDhc0BPwTxmqDGMM7wygoz4uXKONtxJoabzLlQSyqGP3+nMIhl4lKlcD6+l7szXwU8DvZTX4Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Infrastructure\\E.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PREDATOR\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",

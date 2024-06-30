@@ -5318,8 +5318,8 @@
     },
     "E.Infrastructure/1.0.0": {
       "type": "project",
-      "path": "../E.DAL/E.Infrastructure.csproj",
-      "msbuildProject": "../E.DAL/E.Infrastructure.csproj"
+      "path": "../E.Infrastructure/E.Infrastructure.csproj",
+      "msbuildProject": "../E.Infrastructure/E.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5369,8 +5369,8 @@
             "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Application\\E.Application.csproj": {
               "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Application\\E.Application.csproj"
             },
-            "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.Infrastructure.csproj"
+            "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Infrastructure\\E.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Infrastructure\\E.Infrastructure.csproj"
             }
           }
         }

@@ -1,10 +1,10 @@
 C:\Users\PREDATOR\Downloads\eCormmerce\src\E.Application\bin\Debug\net8.0\E.Application.deps.json
 C:\Users\PREDATOR\Downloads\eCormmerce\src\E.Application\bin\Debug\net8.0\E.Application.dll
 C:\Users\PREDATOR\Downloads\eCormmerce\src\E.Application\bin\Debug\net8.0\E.Application.pdb
-C:\Users\PREDATOR\Downloads\eCormmerce\src\E.Application\bin\Debug\net8.0\E.DAL.dll
 C:\Users\PREDATOR\Downloads\eCormmerce\src\E.Application\bin\Debug\net8.0\E.Domain.dll
-C:\Users\PREDATOR\Downloads\eCormmerce\src\E.Application\bin\Debug\net8.0\E.DAL.pdb
+C:\Users\PREDATOR\Downloads\eCormmerce\src\E.Application\bin\Debug\net8.0\E.Infrastructure.dll
 C:\Users\PREDATOR\Downloads\eCormmerce\src\E.Application\bin\Debug\net8.0\E.Domain.pdb
+C:\Users\PREDATOR\Downloads\eCormmerce\src\E.Application\bin\Debug\net8.0\E.Infrastructure.pdb
 C:\Users\PREDATOR\Downloads\eCormmerce\src\E.Application\obj\Debug\net8.0\E.Application.csproj.AssemblyReference.cache
 C:\Users\PREDATOR\Downloads\eCormmerce\src\E.Application\obj\Debug\net8.0\E.Application.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\PREDATOR\Downloads\eCormmerce\src\E.Application\obj\Debug\net8.0\E.Application.AssemblyInfoInputs.cache

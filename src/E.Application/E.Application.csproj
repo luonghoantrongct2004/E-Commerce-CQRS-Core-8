@@ -13,8 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\E.DAL\E.Infrastructure.csproj" />
     <ProjectReference Include="..\E.Domain\E.Domain.csproj" />
+    <ProjectReference Include="..\E.Infrastructure\E.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Carts\EventHandlers\" />
+    <Folder Include="Carts\QueriesHandlers\" />
   </ItemGroup>
 
 </Project>
