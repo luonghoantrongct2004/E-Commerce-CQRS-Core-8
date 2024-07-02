@@ -1,5 +1,4 @@
-﻿using E.DAL.Repository;
-using E.Domain.Entities.Brand;
+﻿using E.Domain.Entities.Brand;
 using E.Domain.Entities.Carts;
 using E.Domain.Entities.Categories;
 using E.Domain.Entities.Comment;
@@ -9,8 +8,9 @@ using E.Domain.Entities.News;
 using E.Domain.Entities.Orders;
 using E.Domain.Entities.Products;
 using E.Domain.Entities.Users;
+using E.Infrastructure.Repository.Interfaces;
+using E.Infrastructure.Repository.SqlRepositories;
 using Microsoft.EntityFrameworkCore.Storage;
-using System.Xml.Linq;
 
 namespace E.DAL.UoW;
 

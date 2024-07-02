@@ -4,7 +4,7 @@ using MediatR;
 
 namespace E.Application.Carts.Queries;
 
-public class GetCartQuery : IRequest<OperationResult<CartDetails>>
+public class GetCartsQuery : IRequest<OperationResult<IEnumerable<CartDetails>>>
 {
     public Guid UserId { get; set; }
 }

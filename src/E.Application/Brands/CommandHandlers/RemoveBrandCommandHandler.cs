@@ -36,8 +36,8 @@ public class RemoveBrandCommandHandler : IRequestHandler<RemoveBrandCommand, Ope
             }
             brand.DeleteBrand(brandId: brand.Id);
             _unitOfWork.Brands.Remove(brand);
-            var brandEvent = new BrandRemoveEvent(request.BrandId);
-            await _eventPublisher.PublishAsync(brandEvent);
+            var brandDeleteEvent = new BrandRemoveEvent(request.BrandId);
+            await _eventPublisher.PublishAsync(brandDeleteEvent);
 
             await _unitOfWork.CommitAsync();
 

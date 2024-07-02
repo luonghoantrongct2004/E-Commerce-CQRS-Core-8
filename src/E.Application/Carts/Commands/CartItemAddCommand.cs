@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace E.Application.Carts.Commands;
 
-public class AddCartItemCommand : IRequest<OperationResult<CartDetails>>
+public class CartItemAddCommand : IRequest<OperationResult<CartDetails>>
 {
     public Guid CartDetailsId { get; set; }
     public Guid UserId { get; set; }

@@ -2,6 +2,12 @@
 using E.API.Registrars.RegistrarGeneric;
 using E.Application.Brands.CommandHandlers;
 using E.Application.Brands.Commands;
+using E.Application.Brands.Queries;
+using E.Application.Brands.QueryHandlers;
+using E.Application.Carts.CommandHandlers;
+using E.Application.Carts.Commands;
+using E.Application.Carts.Queries;
+using E.Application.Carts.QueriesHandlers;
 using E.Application.Categories.CommandHanlders;
 using E.Application.Categories.Commands;
 using E.Application.Identity.CommandHandlers;
@@ -16,12 +22,15 @@ using E.Application.Products.Queries;
 using E.Application.Products.QueryHandlers;
 using E.Application.Services;
 using E.DAL.EventPublishers;
-using E.DAL.Repository;
 using E.DAL.UoW;
 using E.Domain.Entities.Brand;
+using E.Domain.Entities.Carts;
 using E.Domain.Entities.Categories;
 using E.Domain.Entities.Products;
 using E.Domain.Entities.Users.Dto;
+using E.Infrastructure.Repository.Interfaces;
+using E.Infrastructure.Repository.MongoRepositories;
+using E.Infrastructure.Repository.SqlRepositories;
 using MediatR;
 
 namespace E.API.Registrars.DependencyInjection;
@@ -41,22 +50,46 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
         builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();
         builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(nameof(JwtSettings)));
 
-        builder.Services.AddTransient<IRequestHandler<GetAllProducts, OperationResult<IEnumerable<Product>>>, GetAllProductQueryHandler>();
-        builder.Services.AddTransient<IRequestHandler<GetProductById, OperationResult<Product>>, GetProductByIdQueryHandler>();
-        builder.Services.AddTransient<IRequestHandler<CreateProductCommand, OperationResult<Product>>, CreateProductCommandHandler>();
-        builder.Services.AddTransient<IRequestHandler<RemoveProductCommand, OperationResult<Product>>, RemoveProductCommandHandler>();
-        builder.Services.AddTransient<IRequestHandler<UpdateProductCommand, OperationResult<Product>>, UpdateProductCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<GetAllProducts,
+            OperationResult<IEnumerable<Product>>>, GetAllProductQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<GetProductById,
+            OperationResult<Product>>, GetProductByIdQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<CreateProductCommand,
+            OperationResult<Product>>, CreateProductCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<RemoveProductCommand,
+            OperationResult<Product>>, RemoveProductCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<UpdateProductCommand,
+            OperationResult<Product>>, UpdateProductCommandHandler>();
 
-        builder.Services.AddTransient<IRequestHandler<CreateBrandCommand, OperationResult<Brand>>, CreateBrandCommandHandler>();
-        builder.Services.AddTransient<IRequestHandler<UpdateBrandCommand, OperationResult<Brand>>, UpdateBrandCommandHandler>();
-        builder.Services.AddTransient<IRequestHandler<RemoveBrandCommand, OperationResult<bool>>, RemoveBrandCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<GetBrandsQuery,
+            OperationResult<IEnumerable<Brand>>>, GetBrandsQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<GetBrandQuery,
+            OperationResult<Brand>>, GetBrandQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<CreateBrandCommand,
+            OperationResult<Brand>>, CreateBrandCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<UpdateBrandCommand,
+            OperationResult<Brand>>, UpdateBrandCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<RemoveBrandCommand,
+            OperationResult<bool>>, RemoveBrandCommandHandler>();
 
-        builder.Services.AddTransient<IRequestHandler<CreateCategoryCommand, OperationResult<Category>>, CategoryCreateCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<CreateCategoryCommand,
+            OperationResult<Category>>, CategoryCreateCommandHandler>();
 
         builder.Services.AddMediatR(typeof(RegisterUserCommandHandler).Assembly);
-        builder.Services.AddTransient<IRequestHandler<RegisterUserCommand, OperationResult<IdentityUserDto>>, RegisterUserCommandHandler>();
-        builder.Services.AddTransient<IRequestHandler<GetCurrentUserQuery, OperationResult<IdentityUserDto>>, GetCurrentUserQueryHandler>();
-        builder.Services.AddTransient<IRequestHandler<LoginCommand, OperationResult<IdentityUserDto>>, LoginCommandHandler>();
-        builder.Services.AddTransient<IRequestHandler<RemoveUserCommand, OperationResult<bool>>, RemoveUserCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<RegisterUserCommand,
+            OperationResult<IdentityUserDto>>, RegisterUserCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<GetCurrentUserQuery,
+            OperationResult<IdentityUserDto>>, GetCurrentUserQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<LoginCommand,
+            OperationResult<IdentityUserDto>>, LoginCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<RemoveUserCommand,
+            OperationResult<bool>>, RemoveUserCommandHandler>();
+
+        builder.Services.AddTransient<IRequestHandler<GetCartsQuery,
+            OperationResult<IEnumerable<CartDetails>>>, GetCartsQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<CartItemAddCommand,
+            OperationResult<CartDetails>>, CartItemAddCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<CartItemRemoveCommand,
+            OperationResult<bool>>, CartItemRemoveCommandHandler>();
     }
 }

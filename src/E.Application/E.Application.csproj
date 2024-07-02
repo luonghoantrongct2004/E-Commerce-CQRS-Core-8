@@ -17,9 +17,4 @@
     <ProjectReference Include="..\E.Infrastructure\E.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Carts\EventHandlers\" />
-    <Folder Include="Carts\QueriesHandlers\" />
-  </ItemGroup>
-
 </Project>

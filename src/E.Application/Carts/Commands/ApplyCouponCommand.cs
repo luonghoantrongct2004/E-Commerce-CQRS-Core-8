@@ -9,4 +9,5 @@ public class ApplyCouponCommand : IRequest<OperationResult<CartDetails>>
     public Guid UserId { get; set; }
     public Guid ProductId { get; set; }
     public Guid CouponId { get; set; }
+    public int CartTotal { get; set; }
 }

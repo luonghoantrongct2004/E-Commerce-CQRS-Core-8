@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using E.Infrastructure.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace E.DAL.Repository;
+namespace E.Infrastructure.Repository.SqlRepositories;
 
 public class SqlRepository<T> : IRepository<T> where T : class
 {
@@ -19,10 +20,17 @@ public class SqlRepository<T> : IRepository<T> where T : class
         await _dbSet.AddAsync(entity);
         return entity;
     }
+
+    public async Task<IEnumerable<T>> WhereAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await _dbSet.Where(predicate).ToListAsync();
+    }
+
     public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
     {
         return await _dbSet.FirstOrDefaultAsync(predicate);
     }
+
     public async Task<T> GetByIdAsync(Guid id)
     {
         return await _dbSet.FindAsync(id);
@@ -43,4 +51,3 @@ public class SqlRepository<T> : IRepository<T> where T : class
         _dbSet.Remove(entity);
     }
 }
-

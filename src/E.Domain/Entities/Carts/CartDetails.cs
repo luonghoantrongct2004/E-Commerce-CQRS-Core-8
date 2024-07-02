@@ -14,9 +14,9 @@ public class CartDetails : BaseEntity
     public Guid ProductId { get; set; }
     public int Quantity { get; set; }
 
-    public Product? Product { get; set; }
+    public List<Product> Products { get; set; } = new List<Product>();
 
-    public Guid? CouponId { get; set; }
+    public Guid CouponId { get; set; }
 
     [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
     public decimal CartTotal
@@ -24,7 +24,7 @@ public class CartDetails : BaseEntity
         get
         {
             var discount = Coupon?.DiscountAmount ?? 0;
-            return (Product?.UnitPrice ?? 0) * Quantity - discount;
+            return Products.Sum(p => p.UnitPrice) - discount;
         }
     }
 
@@ -32,7 +32,7 @@ public class CartDetails : BaseEntity
     public virtual DomainUser? User { get; set; }
 
     [ForeignKey(nameof(ProductId))]
-    public virtual Product? Products { get; set; }
+    public virtual Product? Product { get; set; }
 
     [ForeignKey(nameof(CouponId))]
     public virtual Coupon? Coupon { get; set; }

@@ -11,19 +11,19 @@ using MediatR;
 
 namespace E.Application.Carts.CommandHandlers;
 
-public class AddCartItemCommandHandlers : IRequestHandler<AddCartItemCommand,
+public class CartItemAddCommandHandler : IRequestHandler<CartItemAddCommand,
     OperationResult<CartDetails>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
 
-    public AddCartItemCommandHandlers(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
+    public CartItemAddCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
     }
 
-    public async Task<OperationResult<CartDetails>> Handle(AddCartItemCommand request,
+    public async Task<OperationResult<CartDetails>> Handle(CartItemAddCommand request,
         CancellationToken cancellationToken)
     {
         var result = new OperationResult<CartDetails>();
@@ -32,7 +32,7 @@ public class AddCartItemCommandHandlers : IRequestHandler<AddCartItemCommand,
             await _unitOfWork.BeginTransactionAsync();
 
             var user = await _unitOfWork.Users.GetByIdAsync(request.UserId);
-            if (user == null)
+            if (user is null)
             {
                 result.AddError(ErrorCode.NotFound,
                     UserErrorMessage.UserNotFound);
@@ -40,7 +40,7 @@ public class AddCartItemCommandHandlers : IRequestHandler<AddCartItemCommand,
             }
 
             var product = await _unitOfWork.Products.GetByIdAsync(request.ProductId);
-            if (product == null)
+            if (product is null)
             {
                 result.AddError(ErrorCode.NotFound,
                     ProductErrorMessage.ProductNotFound);
@@ -60,7 +60,7 @@ public class AddCartItemCommandHandlers : IRequestHandler<AddCartItemCommand,
                 existingCartItem.Quantity += request.Quantity;
                 _unitOfWork.Carts.Update(existingCartItem);
 
-                var cartUpdateItemEvent = new UpdateCartItemEvent(existingCartItem.UserId,
+                var cartUpdateItemEvent = new CartItemUpdateEvent(existingCartItem.Id,existingCartItem.UserId,
                     existingCartItem.ProductId, existingCartItem.Quantity);
                 await _eventPublisher.PublishAsync(cartUpdateItemEvent);
 
@@ -74,7 +74,7 @@ public class AddCartItemCommandHandlers : IRequestHandler<AddCartItemCommand,
                     request.ProductId, request.Quantity);
                 await _unitOfWork.Carts.AddAsync(cart);
 
-                var cartAddItemEvent = new AddCartItemEvent(cart.Id,
+                var cartAddItemEvent = new CartItemAddEvent(cart.Id,
                     cart.UserId, cart.ProductId, cart.Quantity);
                 await _eventPublisher.PublishAsync(cartAddItemEvent);
 
