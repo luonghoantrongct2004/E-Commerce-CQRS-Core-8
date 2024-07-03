@@ -1,5 +1,4 @@
 ﻿using E.Application.Brands.Commands;
-using E.Application.Brands.Events;
 using E.Application.Models;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
@@ -30,6 +29,7 @@ public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, Ope
             var brand = Brand.CreateBrand(request.BrandName);
 
             await _unitOfWork.Brands.AddAsync(brand);
+            await _unitOfWork.CompleteAsync();
 
             var brandCreatedEvent = new BrandCreateEvent(brand.Id, brand.BrandName);
             await _eventPublisher.PublishAsync(brandCreatedEvent);

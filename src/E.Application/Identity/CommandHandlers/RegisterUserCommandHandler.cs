@@ -5,7 +5,6 @@ using E.Application.Models;
 using E.Application.Services;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
-using E.Domain.Entities.Products;
 using E.Domain.Entities.Users;
 using E.Domain.Entities.Users.Dto;
 using E.Domain.Entities.Users.Events;
@@ -50,8 +49,8 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
             if (_result.IsError) return _result;
 
             var userEvent = new UserRegisterEvent(identity.Id, identity.UserName,
-                identity.PasswordHash, identity.FullName, identity.CreatedDate, 
-                identity.Avatar,identity.Address, identity.CurrentCity);
+                identity.PasswordHash, identity.FullName, identity.CreatedDate,
+                identity.Avatar, identity.Address, identity.CurrentCity);
             await _eventPublisher.PublishAsync(userEvent);
 
             await _unitOfWork.CommitAsync();
@@ -59,7 +58,8 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
             _result.Payload = _mapper.Map<IdentityUserDto>(identity);
             _result.Payload.UserName = identity.Email;
             _result.Payload.Token = GetJwtString(identity);
-        }catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             await _unitOfWork.RollbackAsync();
             _result.AddUnknownError(ex.Message);
@@ -88,7 +88,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
             Address = request.Address,
             CurrentCity = request.CurrentCity,
         };
-        
+
         var createdIdentity = await _userManager.CreateAsync(identity, request.Password);
         if (!createdIdentity.Succeeded)
         {

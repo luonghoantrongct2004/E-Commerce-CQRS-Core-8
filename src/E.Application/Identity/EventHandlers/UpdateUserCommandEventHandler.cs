@@ -19,26 +19,34 @@ public class UpdateUserCommandEventHandler : INotificationHandler<UserUpdateEven
     public async Task Handle(UserUpdateEvent notification,
         CancellationToken cancellationToken)
     {
-        var result = new OperationResult<DomainUser>();
-        var existingUser = await _readUnitOfWork.Users.FirstOrDefaultAsync(
-            u => u.Id == notification.UserId);
-
-        if (existingUser != null)
+        var result = new OperationResult<UserMongo>();
+        try
         {
-            existingUser.UserName = notification.Username;
-            existingUser.PasswordHash = notification.PasswordHash;
-            existingUser.FullName = notification.FullName;
-            existingUser.CreatedDate = notification.CreatedDate;
-            existingUser.Avatar = notification.Avatar;
-            existingUser.Address = notification.Address;
-            existingUser.CurrentCity = notification.CurrentCity;
+            var existingUser = await _readUnitOfWork.Users.FirstOrDefaultAsync(
+                u => u.Id == notification.UserId);
 
-            await _readUnitOfWork.Users.UpdateAsync(existingUser.Id, existingUser);
+            if (existingUser != null)
+            {
+                existingUser.UserName = notification.Username;
+                existingUser.PasswordHash = notification.PasswordHash;
+                existingUser.FullName = notification.FullName;
+                existingUser.CreatedDate = notification.CreatedDate;
+                existingUser.Avatar = notification.Avatar;
+                existingUser.Address = notification.Address;
+                existingUser.CurrentCity = notification.CurrentCity;
+
+                await _readUnitOfWork.Users.UpdateAsync(existingUser.Id, existingUser);
+            }
+            else
+            {
+                result.AddError(ErrorCode.NotFound,
+                string.Format(UserErrorMessage.UserNotFound, notification.UserId));
+            }
         }
-        else
+        catch (Exception ex)
         {
-            result.AddError(ErrorCode.NotFound,
-            string.Format(UserErrorMessage.UserNotFound, notification.UserId));
+            result.AddError(ErrorCode.UnknownError,
+                   ex.Message);
         }
     }
 }

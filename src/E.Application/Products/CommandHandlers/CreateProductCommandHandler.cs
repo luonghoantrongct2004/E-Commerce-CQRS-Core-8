@@ -27,11 +27,12 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         {
             await _unitOfWork.BeginTransactionAsync();
 
-            var product = Product.CreateProduct(request.ProductName,request.Description,
-                request.Price,request.Images,request.CategoryId,request.BrandId,
-                request.StockQuantity,request.Discount);
+            var product = Product.CreateProduct(request.ProductName, request.Description,
+                request.Price, request.Images, request.CategoryId, request.BrandId,
+                request.StockQuantity, request.Discount);
 
             await _unitOfWork.Products.AddAsync(product);
+            await _unitOfWork.CompleteAsync();
 
             var productEvent = new ProductCreateEvent(product.Id, product.ProductName,
                 product.Description, product.Price, product.Images, product.CategoryId,

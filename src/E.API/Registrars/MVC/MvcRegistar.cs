@@ -1,7 +1,4 @@
-﻿using E.API.Registrars.RegistrarGeneric;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
+﻿using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace E.API.Registrars.MVC;
 

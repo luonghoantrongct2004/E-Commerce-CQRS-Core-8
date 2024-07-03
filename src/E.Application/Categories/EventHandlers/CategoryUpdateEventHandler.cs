@@ -20,18 +20,26 @@ public class CategoryUpdateEventHandler : INotificationHandler<CategoryUpdateEve
         CancellationToken cancellationToken)
     {
         var result = new OperationResult<Category>();
-        var existingCategory = await _readUnitOfWork.Categories.FirstOrDefaultAsync(
-            b => b.Id == notification.Id);
-        if (existingCategory != null)
+        try
         {
-            existingCategory.CategoryName = notification.CategoryName;
+            var existingCategory = await _readUnitOfWork.Categories.FirstOrDefaultAsync(
+                b => b.Id == notification.Id);
+            if (existingCategory != null)
+            {
+                existingCategory.CategoryName = notification.CategoryName;
 
-            await _readUnitOfWork.Categories.UpdateAsync(existingCategory.Id, existingCategory);
+                await _readUnitOfWork.Categories.UpdateAsync(existingCategory.Id, existingCategory);
+            }
+            else
+            {
+                result.AddError(ErrorCode.NotFound,
+                       string.Format(CategoryErrorMessage.CategoryNotFound, notification.Id));
+            }
         }
-        else
+        catch (Exception ex)
         {
-            result.AddError(ErrorCode.NotFound,
-                   string.Format(CategoryErrorMessage.CategoryNotFound, notification.Id));
+            result.AddError(ErrorCode.UnknownError,
+                 ex.Message);
         }
     }
 }

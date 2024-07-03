@@ -21,26 +21,34 @@ public class CartItemAddEventHandler : INotificationHandler<CartItemAddEvent>
     public async Task Handle(CartItemAddEvent notification, CancellationToken cancellationToken)
     {
         var result = new OperationResult<CartDetails>();
-        var user = await _readUnitOfWork.Users.GetByIdAsync(notification.UserId);
-        if (user is null)
+        try
         {
-            result.AddError(ErrorCode.NotFound,
-                UserErrorMessage.UserNotFound);
-        }
+            var user = await _readUnitOfWork.Users.GetByIdAsync(notification.UserId);
+            if (user is null)
+            {
+                result.AddError(ErrorCode.NotFound,
+                    UserErrorMessage.UserNotFound);
+            }
 
-        var product = await _readUnitOfWork.Products.GetByIdAsync(notification.ProductId);
-        if (product is null)
-        {
-            result.AddError(ErrorCode.NotFound,
-                ProductErrorMessage.ProductNotFound);
+            var product = await _readUnitOfWork.Products.GetByIdAsync(notification.ProductId);
+            if (product is null)
+            {
+                result.AddError(ErrorCode.NotFound,
+                    ProductErrorMessage.ProductNotFound);
+            }
+            var cart = new CartDetails
+            {
+                Id = notification.Id,
+                ProductId = notification.ProductId,
+                UserId = notification.UserId,
+                Quantity = notification.Quantity,
+            };
+            await _readUnitOfWork.Carts.AddAsync(cart);
         }
-        var cart = new CartDetails
+        catch (Exception ex)
         {
-            Id = notification.CartDetailsId,
-            ProductId = notification.ProductId,
-            UserId = notification.UserId,
-            Quantity = notification.Quantity,
-        };
-        await _readUnitOfWork.Carts.AddAsync(cart);
+            result.AddError(ErrorCode.UnknownError,
+                   ex.Message);
+        }
     }
 }

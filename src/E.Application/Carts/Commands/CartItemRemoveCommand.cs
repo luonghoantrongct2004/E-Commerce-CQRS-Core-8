@@ -1,5 +1,4 @@
 ﻿using E.Application.Models;
-using E.Domain.Entities.Carts;
 using MediatR;
 
 namespace E.Application.Carts.Commands;

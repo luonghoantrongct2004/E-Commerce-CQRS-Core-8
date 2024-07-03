@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace E.DAL.Migrations
+namespace E.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitDatabase : Migration
@@ -42,7 +42,11 @@ namespace E.DAL.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CouponCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiscountAmount = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
-                    MinAmount = table.Column<int>(type: "int", nullable: false)
+                    MinAmount = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UsageLimit = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -125,40 +129,6 @@ namespace E.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    Images = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    StockQuantity = table.Column<int>(type: "int", nullable: false),
-                    SoldQuantity = table.Column<int>(type: "int", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Discount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Products_Brands_BrandId",
-                        column: x => x.BrandId,
-                        principalTable: "Brands",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RoleClaims",
                 columns: table => new
                 {
@@ -175,27 +145,6 @@ namespace E.DAL.Migrations
                         name: "FK_RoleClaims_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CartDetails",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    CouponId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CartDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CartDetails_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -316,6 +265,73 @@ namespace E.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CartDetails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    CouponId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CartDetails_Coupons_CouponId",
+                        column: x => x.CouponId,
+                        principalTable: "Coupons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CartDetails_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    Images = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    StockQuantity = table.Column<int>(type: "int", nullable: false),
+                    SoldQuantity = table.Column<int>(type: "int", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Discount = table.Column<int>(type: "int", nullable: false),
+                    CartDetailsId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Brands_BrandId",
+                        column: x => x.BrandId,
+                        principalTable: "Brands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_CartDetails_CartDetailsId",
+                        column: x => x.CartDetailsId,
+                        principalTable: "CartDetails",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -372,6 +388,16 @@ namespace E.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CartDetails_CouponId",
+                table: "CartDetails",
+                column: "CouponId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartDetails_ProductId",
+                table: "CartDetails",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CartDetails_UserId",
                 table: "CartDetails",
                 column: "UserId");
@@ -405,6 +431,11 @@ namespace E.DAL.Migrations
                 name: "IX_Products_BrandId",
                 table: "Products",
                 column: "BrandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CartDetailsId",
+                table: "Products",
+                column: "CartDetailsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
@@ -449,19 +480,29 @@ namespace E.DAL.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_CartDetails_Products_ProductId",
+                table: "CartDetails",
+                column: "ProductId",
+                principalTable: "Products",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "CartDetails");
+            migrationBuilder.DropForeignKey(
+                name: "FK_CartDetails_Coupons_CouponId",
+                table: "CartDetails");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_CartDetails_Products_ProductId",
+                table: "CartDetails");
 
             migrationBuilder.DropTable(
                 name: "Comments");
-
-            migrationBuilder.DropTable(
-                name: "Coupons");
 
             migrationBuilder.DropTable(
                 name: "Introduction");
@@ -491,19 +532,25 @@ namespace E.DAL.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Coupons");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Brands");
 
             migrationBuilder.DropTable(
+                name: "CartDetails");
+
+            migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

@@ -8,12 +8,12 @@ using MediatR;
 
 namespace E.Application.Categories.CommandHanlders;
 
-public class CategoryCreateCommandHandler : IRequestHandler<CreateCategoryCommand, OperationResult<Category>>
+public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, OperationResult<Category>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
 
-    public CategoryCreateCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
+    public CreateCategoryCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
@@ -27,6 +27,7 @@ public class CategoryCreateCommandHandler : IRequestHandler<CreateCategoryComman
             await _unitOfWork.BeginTransactionAsync();
             var category = Category.CreateCategory(request.CategoryName);
             await _unitOfWork.Categories.AddAsync(category);
+            await _unitOfWork.CompleteAsync();
 
             var categoryCreateEvent = new CategoryCreateEvent(category.Id, category.CategoryName);
             await _eventPublisher.PublishAsync(categoryCreateEvent);

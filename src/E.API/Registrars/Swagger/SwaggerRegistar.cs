@@ -1,5 +1,4 @@
-﻿using E.API.Registrars.RegistrarGeneric;
-using E.API.Registrars.Swagger.Options;
+﻿using E.API.Registrars.Swagger.Options;
 
 namespace E.API.Registrars.Swagger;
 

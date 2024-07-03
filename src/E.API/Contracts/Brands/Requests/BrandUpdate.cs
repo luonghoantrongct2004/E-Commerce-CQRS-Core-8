@@ -1,8 +1,6 @@
-﻿using E.Domain.Entities;
-
-namespace E.API.Contracts.Brands.Requests;
+﻿namespace E.API.Contracts.Brands.Requests;
 
 public class BrandUpdate : BaseEntity
 {
-    public string BrandName { get; set;}
+    public string BrandName { get; set; }
 }

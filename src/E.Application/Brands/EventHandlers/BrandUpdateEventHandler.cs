@@ -20,18 +20,26 @@ public class BrandUpdateEventHandler : INotificationHandler<BrandUpdateEvent>
         CancellationToken cancellationToken)
     {
         var result = new OperationResult<Brand>();
-        var existingBrand = await _readUnitOfWork.Brands.FirstOrDefaultAsync(
-            b => b.Id == notification.Id);
-        if (existingBrand != null)
+        try
         {
-            existingBrand.BrandName = notification.BrandName;
+            var existingBrand = await _readUnitOfWork.Brands.FirstOrDefaultAsync(
+                b => b.Id == notification.Id);
+            if (existingBrand != null)
+            {
+                existingBrand.BrandName = notification.BrandName;
 
-            await _readUnitOfWork.Brands.UpdateAsync(existingBrand.Id, existingBrand);
+                await _readUnitOfWork.Brands.UpdateAsync(existingBrand.Id, existingBrand);
+            }
+            else
+            {
+                result.AddError(ErrorCode.NotFound,
+                       string.Format(BrandErrorMessage.BrandNotFound, notification.Id));
+            }
         }
-        else
+        catch (Exception ex)
         {
-            result.AddError(ErrorCode.NotFound,
-                   string.Format(BrandErrorMessage.BrandNotFound, notification.Id));
+            result.AddError(ErrorCode.UnknownError,
+                   ex.Message);
         }
     }
 }

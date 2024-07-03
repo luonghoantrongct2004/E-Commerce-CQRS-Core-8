@@ -21,6 +21,14 @@ public static class ApiRoutes
         public const string Update = $"{Base}/{{brandId}}";
         public const string Remove = $"{Base}/{{brandId}}";
     }
+    public static class Category
+    {
+        public const string Base = "category";
+        public const string Create = $"{Base}";
+        public const string Update = $"{Base}/{{categoryId}}";
+        public const string Remove = $"{Base}/{{categoryId}}";
+    }
+
     public static class Product
     {
         public const string Base = "product";
@@ -28,11 +36,12 @@ public static class ApiRoutes
         public const string Update = $"{Base}/{{productId}}";
         public const string Remove = $"{Base}/{{productId}}";
     }
+
     public static class Cart
     {
         public const string Base = "cart";
+        public const string Gets = $"{Base}/{{userId}}";
         public const string Add = $"{Base}/{{userId}}/{{productId}}";
-        public const string Update = $"{Base}/{{cartId}}";
-        public const string Remove = $"{Base}/{{userId}}/{{productId}}";
+        public const string Remove = $"{Base}/{{cartId}}";
     }
 }

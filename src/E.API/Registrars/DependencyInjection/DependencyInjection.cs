@@ -1,39 +1,4 @@
-﻿using E.API.Contracts.Common;
-using E.API.Registrars.RegistrarGeneric;
-using E.Application.Brands.CommandHandlers;
-using E.Application.Brands.Commands;
-using E.Application.Brands.Queries;
-using E.Application.Brands.QueryHandlers;
-using E.Application.Carts.CommandHandlers;
-using E.Application.Carts.Commands;
-using E.Application.Carts.Queries;
-using E.Application.Carts.QueriesHandlers;
-using E.Application.Categories.CommandHanlders;
-using E.Application.Categories.Commands;
-using E.Application.Identity.CommandHandlers;
-using E.Application.Identity.Commands;
-using E.Application.Identity.Options;
-using E.Application.Identity.Queries;
-using E.Application.Identity.QueryHandlers;
-using E.Application.Models;
-using E.Application.Products.CommandHandlers;
-using E.Application.Products.Commands;
-using E.Application.Products.Queries;
-using E.Application.Products.QueryHandlers;
-using E.Application.Services;
-using E.DAL.EventPublishers;
-using E.DAL.UoW;
-using E.Domain.Entities.Brand;
-using E.Domain.Entities.Carts;
-using E.Domain.Entities.Categories;
-using E.Domain.Entities.Products;
-using E.Domain.Entities.Users.Dto;
-using E.Infrastructure.Repository.Interfaces;
-using E.Infrastructure.Repository.MongoRepositories;
-using E.Infrastructure.Repository.SqlRepositories;
-using MediatR;
-
-namespace E.API.Registrars.DependencyInjection;
+﻿namespace E.API.Registrars.DependencyInjection;
 
 public class DependencyInjection : IWebApplicationBuilderRegistrar
 {
@@ -52,7 +17,7 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
 
         builder.Services.AddTransient<IRequestHandler<GetAllProducts,
             OperationResult<IEnumerable<Product>>>, GetAllProductQueryHandler>();
-        builder.Services.AddTransient<IRequestHandler<GetProductById,
+        builder.Services.AddTransient<IRequestHandler<GetProduct,
             OperationResult<Product>>, GetProductByIdQueryHandler>();
         builder.Services.AddTransient<IRequestHandler<CreateProductCommand,
             OperationResult<Product>>, CreateProductCommandHandler>();
@@ -72,8 +37,16 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
         builder.Services.AddTransient<IRequestHandler<RemoveBrandCommand,
             OperationResult<bool>>, RemoveBrandCommandHandler>();
 
+        builder.Services.AddTransient<IRequestHandler<GetCategoriesQuery,
+            OperationResult<IEnumerable<Category>>>, GetCategoriesQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<GetCategoryQuery,
+            OperationResult<Category>>, GetCategoryQueryHandler>();
         builder.Services.AddTransient<IRequestHandler<CreateCategoryCommand,
-            OperationResult<Category>>, CategoryCreateCommandHandler>();
+            OperationResult<Category>>, CreateCategoryCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<UpdateCategoryCommand,
+            OperationResult<Category>>, UpdateCategoryCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<RemoveCategoryCommand,
+            OperationResult<bool>>, RemoveCategoryCommandHandler>();
 
         builder.Services.AddMediatR(typeof(RegisterUserCommandHandler).Assembly);
         builder.Services.AddTransient<IRequestHandler<RegisterUserCommand,

@@ -1,5 +1,4 @@
-﻿using E.Application.Brands;
-using E.Application.Enums;
+﻿using E.Application.Enums;
 using E.Application.Models;
 using E.DAL.UoW;
 using E.Domain.Entities.Users;
@@ -15,20 +14,29 @@ public class RemoveUserCommandEventHandler : INotificationHandler<UserRemoveEven
     {
         _readUnitOfWork = readUnitOfWork;
     }
+
     public async Task Handle(UserRemoveEvent notification, CancellationToken cancellationToken)
     {
-        var result = new OperationResult<DomainUser>();
-        var existingEntity = await _readUnitOfWork.Users.FirstOrDefaultAsync(
-            b => b.Id == notification.IdentityUserId);
-
-        if (existingEntity != null) {
-            await _readUnitOfWork.Users.RemoveAsync(existingEntity.Id);
-        }
-        else
+        var result = new OperationResult<UserMongo>();
+        try
         {
-            result.AddError(ErrorCode.NotFound,
-            string.Format(UserErrorMessage.UserNotFound, notification.IdentityUserId));
+            var existingEntity = await _readUnitOfWork.Users.FirstOrDefaultAsync(
+                b => b.Id == notification.IdentityUserId);
+
+            if (existingEntity != null)
+            {
+                await _readUnitOfWork.Users.RemoveAsync(existingEntity.Id);
+            }
+            else
+            {
+                result.AddError(ErrorCode.NotFound,
+                string.Format(UserErrorMessage.UserNotFound, notification.IdentityUserId));
+            }
         }
-        
+        catch (Exception ex)
+        {
+            result.AddError(ErrorCode.UnknownError,
+                   ex.Message);
+        }
     }
 }

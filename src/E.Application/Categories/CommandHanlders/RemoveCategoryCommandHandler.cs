@@ -28,7 +28,7 @@ public class RemoveCategoryCommandHandler : IRequestHandler<RemoveCategoryComman
 
             var category = await _unitOfWork.Categories.FirstOrDefaultAsync(
                 b => b.Id == request.CategoryId);
-            if(category is null)
+            if (category is null)
             {
                 result.AddError(ErrorCode.NotFound,
                     string.Format(CategoryErrorMessage.CategoryNotFound, request.CategoryId));

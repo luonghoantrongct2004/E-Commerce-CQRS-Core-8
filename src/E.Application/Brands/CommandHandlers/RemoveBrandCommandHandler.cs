@@ -28,7 +28,7 @@ public class RemoveBrandCommandHandler : IRequestHandler<RemoveBrandCommand, Ope
 
             var brand = await _unitOfWork.Brands.FirstOrDefaultAsync(
                 b => b.Id == request.BrandId);
-            if(brand is null)
+            if (brand is null)
             {
                 result.AddError(ErrorCode.NotFound,
                     string.Format(BrandErrorMessage.BrandNotFound, request.BrandId));

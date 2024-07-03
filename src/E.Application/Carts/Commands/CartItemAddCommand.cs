@@ -1,7 +1,6 @@
 ﻿using E.Application.Models;
 using E.Domain.Entities.Carts;
 using MediatR;
-using System.ComponentModel.DataAnnotations;
 
 namespace E.Application.Carts.Commands;
 

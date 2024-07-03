@@ -19,17 +19,25 @@ public class CategoryRemoveEventHandler : INotificationHandler<BrandRemoveEvent>
     public async Task Handle(BrandRemoveEvent notification, CancellationToken cancellationToken)
     {
         var result = new OperationResult<Brand>();
-        var existingEntity = await _readUnitOfWork.Brands.FirstOrDefaultAsync(
-            b => b.Id == notification.Id);
+        try
+        {
+            var existingEntity = await _readUnitOfWork.Brands.FirstOrDefaultAsync(
+                b => b.Id == notification.Id);
 
-        if (existingEntity != null)
-        {
-            await _readUnitOfWork.Brands.RemoveAsync(existingEntity.Id);
+            if (existingEntity != null)
+            {
+                await _readUnitOfWork.Brands.RemoveAsync(existingEntity.Id);
+            }
+            else
+            {
+                result.AddError(ErrorCode.NotFound,
+                       string.Format(BrandErrorMessage.BrandNotFound, notification.Id));
+            }
         }
-        else
+        catch (Exception ex)
         {
-            result.AddError(ErrorCode.NotFound,
-                   string.Format(BrandErrorMessage.BrandNotFound, notification.Id));
+            result.AddError(ErrorCode.UnknownError,
+                   ex.Message);
         }
     }
 }

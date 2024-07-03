@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using E.API.Contracts.Brands.Requests;
+﻿using E.API.Contracts.Brands.Requests;
 using E.API.Contracts.Brands.Responses;
-using E.Application.Brands.Commands;
-using E.Domain.Entities.Brand;
 
 namespace E.API.MappingProfiles;
 

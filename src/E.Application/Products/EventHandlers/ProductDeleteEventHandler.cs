@@ -1,4 +1,6 @@
-﻿using E.DAL.UoW;
+﻿using E.Application.Enums;
+using E.Application.Models;
+using E.DAL.UoW;
 using E.Domain.Entities.Products;
 using E.Domain.Entities.Products.Events;
 using MediatR;
@@ -13,8 +15,18 @@ public class ProductDeleteEventHandler : INotificationHandler<ProductRemoveEvent
     {
         _readUnitOfWork = readUnitOfWork;
     }
+
     public async Task Handle(ProductRemoveEvent notification, CancellationToken cancellationToken)
     {
-        await _readUnitOfWork.Products.RemoveAsync(notification.Id);
+        var result = new OperationResult<Product>();
+        try
+        {
+            await _readUnitOfWork.Products.RemoveAsync(notification.Id);
+        }
+        catch (Exception ex)
+        {
+            result.AddError(ErrorCode.UnknownError,
+                   ex.Message);
+        }
     }
 }

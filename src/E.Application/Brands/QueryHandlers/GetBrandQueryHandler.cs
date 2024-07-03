@@ -19,10 +19,10 @@ public class GetBrandQueryHandler : IRequestHandler<GetBrandQuery, OperationResu
     public async Task<OperationResult<Brand>> Handle(GetBrandQuery request,
         CancellationToken cancellationToken)
     {
-        var result =  new OperationResult<Brand>();
+        var result = new OperationResult<Brand>();
         var brand = await _readUnitOfWork.Brands.FirstOrDefaultAsync(
             b => b.Id == request.Id);
-        if(brand is null)
+        if (brand is null)
         {
             result.AddError(ErrorCode.NotFound,
                 BrandErrorMessage.BrandNotFound);

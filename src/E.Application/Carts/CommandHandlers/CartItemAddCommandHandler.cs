@@ -35,7 +35,7 @@ public class CartItemAddCommandHandler : IRequestHandler<CartItemAddCommand,
             if (user is null)
             {
                 result.AddError(ErrorCode.NotFound,
-                    UserErrorMessage.UserNotFound);
+                    string.Format(UserErrorMessage.UserNotFound, request.UserId));
                 return result;
             }
 
@@ -46,10 +46,10 @@ public class CartItemAddCommandHandler : IRequestHandler<CartItemAddCommand,
                     ProductErrorMessage.ProductNotFound);
                 return result;
             }
-            if(product.StockQuantity > request.Quantity)
+            if (product.StockQuantity < request.Quantity)
             {
                 result.AddError(ErrorCode.ValidationError,
-                    CartErrorMessage.ExcessProductInventory);
+                     string.Format(CartErrorMessage.ExcessProductInventory, product.ProductName));
                 return result;
             }
             var existingCartItem = await _unitOfWork.Carts.FirstOrDefaultAsync(cd =>
@@ -60,7 +60,7 @@ public class CartItemAddCommandHandler : IRequestHandler<CartItemAddCommand,
                 existingCartItem.Quantity += request.Quantity;
                 _unitOfWork.Carts.Update(existingCartItem);
 
-                var cartUpdateItemEvent = new CartItemUpdateEvent(existingCartItem.Id,existingCartItem.UserId,
+                var cartUpdateItemEvent = new CartItemUpdateEvent(existingCartItem.Id, existingCartItem.UserId,
                     existingCartItem.ProductId, existingCartItem.Quantity);
                 await _eventPublisher.PublishAsync(cartUpdateItemEvent);
 
@@ -73,6 +73,7 @@ public class CartItemAddCommandHandler : IRequestHandler<CartItemAddCommand,
                 var cart = CartDetails.AddProductIntoCart(request.UserId,
                     request.ProductId, request.Quantity);
                 await _unitOfWork.Carts.AddAsync(cart);
+                await _unitOfWork.CompleteAsync();
 
                 var cartAddItemEvent = new CartItemAddEvent(cart.Id,
                     cart.UserId, cart.ProductId, cart.Quantity);

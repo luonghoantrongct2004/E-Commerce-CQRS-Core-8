@@ -1,6 +1,4 @@
-﻿using E.API.Registrars.RegistrarGeneric;
-
-namespace E.API.Registrars.MVC;
+﻿namespace E.API.Registrars.MVC;
 
 public class MvcWebAppRegistrar : IWebApplicationRegistrar
 {

@@ -5,6 +5,6 @@ using MediatR;
 
 namespace E.Application.Products.Commands;
 
-public class RemoveProductCommand: BaseEntity, IRequest<OperationResult<Product>>
+public class RemoveProductCommand : BaseEntity, IRequest<OperationResult<Product>>
 {
 }

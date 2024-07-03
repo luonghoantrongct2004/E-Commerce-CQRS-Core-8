@@ -4,7 +4,7 @@ using MediatR;
 
 namespace E.Application.Identity.Queries;
 
-public class GetUserByIdQuery :IRequest<OperationResult<UserMongo>>
+public class GetUserQuery : IRequest<OperationResult<UserMongo>>
 {
     public Guid UserId { get; set; }
 }

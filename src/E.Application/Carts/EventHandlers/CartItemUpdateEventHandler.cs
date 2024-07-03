@@ -19,17 +19,25 @@ public class CartItemUpdateEventHandler : INotificationHandler<CartItemUpdateEve
     public async Task Handle(CartItemUpdateEvent notification, CancellationToken cancellationToken)
     {
         var result = new OperationResult<CartDetails>();
-        var existProduct = await _readUnitOfWork.Carts.FirstOrDefaultAsync(
-            c => c.ProductId == notification.ProductId);
-        if (existProduct != null)
+        try
         {
-            existProduct.Quantity = notification.Quantity;
-            await _readUnitOfWork.Carts.UpdateAsync(existProduct.Id, existProduct);
+            var existProduct = await _readUnitOfWork.Carts.FirstOrDefaultAsync(
+                c => c.ProductId == notification.ProductId);
+            if (existProduct != null)
+            {
+                existProduct.Quantity = notification.Quantity;
+                await _readUnitOfWork.Carts.UpdateAsync(existProduct.Id, existProduct);
+            }
+            else
+            {
+                result.AddError(ErrorCode.NotFound,
+                       string.Format(CartErrorMessage.CartNotFound, notification.CartDetailId));
+            }
         }
-        else
+        catch (Exception ex)
         {
-            result.AddError(ErrorCode.NotFound,
-                   string.Format(CartErrorMessage.CartNotFound, notification.CartDetailId));
+            result.AddError(ErrorCode.UnknownError,
+                   ex.Message);
         }
     }
 }

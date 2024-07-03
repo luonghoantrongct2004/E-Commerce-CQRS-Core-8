@@ -21,17 +21,25 @@ public class CartRemoveEventHandler : INotificationHandler<CartItemRemoveEvent>
         CancellationToken cancellationToken)
     {
         var result = new OperationResult<CartDetails>();
-        var existingEntity = await _readUnitOfWork.Carts.FirstOrDefaultAsync(
-            c => c.Id == notification.Id);
-        if (existingEntity != null)
+        try
         {
-            await _readUnitOfWork.Carts.RemoveAsync(existingEntity.Id);
+            var existingEntity = await _readUnitOfWork.Carts.FirstOrDefaultAsync(
+                c => c.Id == notification.Id);
+            if (existingEntity != null)
+            {
+                await _readUnitOfWork.Carts.RemoveAsync(existingEntity.Id);
+            }
+            else
+            {
+                result.AddError(ErrorCode.NotFound,
+                       string.Format(ProductErrorMessage.ProductNotFound
+                       , notification.Id));
+            }
         }
-        else
+        catch (Exception ex)
         {
-            result.AddError(ErrorCode.NotFound,
-                   string.Format(ProductErrorMessage.ProductNotFound
-                   , notification.Id));
+            result.AddError(ErrorCode.UnknownError,
+                   ex.Message);
         }
     }
 }

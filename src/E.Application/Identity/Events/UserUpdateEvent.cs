@@ -17,7 +17,7 @@ public class UserUpdateEvent : INotification
     public string? Address { get; set; }
     public string? CurrentCity { get; set; }
 
-    public UserUpdateEvent(Guid userId, string username, 
+    public UserUpdateEvent(Guid userId, string username,
         string passwordHash, string fullName, DateTime createdDate,
         string? avatar, string? address, string? currentCity)
     {

@@ -5,18 +5,23 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using E.Domain.Entities.Carts.CartValidators;
 using E.Domain.Exceptions;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace E.Domain.Entities.Carts;
 
 public class CartDetails : BaseEntity
 {
+    [BsonRepresentation(BsonType.String)]
     public Guid UserId { get; set; }
+    [BsonRepresentation(BsonType.String)]
     public Guid ProductId { get; set; }
     public int Quantity { get; set; }
 
     public List<Product> Products { get; set; } = new List<Product>();
 
-    public Guid CouponId { get; set; }
+    [BsonRepresentation(BsonType.String)]
+    public Guid? CouponId { get; set; }
 
     [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
     public decimal CartTotal
@@ -24,7 +29,7 @@ public class CartDetails : BaseEntity
         get
         {
             var discount = Coupon?.DiscountAmount ?? 0;
-            return Products.Sum(p => p.UnitPrice) - discount;
+            return Products.Sum(p => p.Price) - discount;
         }
     }
 

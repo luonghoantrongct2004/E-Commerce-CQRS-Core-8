@@ -1,6 +1,7 @@
-﻿using E.DAL.UoW;
+﻿using E.Application.Enums;
+using E.Application.Models;
+using E.DAL.UoW;
 using E.Domain.Entities.Users;
-using E.Domain.Entities.Users.Dto;
 using E.Domain.Entities.Users.Events;
 using MediatR;
 
@@ -17,22 +18,31 @@ public class RegisterUserCommandEventHandler : INotificationHandler<UserRegister
 
     public async Task Handle(UserRegisterEvent notification, CancellationToken cancellationToken)
     {
-        var existingUser = await _readUnitOfWork.Users.FirstOrDefaultAsync(u => u.Id == notification.UserId);
-
-        if (existingUser == null)
+        var result = new OperationResult<UserMongo>();
+        try
         {
-            var user = new UserMongo
+            var existingUser = await _readUnitOfWork.Users.FirstOrDefaultAsync(u => u.Id == notification.UserId);
+
+            if (existingUser == null)
             {
-                Id = notification.UserId,
-                UserName = notification.Username,
-                PasswordHash = notification.PasswordHash,
-                FullName = notification.FullName,
-                CreatedDate = notification.CreatedDate,
-                Avatar = notification.Avatar,
-                Address = notification.Address,
-                CurrentCity = notification.CurrentCity,
-            };
-            await _readUnitOfWork.Users.AddAsync(user);
+                var user = new UserMongo
+                {
+                    Id = notification.UserId,
+                    UserName = notification.Username,
+                    PasswordHash = notification.PasswordHash,
+                    FullName = notification.FullName,
+                    CreatedDate = notification.CreatedDate,
+                    Avatar = notification.Avatar,
+                    Address = notification.Address,
+                    CurrentCity = notification.CurrentCity,
+                };
+                await _readUnitOfWork.Users.AddAsync(user);
+            }
+        }
+        catch (Exception ex)
+        {
+            result.AddError(ErrorCode.UnknownError,
+                   ex.Message);
         }
     }
 }

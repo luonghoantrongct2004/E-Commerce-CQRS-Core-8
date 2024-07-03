@@ -19,23 +19,13 @@ public class ReadUnitOfWork : IReadUnitOfWork
     public IReadRepository<Product> Products { get; }
     public IReadRepository<Category> Categories { get; }
     public IReadRepository<Brand> Brands { get; }
-
     public IReadRepository<UserMongo> Users { get; }
     public IReadRepository<Comment> Comments { get; }
     public IReadRepository<Coupon> Coupons { get; }
     public IReadRepository<Introduction> Introductions { get; }
     public IReadRepository<New> News { get; }
     public IReadRepository<Order> Orders { get; }
-
-    IReadRepository<Product> IReadUnitOfWork.Products => throw new NotImplementedException();
-
-    IReadRepository<Category> IReadUnitOfWork.Categories => throw new NotImplementedException();
-
-    IReadRepository<Brand> IReadUnitOfWork.Brands => throw new NotImplementedException();
-
-    IReadRepository<UserMongo> IReadUnitOfWork.Users => throw new NotImplementedException();
-
-    IReadRepository<CartDetails> IReadUnitOfWork.Carts => throw new NotImplementedException();
+    public IReadRepository<CartDetails> Carts { get; }
 
     public ReadUnitOfWork(IMongoDatabase database)
     {
@@ -48,5 +38,6 @@ public class ReadUnitOfWork : IReadUnitOfWork
         Introductions = new MongoRepository<Introduction>(database, "Introductions");
         News = new MongoRepository<New>(database, "News");
         Orders = new MongoRepository<Order>(database, "Orders");
+        Carts = new MongoRepository<CartDetails>(database, "Carts");
     }
 }

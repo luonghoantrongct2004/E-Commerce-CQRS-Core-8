@@ -1,6 +1,4 @@
-﻿using E.Application.Models;
-
-namespace E.API.Contracts.Common;
+﻿namespace E.API.Contracts.Common;
 
 public interface IErrorResponseHandler
 {

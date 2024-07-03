@@ -2,7 +2,7 @@
 
 namespace E.Domain.Entities.Brands.Events;
 
-public class BrandCreateEvent: BaseEntity, INotification
+public class BrandCreateEvent : BaseEntity, INotification
 {
     public string BrandName { get; }
 

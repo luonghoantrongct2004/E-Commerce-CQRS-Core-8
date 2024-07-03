@@ -9,10 +9,13 @@ public class RegisterUserCommand : IRequest<OperationResult<IdentityUserDto>>
 {
     [EmailAddress]
     public string Username { get; set; }
+
     public string Password { get; set; }
     public string FullName { get; set; }
+
     [DataType(DataType.Date)]
     public DateTime CreatedDate { get; set; }
+
     public string? Avatar { get; set; }
     public string? Address { get; set; }
     public string? CurrentCity { get; set; }

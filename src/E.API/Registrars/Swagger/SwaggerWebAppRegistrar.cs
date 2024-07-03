@@ -1,5 +1,4 @@
-﻿using E.API.Registrars.RegistrarGeneric;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
+﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace E.API.Registrars.Swagger;
 

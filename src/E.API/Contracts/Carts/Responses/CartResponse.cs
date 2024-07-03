@@ -1,6 +1,4 @@
-﻿using E.Domain.Entities;
-using E.Domain.Entities.Products;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace E.API.Contracts.Carts.Responses;
 

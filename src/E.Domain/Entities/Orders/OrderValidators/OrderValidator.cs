@@ -21,9 +21,6 @@ public class OrderValidator : AbstractValidator<Order>
         RuleFor(o => o.PaymentMethod)
             .NotEmpty().WithMessage("Payment method must be specified.");
 
-        RuleFor(o => o.ShippingAddress)
-            .NotEmpty().WithMessage("Shipping address must be specified.");
-
         RuleFor(o => o.ContactPhone)
             .NotEmpty().WithMessage("Contact phone must be specified.");
 

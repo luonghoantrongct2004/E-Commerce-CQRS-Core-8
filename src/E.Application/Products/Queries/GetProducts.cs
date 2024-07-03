@@ -4,7 +4,6 @@ using MediatR;
 
 namespace E.Application.Products.Queries;
 
-public class GetProductById:IRequest<OperationResult<Product>>
+public class GetAllProducts : IRequest<OperationResult<IEnumerable<Product>>>
 {
-    public Guid ProductId { get; set; }
 }

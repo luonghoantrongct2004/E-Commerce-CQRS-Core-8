@@ -73,7 +73,7 @@ public class ApplyCouponCommandHandler : IRequestHandler<ApplyCouponCommand,
     }
 
     private async Task<OperationResult<CartDetails>> ValidateRequestAsync(
-        ApplyCouponCommand request,OperationResult<CartDetails> result)
+        ApplyCouponCommand request, OperationResult<CartDetails> result)
     {
         var user = await _unitOfWork.Users.GetByIdAsync(request.UserId);
         if (user == null)
@@ -112,7 +112,7 @@ public class ApplyCouponCommandHandler : IRequestHandler<ApplyCouponCommand,
 
         if (coupon.UsageLimit <= 0)
         {
-            result.AddError(ErrorCode.ValidationError, 
+            result.AddError(ErrorCode.ValidationError,
                 CouponErrorMessage.CouponUsageLimitReached);
             return result;
         }

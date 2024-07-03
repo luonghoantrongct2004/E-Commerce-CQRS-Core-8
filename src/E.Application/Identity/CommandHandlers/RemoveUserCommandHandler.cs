@@ -5,7 +5,6 @@ using E.Application.Models;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace E.Application.Identity.CommandHandlers;
 
@@ -33,7 +32,7 @@ public class RemoveUserCommandHandler : IRequestHandler<RemoveUserCommand, Opera
 
             if (userProfile is null)
             {
-                result.AddError(ErrorCode.NotFound, 
+                result.AddError(ErrorCode.NotFound,
                     IdentityErrorMessages.NonExistentIdentityUser);
                 return result;
             }

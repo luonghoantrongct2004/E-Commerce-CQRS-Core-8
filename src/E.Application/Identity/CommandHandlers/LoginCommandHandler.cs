@@ -43,6 +43,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, OperationResult
 
         return _result;
     }
+
     private async Task<DomainUser> ValidateAndGetIdentityAsync(LoginCommand request)
     {
         var identityUser = await _userManager.FindByEmailAsync(request.UserName);
@@ -52,6 +53,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, OperationResult
         if (!validPassword) _result.AddError(ErrorCode.IncorrectPassword, IdentityErrorMessages.IncorrectPassword);
         return identityUser;
     }
+
     private string GetJwtString(DomainUser identityUser)
     {
         var claimsIdentity = new ClaimsIdentity(new Claim[]

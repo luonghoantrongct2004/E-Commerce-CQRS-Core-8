@@ -1,11 +1,4 @@
-﻿using AutoMapper;
-using E.API.Agregrates;
-using E.API.Contracts.Common;
-using E.Application.Models;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-
-namespace E.API.Controllers.V1;
+﻿namespace E.API.Controllers.V1;
 
 [ApiVersion("1.0")]
 [Route(ApiRoutes.BaseRoute)]

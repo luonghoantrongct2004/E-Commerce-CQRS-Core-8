@@ -7,23 +7,23 @@ using MediatR;
 
 namespace E.Application.Identity.QueryHandlers;
 
-public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, OperationResult<UserMongo>>
+public class GetUserQueryHandler : IRequestHandler<GetUserQuery, OperationResult<UserMongo>>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
 
-    public GetUserByIdQueryHandler(IReadUnitOfWork readUnitOfWork)
+    public GetUserQueryHandler(IReadUnitOfWork readUnitOfWork)
     {
         _readUnitOfWork = readUnitOfWork;
     }
 
-    public async Task<OperationResult<UserMongo>> Handle(GetUserByIdQuery request,
+    public async Task<OperationResult<UserMongo>> Handle(GetUserQuery request,
         CancellationToken cancellationToken)
     {
         var result = new OperationResult<UserMongo>();
         var user = await _readUnitOfWork.Users.FirstOrDefaultAsync(u => u.Id == request.UserId);
-        if(user is null)
+        if (user is null)
         {
-            result.AddError(ErrorCode.NotFound, 
+            result.AddError(ErrorCode.NotFound,
                 string.Format(UserErrorMessage.UserNotFound, request.UserId));
             return result;
         }
