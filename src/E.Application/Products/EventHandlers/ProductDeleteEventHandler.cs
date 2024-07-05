@@ -21,7 +21,14 @@ public class ProductDeleteEventHandler : INotificationHandler<ProductRemoveEvent
         var result = new OperationResult<Product>();
         try
         {
-            await _readUnitOfWork.Products.RemoveAsync(notification.Id);
+            var existingProduct = await _readUnitOfWork.Products.FirstOrDefaultAsync(
+                b => b.Id == notification.Id);
+            if (existingProduct != null)
+            {
+                existingProduct.Id = notification.Id;
+                existingProduct.IsActive = false;
+            }
+            await _readUnitOfWork.Products.UpdateAsync(existingProduct.Id, existingProduct);
         }
         catch (Exception ex)
         {

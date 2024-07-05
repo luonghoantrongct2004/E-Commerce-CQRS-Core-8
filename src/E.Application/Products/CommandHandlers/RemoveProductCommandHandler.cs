@@ -39,7 +39,7 @@ public class RemoveProductCommandHandler : IRequestHandler<RemoveProductCommand,
                 result.AddError(ErrorCode.PostDeleteNotPossible, ProductErrorMessage.ProductDeleteNotPossible);
                 return result;
             }
-            _unitOfWork.Products.Remove(product);
+            _unitOfWork.Products.Update(product);
 
             var productEvent = new ProductRemoveEvent(product.Id);
             await _eventPublisher.PublishAsync(productEvent);

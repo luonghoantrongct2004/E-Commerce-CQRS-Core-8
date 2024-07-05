@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using E.Domain.Entities.Categories;
+﻿using E.Domain.Entities.Categories;
+using E.Domain.Entities.Orders;
 using E.Domain.Entities.Products.ProductValidators;
 using E.Domain.Exceptions;
-using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
-using E.Domain.Entities.Brand.BrandValidators;
-using E.Domain.Entities.Orders;
+using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace E.Domain.Entities.Products;
 
@@ -14,8 +13,10 @@ public class Product : BaseEntity
     public string ProductName { get; set; }
 
     public string? Description { get; set; }
+
     [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
     public int Price { get; set; }
+
     public List<string>? Images { get; set; }
 
     [BsonRepresentation(BsonType.String)]
@@ -23,6 +24,7 @@ public class Product : BaseEntity
 
     [BsonRepresentation(BsonType.String)]
     public Guid BrandId { get; set; }
+
     [BsonRepresentation(BsonType.String)]
     public Guid? CommentId { get; set; }
 
@@ -30,19 +32,23 @@ public class Product : BaseEntity
     public int? SoldQuantity { get; set; } = 0;
 
     public DateTime CreatedAt { get; set; } = DateTime.Now;
+
     [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
     public int Discount { get; set; }
+    public bool IsActive { get; set; } = true;
 
     public Category? Category { get; set; }
-    public E.Domain.Entities.Brand.Brand? Brand { get; set; }
-    public IEnumerable<E.Domain.Entities.Comment.Comment>? Comments { get; set; }
+    public Brand.Brand? Brand { get; set; }
+    public IEnumerable<Comment.Comment>? Comments { get; set; }
     public ICollection<Orderdetail> Orderdetails { get; set; } = new List<Orderdetail>();
 
     private readonly ProductValidator _validator;
+
     public Product()
     {
         _validator = new ProductValidator();
     }
+
     private void ValidateAndThrow()
     {
         var validationResult = _validator.Validate(this);
@@ -56,6 +62,7 @@ public class Product : BaseEntity
             throw exception;
         }
     }
+
     public static Product CreateProduct(string productName, string description, int price, List<string> images,
         Guid categoryId, Guid brandId, int stockQuantity, int discount)
     {
@@ -76,6 +83,7 @@ public class Product : BaseEntity
 
         return objectToValidate;
     }
+
     public void UpdateProduct(string productName, string? description, int price, List<string>? images,
            Guid categoryId, Guid brandId, int stockQuantity, int discount)
     {
@@ -90,9 +98,11 @@ public class Product : BaseEntity
 
         ValidateAndThrow();
     }
+
     public void DeleteProduct(Guid productId)
     {
         Id = productId;
+        IsActive = false;
         ValidateAndThrow();
     }
 }

@@ -17,4 +17,12 @@
     <ProjectReference Include="..\E.Infrastructure\E.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Orders\CommandHandlers\" />
+    <Folder Include="Orders\Events\" />
+    <Folder Include="Orders\EventHandlers\" />
+    <Folder Include="Orders\QueryHandlers\" />
+    <Folder Include="Orders\Queries\" />
+  </ItemGroup>
+
 </Project>

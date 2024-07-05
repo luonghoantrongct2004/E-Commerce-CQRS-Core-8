@@ -23,7 +23,13 @@ public class GetProductByIdQueryHandler : IRequestHandler<GetProduct, OperationR
         if (product is null)
         {
             result.AddError(ErrorCode.NotFound,
-                string.Format(ProductErrorMessage.ProductNotFound, request.ProductId));
+               ProductErrorMessage.ProductNotFound(request.ProductId));
+            return result;
+        }
+        if (!product.IsActive)
+        {
+            result.AddError(ErrorCode.ValidationError,
+                ProductErrorMessage.ProductStoppedWorking(product.ProductName));
             return result;
         }
         result.Payload = product;

@@ -1,7 +1,10 @@
 ﻿using E.Domain.Entities.Orders.OrderValidations;
+using E.Domain.Entities.Products;
 using E.Domain.Entities.Users;
+using E.Domain.Enum;
 using E.Domain.Exceptions;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace E.Domain.Entities.Orders;
 
@@ -15,13 +18,10 @@ public class Order : BaseEntity
 
     public DateTime PaymentDate { get; set; }
 
-    public Guid PaymentId { get; set; }
-
     public string? Note { get; set; }
 
     public Guid? ShipperId { get; set; }
     public DomainUser User { get; set; }
-    public string Status { get; set; }
     public string PaymentMethod { get; set; }
     public string ContactPhone { get; set; }
 
@@ -29,8 +29,18 @@ public class Order : BaseEntity
     public decimal TotalPrice { get; set; }
 
     public ICollection<Orderdetail> OrderDetails { get; set; }
-
     /*public virtual Shipper Shipper { get; set; }*/
+
+    [NotMapped]
+    public OrderStatus Status { get; set; }
+
+    [Column("Status")]
+    public string StatusString
+    {
+        get => Status.ToString();
+        set => Status = System.Enum.TryParse(value, out OrderStatus status)
+            ? status : OrderStatus.Pending;
+    }
 
     private readonly OrderValidator _validator;
 
@@ -53,9 +63,8 @@ public class Order : BaseEntity
     }
 
     public static Order AddOrder(Guid userId, decimal totalPrice,
-        DateTime orderDate, string status, List<Orderdetail> orderDetails,
-        string contactPhone, string note, DateTime paymentDate,
-        string paymentMethod)
+        DateTime orderDate, OrderStatus status, List<Orderdetail> orderDetails,
+        string contactPhone, string note, string paymentMethod)
     {
         var objectToValidate = new Order
         {
@@ -67,10 +76,34 @@ public class Order : BaseEntity
             OrderDetails = orderDetails,
             ContactPhone = contactPhone,
             Note = note,
-            PaymentDate = paymentDate,
+            PaymentDate = DateTime.Now,
             PaymentMethod = paymentMethod
         };
         objectToValidate.ValidateAndThrow();
         return objectToValidate;
+    }
+    public void ConfirmPurchar(Product product)
+    {
+        if(Status == OrderStatus.Confirmed)
+        {
+            var orderDetail = OrderDetails.FirstOrDefault();
+            if(orderDetail != null)
+            {
+                product.SoldQuantity -= orderDetail.Quantity;
+                Status = OrderStatus.Delivered;
+            }
+        }
+    }
+    public void CancelPurchar(Product product)
+    {
+        if(Status == OrderStatus.Confirmed)
+        {
+            var orderDetail = OrderDetails.FirstOrDefault();
+            if(orderDetail != null)
+            {
+                product.SoldQuantity += orderDetail.Quantity;
+                Status = OrderStatus.Canceled;
+            }
+        }
     }
 }

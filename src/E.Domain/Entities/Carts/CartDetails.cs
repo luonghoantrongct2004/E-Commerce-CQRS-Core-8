@@ -1,5 +1,4 @@
-﻿using E.Domain.Entities.Products;
-using E.Domain.Entities.Users;
+﻿using E.Domain.Entities.Users;
 using E.Domain.Entities.Coupons;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,6 +6,7 @@ using E.Domain.Entities.Carts.CartValidators;
 using E.Domain.Exceptions;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using E.Domain.Entities.Products;
 
 namespace E.Domain.Entities.Carts;
 
