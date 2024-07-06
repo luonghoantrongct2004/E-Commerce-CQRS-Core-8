@@ -1,6 +1,4 @@
-﻿using E.API.Registrars.RegistrarGeneric;
-
-namespace E.API.Extensions;
+﻿namespace E.API.Extensions;
 
 public static class RegistrarExtension
 {
@@ -30,5 +28,4 @@ public static class RegistrarExtension
             .Select(Activator.CreateInstance)
             .Cast<T>();
     }
-
 }

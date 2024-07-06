@@ -1,5 +1,4 @@
 ﻿using E.Application.Enums;
-using E.Application.Models;
 
 namespace E.API.Contracts.Common
 {
@@ -8,7 +7,7 @@ namespace E.API.Contracts.Common
         public ErrorResponse HandleErrors(List<Error> errors)
         {
             var apiError = new ErrorResponse();
-            if(errors.Any(e => e.Code == ErrorCode.NotFound))
+            if (errors.Any(e => e.Code == ErrorCode.NotFound))
             {
                 var error = errors.FirstOrDefault(e => e.Code == ErrorCode.NotFound);
                 apiError.StatusCode = 404;

@@ -1,7 +1,4 @@
-﻿using E.API.Registrars.RegistrarGeneric;
-using E.Application.Identity.Options;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 namespace E.API.Registrars.Identity;
@@ -43,4 +40,3 @@ public class IdentityRegistrar : IWebApplicationBuilderRegistrar
             });
     }
 }
-

@@ -33,7 +33,7 @@ public class MongoDbContext
     public IMongoCollection<CartDetails> CartDetails => _database.GetCollection<CartDetails>("CartDetails");
     public IMongoCollection<Coupon> Coupons => _database.GetCollection<Coupon>("Coupons");
     public IMongoCollection<Comment> Comments => _database.GetCollection<Comment>("Comments");
-    public IMongoCollection<Introduction> Introductions => _database.GetCollection<Introduction>("Introductions");
+    public IMongoCollection<Introduce> Introductions => _database.GetCollection<Introduce>("Introductions");
     public IMongoCollection<New> News => _database.GetCollection<New>("News");
 
 }

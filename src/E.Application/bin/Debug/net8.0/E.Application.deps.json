@@ -9,8 +9,8 @@
       "E.Application/1.0.0": {
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
-          "E.DAL": "1.0.0",
           "E.Domain": "1.0.0",
+          "E.Infrastructure": "1.0.0",
           "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
@@ -810,20 +810,6 @@
           }
         }
       },
-      "E.DAL/1.0.0": {
-        "dependencies": {
-          "E.Domain": "1.0.0",
-          "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.6",
-          "Microsoft.EntityFrameworkCore": "8.0.6",
-          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
-          "MongoDB.Driver": "2.26.0",
-          "Swashbuckle.AspNetCore": "6.6.2"
-        },
-        "runtime": {
-          "E.DAL.dll": {}
-        }
-      },
       "E.Domain/1.0.0": {
         "dependencies": {
           "FluentValidation": "11.9.2",
@@ -835,6 +821,20 @@
         },
         "runtime": {
           "E.Domain.dll": {}
+        }
+      },
+      "E.Infrastructure/1.0.0": {
+        "dependencies": {
+          "E.Domain": "1.0.0",
+          "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.6",
+          "Microsoft.EntityFrameworkCore": "8.0.6",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
+          "MongoDB.Driver": "2.26.0",
+          "Swashbuckle.AspNetCore": "6.6.2"
+        },
+        "runtime": {
+          "E.Infrastructure.dll": {}
         }
       }
     }
@@ -1433,12 +1433,12 @@
       "path": "zstdsharp.port/0.7.3",
       "hashPath": "zstdsharp.port.0.7.3.nupkg.sha512"
     },
-    "E.DAL/1.0.0": {
+    "E.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "E.Domain/1.0.0": {
+    "E.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

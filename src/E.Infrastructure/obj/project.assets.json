@@ -5362,11 +5362,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Infrastructure\\E.Infrastructure.csproj",
       "projectName": "E.Infrastructure",
-      "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\E.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Infrastructure\\E.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\PREDATOR\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.DAL\\obj\\",
+      "outputPath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PREDATOR\\AppData\\Roaming\\NuGet\\NuGet.Config",

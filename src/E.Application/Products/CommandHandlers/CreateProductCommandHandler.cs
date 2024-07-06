@@ -1,5 +1,6 @@
 ﻿using E.Application.Models;
 using E.Application.Products.Commands;
+using E.Application.Services.ProductServices;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using E.Domain.Entities.Products;
@@ -12,11 +13,14 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
+    private readonly ProductService _productService;
 
-    public CreateProductCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
+    public CreateProductCommandHandler(IUnitOfWork unitOfWork,
+        IEventPublisher eventPublisher, ProductService productService)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
+        _productService = productService;
     }
 
     public async Task<OperationResult<Product>> Handle(CreateProductCommand request,
@@ -27,11 +31,12 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         {
             await _unitOfWork.BeginTransactionAsync();
 
-            var product = Product.CreateProduct(request.ProductName,request.Description,
-                request.Price,request.Images,request.CategoryId,request.BrandId,
-                request.StockQuantity,request.Discount);
+            var product = _productService.CreateProduct(request.ProductName, request.Description,
+                request.Price, request.Images, request.CategoryId, request.BrandId,
+                request.StockQuantity, request.Discount);
 
             await _unitOfWork.Products.AddAsync(product);
+            await _unitOfWork.CompleteAsync();
 
             var productEvent = new ProductCreateEvent(product.Id, product.ProductName,
                 product.Description, product.Price, product.Images, product.CategoryId,

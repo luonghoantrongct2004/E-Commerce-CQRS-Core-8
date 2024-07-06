@@ -5,7 +5,7 @@ using MediatR;
 
 namespace E.Application.Categories.Commands;
 
-public class UpdateCategoryCommand: BaseEntity, IRequest<OperationResult<Category>>
+public class UpdateCategoryCommand : BaseEntity, IRequest<OperationResult<Category>>
 {
     public string CategoryName { get; set; }
 }

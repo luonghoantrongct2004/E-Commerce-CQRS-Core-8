@@ -23,10 +23,6 @@ public enum ErrorCode
     IdentityUserAlreadyExists = 303,
     IdentityUserDoesNotExist = 304,
     IncorrectPassword = 305,
-    UnauthorizedAccountRemoval = 306,
-    CommentRemovalNotAuthorized = 307,
-    FriendRequestAcceptNotPossible = 308,
-    FriendRequestRejectNotPossible = 309,
 
     UnknownError = 999
 }

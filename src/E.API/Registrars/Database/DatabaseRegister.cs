@@ -1,10 +1,8 @@
-﻿using E.API.Registrars.RegistrarGeneric;
-using E.DAL;
+﻿using E.DAL;
 using E.Domain;
 using E.Domain.Entities.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -55,7 +53,7 @@ public class DatabaseRegister : IWebApplicationBuilderRegistrar
         });
         builder.Services.ConfigureApplicationCookie(options =>
         {
-            options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+            options.ExpireTimeSpan = TimeSpan.FromHours(2);
             options.LoginPath = $"/login/";
             options.LogoutPath = $"/logout/";
             options.AccessDeniedPath = $"/Identity/Account/AccessDenied";

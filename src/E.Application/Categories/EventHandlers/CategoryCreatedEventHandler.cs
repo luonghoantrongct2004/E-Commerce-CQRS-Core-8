@@ -1,4 +1,6 @@
-﻿using E.DAL.UoW;
+﻿using E.Application.Enums;
+using E.Application.Models;
+using E.DAL.UoW;
 using E.Domain.Entities.Categories;
 using E.Domain.Entities.Categories.Events;
 using MediatR;
@@ -17,12 +19,21 @@ public class CategoryCreatedEventHandler : INotificationHandler<CategoryCreateEv
     public async Task Handle(CategoryCreateEvent notification,
         CancellationToken cancellationToken)
     {
-        var category = new Category
+        var result = new OperationResult<Category>();
+        try
         {
-            Id = notification.Id,
-            CategoryName = notification.CategoryName
-        };
+            var category = new Category
+            {
+                Id = notification.Id,
+                CategoryName = notification.CategoryName
+            };
 
-        await _readUnitOfWork.Categories.AddAsync(category);
+            await _readUnitOfWork.Categories.AddAsync(category);
+        }
+        catch (Exception ex)
+        {
+            result.AddError(ErrorCode.UnknownError,
+                   ex.Message);
+        }
     }
 }

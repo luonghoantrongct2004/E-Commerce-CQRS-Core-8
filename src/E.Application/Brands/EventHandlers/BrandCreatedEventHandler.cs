@@ -1,4 +1,6 @@
-﻿using E.DAL.UoW;
+﻿using E.Application.Enums;
+using E.Application.Models;
+using E.DAL.UoW;
 using E.Domain.Entities.Brand;
 using E.Domain.Entities.Brands.Events;
 using MediatR;
@@ -17,12 +19,21 @@ public class CategoryCreatedEventHandler : INotificationHandler<BrandCreateEvent
     public async Task Handle(BrandCreateEvent notification,
         CancellationToken cancellationToken)
     {
-        var brand = new Brand
+        var result = new OperationResult<Brand>();
+        try
         {
-            Id = notification.Id,
-            BrandName = notification.BrandName
-        };
+            var brand = new Brand
+            {
+                Id = notification.Id,
+                BrandName = notification.BrandName
+            };
 
-        await _readUnitOfWork.Brands.AddAsync(brand);
+            await _readUnitOfWork.Brands.AddAsync(brand);
+        }
+        catch (Exception ex)
+        {
+            result.AddError(ErrorCode.UnknownError,
+                   ex.Message);
+        }
     }
 }

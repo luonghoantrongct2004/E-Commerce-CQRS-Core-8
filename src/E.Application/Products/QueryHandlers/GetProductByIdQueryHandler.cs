@@ -7,7 +7,7 @@ using MediatR;
 
 namespace E.Application.Products.QueryHandlers;
 
-public class GetProductByIdQueryHandler : IRequestHandler<GetProductById, OperationResult<Product>>
+public class GetProductByIdQueryHandler : IRequestHandler<GetProduct, OperationResult<Product>>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
 
@@ -16,14 +16,20 @@ public class GetProductByIdQueryHandler : IRequestHandler<GetProductById, Operat
         _readUnitOfWork = readUnitOfWork;
     }
 
-    public async Task<OperationResult<Product>> Handle(GetProductById request, CancellationToken cancellationToken)
+    public async Task<OperationResult<Product>> Handle(GetProduct request, CancellationToken cancellationToken)
     {
         var result = new OperationResult<Product>();
         var product = await _readUnitOfWork.Products.FirstOrDefaultAsync(p => p.Id == request.ProductId);
         if (product is null)
         {
             result.AddError(ErrorCode.NotFound,
-                string.Format(ProductErrorMessage.ProductNotFound, request.ProductId));
+               ProductErrorMessage.ProductNotFound(request.ProductId));
+            return result;
+        }
+        if (!product.IsActive)
+        {
+            result.AddError(ErrorCode.ValidationError,
+                ProductErrorMessage.ProductStoppedWorking(product.ProductName));
             return result;
         }
         result.Payload = product;

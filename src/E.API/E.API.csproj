@@ -34,7 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\E.Application\E.Application.csproj" />
-    <ProjectReference Include="..\E.DAL\E.Infrastructure.csproj" />
+    <ProjectReference Include="..\E.Infrastructure\E.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

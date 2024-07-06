@@ -1,6 +1,7 @@
 ﻿using E.Application.Brands.Commands;
 using E.Application.Enums;
 using E.Application.Models;
+using E.Application.Services.BrandServices;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using E.Domain.Entities.Brands.Events;
@@ -12,14 +13,18 @@ public class RemoveBrandCommandHandler : IRequestHandler<RemoveBrandCommand, Ope
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
+    private readonly BrandService _brandService;
 
-    public RemoveBrandCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
+    public RemoveBrandCommandHandler(IUnitOfWork unitOfWork,
+        IEventPublisher eventPublisher, BrandService brandService)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
+        _brandService = brandService;
     }
 
-    public async Task<OperationResult<bool>> Handle(RemoveBrandCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<bool>> Handle(RemoveBrandCommand request,
+        CancellationToken cancellationToken)
     {
         var result = new OperationResult<bool>();
         try
@@ -28,16 +33,16 @@ public class RemoveBrandCommandHandler : IRequestHandler<RemoveBrandCommand, Ope
 
             var brand = await _unitOfWork.Brands.FirstOrDefaultAsync(
                 b => b.Id == request.BrandId);
-            if(brand is null)
+            if (brand is null)
             {
                 result.AddError(ErrorCode.NotFound,
                     string.Format(BrandErrorMessage.BrandNotFound, request.BrandId));
                 return result;
             }
-            brand.DeleteBrand(brandId: brand.Id);
-            _unitOfWork.Brands.Remove(brand);
-            var brandEvent = new BrandRemoveEvent(request.BrandId);
-            await _eventPublisher.PublishAsync(brandEvent);
+            _brandService.DisableBrand(brand);
+            _unitOfWork.Brands.Update(brand);
+            var brandDeleteEvent = new BrandRemoveEvent(request.BrandId);
+            await _eventPublisher.PublishAsync(brandDeleteEvent);
 
             await _unitOfWork.CommitAsync();
 

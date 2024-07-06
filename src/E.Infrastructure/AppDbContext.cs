@@ -78,7 +78,7 @@ public class AppDbContext : IdentityDbContext<DomainUser, IdentityRole<Guid>, Gu
     public DbSet<CartDetails> CartDetails { get; set; }
     public DbSet<Coupon> Coupons { get; set; }
     public DbSet<Comment> Comments { get; set; }
-    public DbSet<Introduction> Introductions { get; set; }
+    public DbSet<Introduce> Introductions { get; set; }
     public DbSet<New> News { get; set; }
-    public DbSet<Introduction> Introduction { get; set; } = default!;
+    public DbSet<Introduce> Introduction { get; set; } = default!;
 }

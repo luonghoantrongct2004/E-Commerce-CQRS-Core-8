@@ -1,15 +1,5 @@
-﻿using AutoMapper;
-using E.API.Agregrates;
-using E.API.Contracts.Common;
-using E.API.Contracts.Identities;
+﻿using E.API.Contracts.Identities;
 using E.API.Extension;
-using E.Application.Identity.Commands;
-using E.Application.Identity.Queries;
-using E.Domain.Entities.Users.Dto;
-using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace E.API.Controllers.V1;
 

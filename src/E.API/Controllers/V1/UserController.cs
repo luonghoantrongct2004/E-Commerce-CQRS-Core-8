@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using E.API.Agregrates;
-using E.API.Contracts.Common;
-using E.API.Contracts.Users.Responses;
-using E.Application.Identity.Commands;
-using E.Application.Identity.Queries;
-using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using E.API.Contracts.Users.Responses;
 
 namespace E.API.Controllers.V1;
 
@@ -33,7 +24,7 @@ public class UserController : BaseController
     [HttpGet]
     public async Task<IActionResult> Get(Guid id)
     {
-        var query = new GetUserByIdQuery { UserId = id };
+        var query = new GetUserQuery { UserId = id };
         var response = await _mediator.Send(query);
 
         if (response.IsError) return HandleErrorResponse(response.Errors);

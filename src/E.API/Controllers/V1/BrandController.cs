@@ -1,14 +1,5 @@
-﻿using AutoMapper;
-using E.API.Agregrates;
-using E.API.Contracts.Brands.Requests;
+﻿using E.API.Contracts.Brands.Requests;
 using E.API.Contracts.Brands.Responses;
-using E.API.Contracts.Common;
-using E.Application.Brands.Commands;
-using E.Application.Brands.Queries;
-using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace E.API.Controllers.V1;
 

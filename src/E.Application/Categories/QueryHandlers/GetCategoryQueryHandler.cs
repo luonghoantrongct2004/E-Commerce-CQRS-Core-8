@@ -19,10 +19,10 @@ public class GetCategoryQueryHandler : IRequestHandler<GetCategoryQuery, Operati
     public async Task<OperationResult<Category>> Handle(GetCategoryQuery request,
         CancellationToken cancellationToken)
     {
-        var result =  new OperationResult<Category>();
+        var result = new OperationResult<Category>();
         var category = await _readUnitOfWork.Categories.FirstOrDefaultAsync(
             b => b.Id == request.Id);
-        if(category is null)
+        if (category is null)
         {
             result.AddError(ErrorCode.NotFound,
                 CategoryErrorMessage.CategoryNotFound);

@@ -1,14 +1,5 @@
-﻿using AutoMapper;
-using E.API.Agregrates;
-using E.API.Contracts.Common;
-using E.API.Contracts.Products.Requests;
+﻿using E.API.Contracts.Products.Requests;
 using E.API.Contracts.Products.Responses;
-using E.Application.Products.Commands;
-using E.Application.Products.Queries;
-using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace E.API.Controllers.V1;
 
@@ -47,7 +38,7 @@ public class ProductController : BaseController
         var response = await _mediator.Send(command);
         var mapped = _mapper.Map<ProductResponse>(response.Payload);
         return response.IsError ? HandleErrorResponse(response.Errors)
-            : CreatedAtAction(nameof(GetAllProducts), new { id = mapped.Id }, mapped);
+            : CreatedAtAction(nameof(Get), new { id = mapped.Id }, mapped);
     }
 
     [HttpPut(ApiRoutes.Product.Update)]

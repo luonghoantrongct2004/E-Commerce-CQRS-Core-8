@@ -1,6 +1,4 @@
-﻿using E.Domain.Entities;
-using E.Domain.Entities.Categories;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace E.API.Contracts.Products.Responses;
 
@@ -9,6 +7,7 @@ public class ProductResponse : BaseEntity
     public string ProductName { get; set; }
 
     public string? Description { get; set; }
+
     [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
     public int Price { get; set; }
 
@@ -23,6 +22,7 @@ public class ProductResponse : BaseEntity
     public int? SoldQuantity { get; set; } = 0;
 
     public DateTime? CreatedAt { get; set; } = DateTime.Now;
+
     [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
     public int? Discount { get; set; }
 

@@ -2,6 +2,7 @@
 using E.Application.Categories.Events;
 using E.Application.Enums;
 using E.Application.Models;
+using E.Application.Services.CategoryServices;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using E.Domain.Entities.Categories;
@@ -13,14 +14,18 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
+    private readonly CategoryServices _categoryServices;
 
-    public UpdateCategoryCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
+    public UpdateCategoryCommandHandler(IUnitOfWork unitOfWork,
+        IEventPublisher eventPublisher, CategoryServices categoryServices)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
+        _categoryServices = categoryServices;
     }
 
-    public async Task<OperationResult<Category>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<Category>> Handle(UpdateCategoryCommand request,
+        CancellationToken cancellationToken)
     {
         var result = new OperationResult<Category>();
         try
@@ -34,7 +39,7 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
                 result.AddError(ErrorCode.NotFound,
                     string.Format(CategoryErrorMessage.CategoryNotFound, request.Id));
             }
-            category.UpdateCategory(categoryName: request.CategoryName);
+            _categoryServices.UpdateCategory(category,categoryName: request.CategoryName);
             var brandEvent = new CategoryUpdateEvent(category.Id, category.CategoryName);
             await _eventPublisher.PublishAsync(brandEvent);
 

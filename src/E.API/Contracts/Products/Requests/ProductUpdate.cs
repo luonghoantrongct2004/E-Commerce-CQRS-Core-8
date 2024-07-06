@@ -1,5 +1,4 @@
-﻿using E.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace E.API.Contracts.Products.Requests;
 
@@ -8,6 +7,7 @@ public class ProductUpdate : BaseEntity
     public string ProductName { get; set; }
 
     public string? Description { get; set; }
+
     [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
     public int Price { get; set; }
 
@@ -20,6 +20,7 @@ public class ProductUpdate : BaseEntity
     public int StockQuantity { get; set; }
 
     public DateTime? CreatedAt { get; set; } = DateTime.Now;
+
     [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
     public int? Discount { get; set; }
 }

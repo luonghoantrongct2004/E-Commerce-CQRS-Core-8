@@ -2,6 +2,7 @@
 using E.Application.Brands.Events;
 using E.Application.Enums;
 using E.Application.Models;
+using E.Application.Services.BrandServices;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using E.Domain.Entities.Brand;
@@ -13,14 +14,18 @@ public class UpdateBrandCommandHandler : IRequestHandler<UpdateBrandCommand, Ope
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
+    private readonly BrandService _brandService;
 
-    public UpdateBrandCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
+    public UpdateBrandCommandHandler(IUnitOfWork unitOfWork,
+        IEventPublisher eventPublisher, BrandService brandService)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
+        _brandService = brandService;
     }
 
-    public async Task<OperationResult<Brand>> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<Brand>> Handle(UpdateBrandCommand request,
+        CancellationToken cancellationToken)
     {
         var result = new OperationResult<Brand>();
         try
@@ -34,7 +39,7 @@ public class UpdateBrandCommandHandler : IRequestHandler<UpdateBrandCommand, Ope
                 result.AddError(ErrorCode.NotFound,
                     string.Format(BrandErrorMessage.BrandNotFound, request.Id));
             }
-            brand.UpdateBrand(brandName: request.BrandName);
+            _brandService.UpdateBrand(brand,brandName: request.BrandName);
             var brandEvent = new BrandUpdateEvent(brand.Id, brand.BrandName);
             await _eventPublisher.PublishAsync(brandEvent);
 
