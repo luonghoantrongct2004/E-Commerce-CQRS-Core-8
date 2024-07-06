@@ -1,5 +1,6 @@
 ﻿using E.Application.Enums;
 using E.Application.Models;
+using E.Application.Services.CategoryServices;
 using E.DAL.UoW;
 using E.Domain.Entities.Categories;
 using E.Domain.Entities.Categories.Events;
@@ -10,10 +11,13 @@ namespace E.Application.Categories.EventHandlers;
 public class CategoryRemoveEventHandler : INotificationHandler<CategoryRemoveEvent>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
+    private readonly CategoryServices _categoryServices;
 
-    public CategoryRemoveEventHandler(IReadUnitOfWork readUnitOfWork)
+    public CategoryRemoveEventHandler(IReadUnitOfWork readUnitOfWork, 
+        CategoryServices categoryServices)
     {
         _readUnitOfWork = readUnitOfWork;
+        _categoryServices = categoryServices;
     }
 
     public async Task Handle(CategoryRemoveEvent notification, CancellationToken cancellationToken)
@@ -26,6 +30,7 @@ public class CategoryRemoveEventHandler : INotificationHandler<CategoryRemoveEve
 
             if (existingEntity != null)
             {
+                _categoryServices.DisableCategory(existingEntity);
                 await _readUnitOfWork.Categories.RemoveAsync(existingEntity.Id);
             }
             else

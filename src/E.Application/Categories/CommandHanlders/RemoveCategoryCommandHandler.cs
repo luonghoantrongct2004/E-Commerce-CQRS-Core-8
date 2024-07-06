@@ -1,6 +1,7 @@
 ﻿using E.Application.Categories.Commands;
 using E.Application.Enums;
 using E.Application.Models;
+using E.Application.Services.CategoryServices;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using E.Domain.Entities.Brands.Events;
@@ -12,14 +13,18 @@ public class RemoveCategoryCommandHandler : IRequestHandler<RemoveCategoryComman
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
+    private readonly CategoryServices _categoryServices;
 
-    public RemoveCategoryCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
+    public RemoveCategoryCommandHandler(IUnitOfWork unitOfWork, 
+        IEventPublisher eventPublisher, CategoryServices categoryServices)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
+        _categoryServices = categoryServices;
     }
 
-    public async Task<OperationResult<bool>> Handle(RemoveCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<bool>> Handle(RemoveCategoryCommand request,
+        CancellationToken cancellationToken)
     {
         var result = new OperationResult<bool>();
         try
@@ -34,8 +39,8 @@ public class RemoveCategoryCommandHandler : IRequestHandler<RemoveCategoryComman
                     string.Format(CategoryErrorMessage.CategoryNotFound, request.CategoryId));
                 return result;
             }
-            category.DeleteCategory(categoryId: category.Id);
-            _unitOfWork.Categories.Remove(category);
+            _categoryServices.DisableCategory(category);
+            _unitOfWork.Categories.Update(category);
             var categoryEvent = new BrandRemoveEvent(request.CategoryId);
             await _eventPublisher.PublishAsync(categoryEvent);
 

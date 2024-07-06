@@ -1,5 +1,6 @@
 ﻿using E.Application.Enums;
 using E.Application.Models;
+using E.Application.Services.BrandServices;
 using E.DAL.UoW;
 using E.Domain.Entities.Brand;
 using E.Domain.Entities.Brands.Events;
@@ -10,10 +11,12 @@ namespace E.Application.Brands.EventHandlers;
 public class CategoryRemoveEventHandler : INotificationHandler<BrandRemoveEvent>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
+    private readonly BrandService _brandService;
 
-    public CategoryRemoveEventHandler(IReadUnitOfWork readUnitOfWork)
+    public CategoryRemoveEventHandler(IReadUnitOfWork readUnitOfWork, BrandService brandService)
     {
-        _readUnitOfWork = readUnitOfWork ?? throw new ArgumentNullException(nameof(readUnitOfWork));
+        _readUnitOfWork = readUnitOfWork;
+        _brandService = brandService;
     }
 
     public async Task Handle(BrandRemoveEvent notification, CancellationToken cancellationToken)
@@ -26,7 +29,8 @@ public class CategoryRemoveEventHandler : INotificationHandler<BrandRemoveEvent>
 
             if (existingEntity != null)
             {
-                await _readUnitOfWork.Brands.RemoveAsync(existingEntity.Id);
+                _brandService.DisableBrand(existingEntity);
+                await _readUnitOfWork.Brands.UpdateAsync(existingEntity.Id, existingEntity);
             }
             else
             {

@@ -22,7 +22,7 @@ public class ReadUnitOfWork : IReadUnitOfWork
     public IReadRepository<UserMongo> Users { get; }
     public IReadRepository<Comment> Comments { get; }
     public IReadRepository<Coupon> Coupons { get; }
-    public IReadRepository<Introduction> Introductions { get; }
+    public IReadRepository<Introduce> Introductions { get; }
     public IReadRepository<New> News { get; }
     public IReadRepository<Order> Orders { get; }
     public IReadRepository<CartDetails> Carts { get; }
@@ -35,7 +35,7 @@ public class ReadUnitOfWork : IReadUnitOfWork
         Users = new MongoRepository<UserMongo>(database, "Users");
         Comments = new MongoRepository<Comment>(database, "Comments");
         Coupons = new MongoRepository<Coupon>(database, "Coupons");
-        Introductions = new MongoRepository<Introduction>(database, "Introductions");
+        Introductions = new MongoRepository<Introduce>(database, "Introductions");
         News = new MongoRepository<New>(database, "News");
         Orders = new MongoRepository<Order>(database, "Orders");
         Carts = new MongoRepository<CartDetails>(database, "Carts");

@@ -30,7 +30,8 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, OperationResult
         _mapper = mapper;
     }
 
-    public async Task<OperationResult<IdentityUserDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<IdentityUserDto>> Handle(LoginCommand request,
+        CancellationToken cancellationToken)
     {
         var identityUser = await ValidateAndGetIdentityAsync(request);
 

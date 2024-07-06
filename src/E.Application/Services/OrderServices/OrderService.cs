@@ -9,22 +9,23 @@ public class OrderService
     private readonly OrderValidationService _validationService;
     private readonly OrderProcessingService _processingService;
 
-    public OrderService(OrderValidationService validationService, OrderProcessingService processingService)
+    public OrderService(OrderValidationService validationService,
+        OrderProcessingService processingService)
     {
         _validationService = validationService;
         _processingService = processingService;
     }
     public Order AddOrder(Guid userId, decimal totalPrice,
-        DateTime orderDate, OrderStatus status, List<Orderdetail> orderDetails,
-        string contactPhone, string note, string paymentMethod)
+        List<Orderdetail> orderDetails, string contactPhone,
+        string note, string paymentMethod)
     {
         var objectToValidate = new Order
         {
             Id = Guid.NewGuid(),
             UserId = userId,
             TotalPrice = totalPrice,
-            OrderDate = orderDate,
-            Status = status,
+            OrderDate = DateTime.Now,
+            Status = OrderStatus.Pending,
             OrderDetails = orderDetails,
             ContactPhone = contactPhone,
             Note = note,

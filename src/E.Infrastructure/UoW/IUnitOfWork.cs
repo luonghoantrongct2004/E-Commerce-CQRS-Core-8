@@ -21,7 +21,7 @@ public interface IUnitOfWork
     IRepository<CartDetails> Carts { get; }
     IRepository<Comment> Comments { get; }
     IRepository<Coupon> Coupons { get; }
-    IRepository<Introduction> Introductions { get; }
+    IRepository<Introduce> Introductions { get; }
     IRepository<New> News { get; }
     IRepository<Order> Orders { get; }
     Task BeginTransactionAsync();

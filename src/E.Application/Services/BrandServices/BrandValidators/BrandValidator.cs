@@ -1,6 +1,7 @@
-﻿using FluentValidation;
+﻿using E.Domain.Entities.Brand;
+using FluentValidation;
 
-namespace E.Domain.Entities.Brand.BrandValidators;
+namespace E.Application.Services.BrandServices;
 
 public class BrandValidator:AbstractValidator<Brand>
 {

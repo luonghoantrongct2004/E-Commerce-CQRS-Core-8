@@ -1,5 +1,6 @@
 ﻿using E.Application.Enums;
 using E.Application.Models;
+using E.Application.Services.UserServices;
 using E.DAL.UoW;
 using E.Domain.Entities.Users;
 using MediatR;
@@ -9,10 +10,13 @@ namespace E.Application.Identity.EventHandlers;
 public class RemoveUserCommandEventHandler : INotificationHandler<UserRemoveEvent>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
+    private readonly UserService _userService;
 
-    public RemoveUserCommandEventHandler(IReadUnitOfWork readUnitOfWork)
+    public RemoveUserCommandEventHandler(IReadUnitOfWork readUnitOfWork,
+        UserService userService)
     {
         _readUnitOfWork = readUnitOfWork;
+        _userService = userService;
     }
 
     public async Task Handle(UserRemoveEvent notification, CancellationToken cancellationToken)
@@ -25,12 +29,13 @@ public class RemoveUserCommandEventHandler : INotificationHandler<UserRemoveEven
 
             if (existingEntity != null)
             {
-                await _readUnitOfWork.Users.RemoveAsync(existingEntity.Id);
+                _userService.DisableUserMongo(existingEntity);
+                await _readUnitOfWork.Users.UpdateAsync(existingEntity.Id, existingEntity);
             }
             else
             {
                 result.AddError(ErrorCode.NotFound,
-                string.Format(UserErrorMessage.UserNotFound, notification.IdentityUserId));
+                string.Format(UserErrorMessage.UserNotFound(notification.IdentityUserId)));
             }
         }
         catch (Exception ex)

@@ -4,6 +4,7 @@ using E.Application.Enums;
 using E.Application.Identity;
 using E.Application.Models;
 using E.Application.Products;
+using E.Application.Services.CartServices;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using MediatR;
@@ -15,14 +16,18 @@ public class CartItemRemoveCommandHandler :
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
+    private readonly CartService _cartService;
 
-    public CartItemRemoveCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
+    public CartItemRemoveCommandHandler(IUnitOfWork unitOfWork,
+        IEventPublisher eventPublisher, CartService cartService)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
+        _cartService = cartService;
     }
 
-    public async Task<OperationResult<bool>> Handle(CartItemRemoveCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<bool>> Handle(CartItemRemoveCommand request,
+        CancellationToken cancellationToken)
     {
         var result = new OperationResult<bool>();
         try
@@ -33,7 +38,7 @@ public class CartItemRemoveCommandHandler :
             if (user is null)
             {
                 result.AddError(ErrorCode.NotFound,
-                    UserErrorMessage.UserNotFound);
+                    UserErrorMessage.UserNotFound(request.UserId));
                 return result;
             }
 
@@ -41,7 +46,7 @@ public class CartItemRemoveCommandHandler :
             if (product is null)
             {
                 result.AddError(ErrorCode.NotFound,
-                    ProductErrorMessage.ProductNotFound);
+                    ProductErrorMessage.ProductNotFound(request.ProductId));
                 return result;
             }
             var cart = await _unitOfWork.Carts.FirstOrDefaultAsync(cd =>
@@ -52,7 +57,7 @@ public class CartItemRemoveCommandHandler :
                 result.AddError(ErrorCode.NotFound,
                     CartErrorMessage.CartNotFound);
             }
-            cart.DeleteProductInCart(product.Id);
+            _cartService.DeleteProductInCart(cart,product.Id);
             _unitOfWork.Carts.Remove(cart);
 
             var cartDeleteEvent = new CartItemRemoveEvent(cart.Id);

@@ -8,4 +8,8 @@ public abstract class BaseEntity
     [BsonId]
     [BsonRepresentation(BsonType.String)]
     public Guid Id { get; set; }
+    protected BaseEntity()
+    {
+        Id = Guid.NewGuid();
+    }
 }

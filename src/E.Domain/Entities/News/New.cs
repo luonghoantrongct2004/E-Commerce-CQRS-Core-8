@@ -1,6 +1,6 @@
 ﻿namespace E.Domain.Entities.News;
 
-public class New : BaseEntity
+public class New : ActiveEntity
 {
     public string Title { get; set; }
     public string Content { get; set; }

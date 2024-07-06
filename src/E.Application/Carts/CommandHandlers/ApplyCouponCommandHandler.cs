@@ -5,6 +5,7 @@ using E.Application.Enums;
 using E.Application.Identity;
 using E.Application.Models;
 using E.Application.Products;
+using E.Application.Services.CouponServices;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using E.Domain.Entities.Carts;
@@ -18,11 +19,14 @@ public class ApplyCouponCommandHandler : IRequestHandler<ApplyCouponCommand,
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
+    private readonly CouponService _couponService;
 
-    public ApplyCouponCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
+    public ApplyCouponCommandHandler(IUnitOfWork unitOfWork,
+        IEventPublisher eventPublisher, CouponService couponService)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
+        _couponService = couponService;
     }
 
     public async Task<OperationResult<CartDetails>> Handle(ApplyCouponCommand request,
@@ -78,14 +82,14 @@ public class ApplyCouponCommandHandler : IRequestHandler<ApplyCouponCommand,
         var user = await _unitOfWork.Users.GetByIdAsync(request.UserId);
         if (user == null)
         {
-            result.AddError(ErrorCode.NotFound, UserErrorMessage.UserNotFound);
+            result.AddError(ErrorCode.NotFound, UserErrorMessage.UserNotFound(request.UserId));
             return result;
         }
 
         var product = await _unitOfWork.Products.GetByIdAsync(request.ProductId);
         if (product == null)
         {
-            result.AddError(ErrorCode.NotFound, ProductErrorMessage.ProductNotFound);
+            result.AddError(ErrorCode.NotFound, ProductErrorMessage.ProductNotFound(request.ProductId));
             return result;
         }
 
@@ -136,7 +140,7 @@ public class ApplyCouponCommandHandler : IRequestHandler<ApplyCouponCommand,
                 CouponErrorMessage.CouponAlreadyApplied);
         }
 
-        cart.ApplyCoupon(coupon.Id);
+        /*_couponService.ApplyCoupon(coupon.Id);*/
         coupon.UsageLimit -= 1;
     }
 }

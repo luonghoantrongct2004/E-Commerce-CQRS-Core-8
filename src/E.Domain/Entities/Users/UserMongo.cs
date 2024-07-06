@@ -12,6 +12,7 @@ public class UserMongo : BaseEntity
     public DateTime CreatedDate { get; set; }
 
     public string? Avatar { get; set; }
+    public bool IsActive { get; set; } = true;
     public string? Address { get; set; }
     public string? CurrentCity { get; set; }
 }

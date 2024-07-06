@@ -28,9 +28,9 @@ public class BrandService
         brand.BrandName = brandName;
         _validationService.ValidateAndThrow(brand);
     }
-    public void DeleteBrand(Brand brand)
+    public void DisableBrand(Brand brand)
     {
-        brand.IsDelete = true;
+        brand.IsActive = false;
         _validationService.ValidateAndThrow(brand);
     }
 }

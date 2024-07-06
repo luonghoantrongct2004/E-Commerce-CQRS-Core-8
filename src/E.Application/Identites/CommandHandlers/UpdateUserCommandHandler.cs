@@ -3,6 +3,7 @@ using E.Application.Enums;
 using E.Application.Identity.Commands;
 using E.Application.Identity.Events;
 using E.Application.Models;
+using E.Application.Services.UserServices;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using E.Domain.Entities.Users;
@@ -21,15 +22,17 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Opera
     private readonly UserManager<DomainUser> _userManager;
     private readonly IMapper _mapper;
     private OperationResult<IdentityUserDto> _result = new();
+    private readonly UserService _userService;
 
     public UpdateUserCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher,
-        AppDbContext appDbContext, UserManager<DomainUser> userManager, IMapper mapper)
+        AppDbContext appDbContext, UserManager<DomainUser> userManager, IMapper mapper, UserService userService)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
         _appDbContext = appDbContext;
         _userManager = userManager;
         _mapper = mapper;
+        _userService = userService;
     }
 
     public async Task<OperationResult<IdentityUserDto>> Handle(UpdateUserCommand request,
@@ -47,7 +50,8 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Opera
                     IdentityErrorMessages.NonExistentIdentityUser);
                 return _result;
             }
-            identityUser.UpdateBasicInfo(
+            _userService.UpdateBasicInfo(
+                identityUser,
                 username: request.Username,
                 password: request.Password,
                 fullName: request.FullName,

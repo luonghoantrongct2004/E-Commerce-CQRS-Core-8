@@ -4,6 +4,7 @@ using E.Application.Enums;
 using E.Application.Identity;
 using E.Application.Models;
 using E.Application.Products;
+using E.Application.Services.CartServices;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using E.Domain.Entities.Carts;
@@ -16,11 +17,13 @@ public class CartItemAddCommandHandler : IRequestHandler<CartItemAddCommand,
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
+    private readonly CartService _cartService;
 
-    public CartItemAddCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
+    public CartItemAddCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher, CartService cartService)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
+        _cartService = cartService;
     }
 
     public async Task<OperationResult<CartDetails>> Handle(CartItemAddCommand request,
@@ -35,7 +38,7 @@ public class CartItemAddCommandHandler : IRequestHandler<CartItemAddCommand,
             if (user is null)
             {
                 result.AddError(ErrorCode.NotFound,
-                    string.Format(UserErrorMessage.UserNotFound, request.UserId));
+                    string.Format(UserErrorMessage.UserNotFound(request.UserId)));
                 return result;
             }
 
@@ -43,7 +46,7 @@ public class CartItemAddCommandHandler : IRequestHandler<CartItemAddCommand,
             if (product is null)
             {
                 result.AddError(ErrorCode.NotFound,
-                    ProductErrorMessage.ProductNotFound);
+                    ProductErrorMessage.ProductNotFound(request.ProductId));
                 return result;
             }
             if (product.StockQuantity < request.Quantity)
@@ -70,7 +73,7 @@ public class CartItemAddCommandHandler : IRequestHandler<CartItemAddCommand,
             }
             else
             {
-                var cart = CartDetails.AddProductIntoCart(request.UserId,
+                var cart = _cartService.AddProductIntoCart(request.UserId,
                     request.ProductId, request.Quantity);
                 await _unitOfWork.Carts.AddAsync(cart);
                 await _unitOfWork.CompleteAsync();

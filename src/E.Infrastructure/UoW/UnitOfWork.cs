@@ -24,7 +24,7 @@ public class UnitOfWork : IUnitOfWork
     private IRepository<CartDetails>? _cartRepository;
     private IRepository<Comment>? _commentRepository;
     private IRepository<Coupon>? _couponRepository;
-    private IRepository<Introduction>? _introductionRepository;
+    private IRepository<Introduce>? _introductionRepository;
     private IRepository<New>? _newRepository;
     private IRepository<Order>? _orderRepository;
     private IDbContextTransaction _transaction;
@@ -41,7 +41,7 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<CartDetails> Carts => _cartRepository ??= new SqlRepository<CartDetails>(_context);
     public IRepository<Comment> Comments => _commentRepository ??= new SqlRepository<Comment>(_context);
     public IRepository<Coupon> Coupons => _couponRepository ??= new SqlRepository<Coupon>(_context);
-    public IRepository<Introduction> Introductions => _introductionRepository ??= new SqlRepository<Introduction>(_context);
+    public IRepository<Introduce> Introductions => _introductionRepository ??= new SqlRepository<Introduce>(_context);
     public IRepository<New> News => _newRepository ??= new SqlRepository<New>(_context);
     public IRepository<Order> Orders => _orderRepository ??= new SqlRepository<Order>(_context);
 

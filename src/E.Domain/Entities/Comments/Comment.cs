@@ -1,6 +1,4 @@
-﻿using E.Domain.Entities.Comment.CommentValidators;
-using E.Domain.Entities.Users;
-using FluentValidation;
+﻿using E.Domain.Entities.Users;
 
 namespace E.Domain.Entities.Comment;
 
@@ -14,26 +12,4 @@ public class Comment : BaseEntity
     public Guid ProductId { get; set; }
     public int StarRating { get; set; }
     public DomainUser User { get; set; }
-    public static Comment CreateProductComment(Guid commentId, Guid productId, Guid userId, int rating, string content)
-    {
-        var validator = new CommentValidator();
-        var objectToValidate = new Comment
-        {
-            Id = commentId,
-            UserId = userId,
-            Content = content,
-            PostedAt = DateTime.UtcNow,
-            ProductId = productId,
-            StarRating = rating,
-        };
-        var validationResult = validator.Validate(objectToValidate);
-        if (validationResult.IsValid)
-        {
-            return objectToValidate;
-        }
-        else
-        {
-            throw new ValidationException(validationResult.Errors);
-        }
-    }
 }

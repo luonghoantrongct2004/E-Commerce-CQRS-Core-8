@@ -2,6 +2,7 @@
 using E.Application.Identity.Commands;
 using E.Application.Identity.EventHandlers;
 using E.Application.Models;
+using E.Application.Services.UserServices;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
 using MediatR;
@@ -12,11 +13,14 @@ public class RemoveUserCommandHandler : IRequestHandler<RemoveUserCommand, Opera
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
+    private readonly UserService _userService;
 
-    public RemoveUserCommandHandler(IUnitOfWork unitOfWork, IEventPublisher eventPublisher)
+    public RemoveUserCommandHandler(IUnitOfWork unitOfWork,
+        IEventPublisher eventPublisher, UserService userService)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
+        _userService = userService;
     }
 
     public async Task<OperationResult<bool>> Handle(RemoveUserCommand request,
@@ -36,8 +40,8 @@ public class RemoveUserCommandHandler : IRequestHandler<RemoveUserCommand, Opera
                     IdentityErrorMessages.NonExistentIdentityUser);
                 return result;
             }
-            userProfile.DeleteUser(request.IdentityUserId);
-            _unitOfWork.Users.Remove(userProfile);
+            _userService.DisableUser(userProfile);
+            _unitOfWork.Users.Update(userProfile);
 
             var userEvent = new UserRemoveEvent(request.IdentityUserId);
             await _eventPublisher.PublishAsync(userEvent);

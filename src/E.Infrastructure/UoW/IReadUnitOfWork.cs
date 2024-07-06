@@ -21,7 +21,7 @@ public interface IReadUnitOfWork
     IReadRepository<CartDetails> Carts { get; }
     IReadRepository<Comment> Comments { get; }
     IReadRepository<Coupon> Coupons { get; }
-    IReadRepository<Introduction> Introductions { get; }
+    IReadRepository<Introduce> Introductions { get; }
     IReadRepository<New> News{ get; }
     IReadRepository<Order> Orders{ get; }
 }

@@ -1,6 +1,7 @@
-﻿using FluentValidation;
+﻿using E.Domain.Entities.Orders;
+using FluentValidation;
 
-namespace E.Domain.Entities.Orders.OrderValidations;
+namespace E.Application.Services.OrderServices.OrderValidators;
 
 public class OrderValidator : AbstractValidator<Order>
 {

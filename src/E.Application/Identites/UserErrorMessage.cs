@@ -2,5 +2,6 @@
 
 public class UserErrorMessage
 {
-    public const string UserNotFound = "No user found with Id {0}";
+    public static string UserNotFound(Guid userId) => $"No user found with Id {userId}";
+    public const string TokenNotFound = "Please login again !"
 }
