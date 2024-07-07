@@ -1,4 +1,4 @@
-﻿using E.Domain.Entities.Orders.OrderValidations;
+﻿using E.Application.Services.OrderServices.OrderValidators;
 using E.Domain.Entities.Orders;
 using E.Domain.Exceptions;
 

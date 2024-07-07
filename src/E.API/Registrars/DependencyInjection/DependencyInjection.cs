@@ -1,4 +1,6 @@
-﻿namespace E.API.Registrars.DependencyInjection;
+﻿using E.Application.Services.UserServices;
+
+namespace E.API.Registrars.DependencyInjection;
 
 public class DependencyInjection : IWebApplicationBuilderRegistrar
 {
@@ -21,8 +23,8 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
             OperationResult<Product>>, GetProductByIdQueryHandler>();
         builder.Services.AddTransient<IRequestHandler<CreateProductCommand,
             OperationResult<Product>>, CreateProductCommandHandler>();
-        builder.Services.AddTransient<IRequestHandler<RemoveProductCommand,
-            OperationResult<Product>>, RemoveProductCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<DisableProductCommand,
+            OperationResult<Product>>, DisableProductCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<UpdateProductCommand,
             OperationResult<Product>>, UpdateProductCommandHandler>();
 
@@ -34,8 +36,8 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
             OperationResult<Brand>>, CreateBrandCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<UpdateBrandCommand,
             OperationResult<Brand>>, UpdateBrandCommandHandler>();
-        builder.Services.AddTransient<IRequestHandler<RemoveBrandCommand,
-            OperationResult<bool>>, RemoveBrandCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<DisableBrandCommand,
+            OperationResult<bool>>, DisableBrandCommandHandler>();
 
         builder.Services.AddTransient<IRequestHandler<GetCategoriesQuery,
             OperationResult<IEnumerable<Category>>>, GetCategoriesQueryHandler>();
@@ -45,8 +47,8 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
             OperationResult<Category>>, CreateCategoryCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<UpdateCategoryCommand,
             OperationResult<Category>>, UpdateCategoryCommandHandler>();
-        builder.Services.AddTransient<IRequestHandler<RemoveCategoryCommand,
-            OperationResult<bool>>, RemoveCategoryCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<DisableCategoryCommand,
+            OperationResult<bool>>, DisableCategoryCommandHandler>();
 
         builder.Services.AddMediatR(typeof(RegisterUserCommandHandler).Assembly);
         builder.Services.AddTransient<IRequestHandler<RegisterUserCommand,
@@ -55,8 +57,8 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
             OperationResult<IdentityUserDto>>, GetCurrentUserQueryHandler>();
         builder.Services.AddTransient<IRequestHandler<LoginCommand,
             OperationResult<IdentityUserDto>>, LoginCommandHandler>();
-        builder.Services.AddTransient<IRequestHandler<RemoveUserCommand,
-            OperationResult<bool>>, RemoveUserCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<DisableUserCommand,
+            OperationResult<bool>>, DisableUserCommandHandler>();
 
         builder.Services.AddTransient<IRequestHandler<GetCartsQuery,
             OperationResult<IEnumerable<CartDetails>>>, GetCartsQueryHandler>();

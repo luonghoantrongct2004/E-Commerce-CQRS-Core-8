@@ -2,7 +2,7 @@
 using E.Application.Enums;
 using E.Application.Identity.Commands;
 using E.Application.Models;
-using E.Application.Services;
+using E.Application.Services.UserServices;
 using E.DAL.UoW;
 using E.Domain.Entities.Users;
 using E.Domain.Entities.Users.Dto;

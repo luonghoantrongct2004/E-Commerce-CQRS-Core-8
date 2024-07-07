@@ -48,7 +48,7 @@ public class UserController : BaseController
     [HttpDelete]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var command = new RemoveUserCommand { IdentityUserId = id };
+        var command = new DisableUserCommand { IdentityUserId = id };
         var result = await _mediator.Send(command);
 
         if (result.IsError) return HandleErrorResponse(result.Errors);

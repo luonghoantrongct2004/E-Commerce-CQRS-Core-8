@@ -1,5 +1,4 @@
 ﻿using E.Domain.Entities.Brand;
-using E.Domain.Entities.Brand.BrandValidators;
 using E.Domain.Exceptions;
 
 namespace E.Application.Services.BrandServices;
@@ -7,6 +6,7 @@ namespace E.Application.Services.BrandServices;
 public class BrandValidationService
 {
     private readonly BrandValidator _validator = new BrandValidator();
+
     public void ValidateAndThrow(Brand brand)
     {
         var validationResult = _validator.Validate(brand);
