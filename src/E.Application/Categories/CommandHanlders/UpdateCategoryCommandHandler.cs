@@ -39,7 +39,10 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
                 result.AddError(ErrorCode.NotFound,
                     string.Format(CategoryErrorMessage.CategoryNotFound, request.Id));
             }
-            _categoryServices.UpdateCategory(category,categoryName: request.CategoryName);
+            _categoryServices.UpdateCategory(category, categoryName: request.CategoryName);
+            _unitOfWork.Categories.Update(category);
+
+            await _unitOfWork.CompleteAsync();
             var brandEvent = new CategoryUpdateEvent(category.Id, category.CategoryName);
             await _eventPublisher.PublishAsync(brandEvent);
 

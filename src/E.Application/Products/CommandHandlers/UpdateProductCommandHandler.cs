@@ -58,6 +58,9 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
                 discount: (int)request.Discount
             );
 
+            _unitOfWork.Products.Update(product);
+            await _unitOfWork.CompleteAsync();
+
             var productEvent = new ProductCreateEvent(product.Id, product.ProductName,
                 product.Description, product.Price, product.Images, product.CategoryId,
                 product.BrandId, product.StockQuantity, product.Discount, product.CreatedAt);

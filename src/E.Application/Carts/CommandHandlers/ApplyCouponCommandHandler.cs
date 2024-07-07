@@ -59,6 +59,8 @@ public class ApplyCouponCommandHandler : IRequestHandler<ApplyCouponCommand,
             _unitOfWork.Carts.Update(cart);
             _unitOfWork.Coupons.Update(coupon);
 
+            await _unitOfWork.CompleteAsync();
+
             var applyCouponEvent = new ApplyCouponEvent(cart.UserId, cart.ProductId,
                 cart.CouponId);
             await _eventPublisher.PublishAsync(applyCouponEvent);

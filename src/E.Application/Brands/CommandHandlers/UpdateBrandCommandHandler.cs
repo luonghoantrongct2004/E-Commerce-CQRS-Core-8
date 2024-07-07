@@ -40,6 +40,10 @@ public class UpdateBrandCommandHandler : IRequestHandler<UpdateBrandCommand, Ope
                     string.Format(BrandErrorMessage.BrandNotFound, request.Id));
             }
             _brandService.UpdateBrand(brand,brandName: request.BrandName);
+            _unitOfWork.Brands.Update(brand);
+
+            await _unitOfWork.CompleteAsync();
+
             var brandEvent = new BrandUpdateEvent(brand.Id, brand.BrandName);
             await _eventPublisher.PublishAsync(brandEvent);
 
