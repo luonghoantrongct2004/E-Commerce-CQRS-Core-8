@@ -24,12 +24,14 @@ public class CartDetails : BaseEntity
     public Guid? CouponId { get; set; }
 
     [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
+    public decimal DiscountAmount { get; set; } // Thêm thuộc tính DiscountAmount
+
+    [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
     public decimal CartTotal
     {
         get
         {
-            var discount = Coupon?.DiscountAmount ?? 0;
-            return Products.Sum(p => p.Price) - discount;
+            return Products.Sum(p => p.Price) - DiscountAmount;
         }
     }
 

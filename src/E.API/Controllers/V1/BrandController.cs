@@ -57,7 +57,7 @@ public class BrandController : BaseController
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var command = new RemoveBrandCommand { BrandId = id };
+        var command = new DisableBrandCommand { BrandId = id };
         var response = await _mediator.Send(command);
 
         if (response.IsError) return HandleErrorResponse(response.Errors);

@@ -78,8 +78,8 @@ public class CartItemAddCommandHandler : IRequestHandler<CartItemAddCommand,
                 await _unitOfWork.Carts.AddAsync(cart);
                 await _unitOfWork.CompleteAsync();
 
-                var cartAddItemEvent = new CartItemAddEvent(cart.Id,
-                    cart.UserId, cart.ProductId, cart.Quantity);
+                var cartAddItemEvent = new CartItemAddEvent(cart.UserId,
+                    cart.ProductId, cart.Quantity,cart.Id);
                 await _eventPublisher.PublishAsync(cartAddItemEvent);
 
                 await _unitOfWork.CommitAsync();

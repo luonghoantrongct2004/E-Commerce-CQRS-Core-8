@@ -53,7 +53,7 @@ namespace E.API.Controllers.V1
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var command = new RemoveCategoryCommand { CategoryId = id };
+            var command = new DisableCategoryCommand { CategoryId = id };
             var response = await _mediator.Send(command);
 
             if (response.IsError) return HandleErrorResponse(response.Errors);

@@ -57,7 +57,7 @@ public class ProductController : BaseController
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var command = new RemoveProductCommand { Id = id };
+        var command = new DisableProductCommand { Id = id };
         var response = await _mediator.Send(command);
         return response.IsError ? HandleErrorResponse(response.Errors)
             : NoContent();

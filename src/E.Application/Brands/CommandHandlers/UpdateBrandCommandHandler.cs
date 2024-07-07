@@ -38,6 +38,7 @@ public class UpdateBrandCommandHandler : IRequestHandler<UpdateBrandCommand, Ope
             {
                 result.AddError(ErrorCode.NotFound,
                     string.Format(BrandErrorMessage.BrandNotFound, request.Id));
+                return result;
             }
             _brandService.UpdateBrand(brand,brandName: request.BrandName);
             _unitOfWork.Brands.Update(brand);

@@ -1,13 +1,8 @@
-﻿using MediatR;
+﻿using E.Domain.Entities;
+using MediatR;
 
 namespace E.Application.Carts.Events;
 
-public class CartItemRemoveEvent : INotification
+public class CartItemRemoveEvent : BaseEntity, INotification
 {
-    public Guid Id { get; set; }
-
-    public CartItemRemoveEvent(Guid id)
-    {
-        Id = id;
-    }
 }
