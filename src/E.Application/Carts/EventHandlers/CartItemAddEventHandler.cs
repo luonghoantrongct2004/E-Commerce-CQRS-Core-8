@@ -27,14 +27,14 @@ public class CartItemAddEventHandler : INotificationHandler<CartItemAddEvent>
             if (user is null)
             {
                 result.AddError(ErrorCode.NotFound,
-                    UserErrorMessage.UserNotFound);
+                    UserErrorMessage.UserNotFound(notification.Id));
             }
 
             var product = await _readUnitOfWork.Products.GetByIdAsync(notification.ProductId);
             if (product is null)
             {
                 result.AddError(ErrorCode.NotFound,
-                    ProductErrorMessage.ProductNotFound);
+                    ProductErrorMessage.ProductNotFound(notification.ProductId));
             }
             var cart = new CartDetails
             {

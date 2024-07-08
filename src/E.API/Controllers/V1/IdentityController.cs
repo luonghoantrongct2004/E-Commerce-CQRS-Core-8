@@ -1,4 +1,5 @@
-﻿using E.API.Contracts.Identities;
+﻿using E.API.Contracts;
+using E.API.Contracts.Identities;
 using E.API.Extension;
 
 namespace E.API.Controllers.V1;

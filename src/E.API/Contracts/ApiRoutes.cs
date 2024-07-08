@@ -1,4 +1,4 @@
-﻿namespace E.API.Agregrates;
+﻿namespace E.API.Contracts;
 
 public static class ApiRoutes
 {
@@ -43,5 +43,24 @@ public static class ApiRoutes
         public const string Gets = $"{Base}/{{userId}}";
         public const string Add = $"{Base}/{{userId}}/{{productId}}";
         public const string Remove = $"{Base}/{{cartId}}";
+    }
+    public static class Order
+    {
+        public const string Base = "order";
+        public const string Get = $"{Base}/{{orderId}}";
+        public const string Gets = $"{Base}/orders";
+        public const string Add = $"{Base}";
+        public const string CancelOrder = $"{Base}/{{orderId}}/{{productId}}";
+        public const string ConfirmOrder = $"{Base}/{{orderId}}/{{productId}}";
+    }
+    public static class Coupon
+    {
+        public const string Base = "coupon";
+        public const string Get = $"{Base}/{{couponId}}";
+        public const string Gets = $"{Base}/{{couponId}}";
+        public const string ApplyCoupon = $"{Base}/{{productId}}/{{couponId}}";
+        public const string CreateCoupon = $"{Base}";
+        public const string DisableCoupon = $"{Base}/{{couponId}}";
+        public const string UpdateCoupon = $"{Base}/{{couponId}}";
     }
 }

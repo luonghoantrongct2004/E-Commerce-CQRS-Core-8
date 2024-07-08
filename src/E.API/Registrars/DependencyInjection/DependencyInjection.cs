@@ -1,12 +1,30 @@
-﻿using E.Application.Services.UserServices;
-
-namespace E.API.Registrars.DependencyInjection;
+﻿namespace E.API.Registrars.DependencyInjection;
 
 public class DependencyInjection : IWebApplicationBuilderRegistrar
 {
     public void RegisterServices(WebApplicationBuilder builder)
     {
         builder.Services.AddSingleton<IdentityService>();
+        builder.Services.AddSingleton<BrandService>();
+        builder.Services.AddSingleton<CategoryService>();
+        builder.Services.AddSingleton<CartService>();
+        builder.Services.AddSingleton<CommentService>();
+        builder.Services.AddSingleton<CouponService>();
+        builder.Services.AddSingleton<IntroduceService>();
+        builder.Services.AddSingleton<NewService>();
+        builder.Services.AddSingleton<OrderService>();
+        builder.Services.AddSingleton<ProductService>();
+
+        builder.Services.AddSingleton<UserValidationService>();
+        builder.Services.AddSingleton<BrandValidationService>();
+        builder.Services.AddSingleton<CategoryValidationService>();
+        builder.Services.AddSingleton<CartValidationService>();
+        builder.Services.AddSingleton<CommentValidationService>();
+        builder.Services.AddSingleton<CouponValidationService>();
+        builder.Services.AddSingleton<IntroduceValidationService>();
+        builder.Services.AddSingleton<NewValidationService>();
+        builder.Services.AddSingleton<OrderValidationService>();
+        builder.Services.AddSingleton<ProductValidationService>();
 
         builder.Services.AddScoped<IEventPublisher, InMemoryEventPublisher>();
         builder.Services.AddScoped<IErrorResponseHandler, ErrorResponseHandler>();
@@ -66,5 +84,29 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
             OperationResult<CartDetails>>, CartItemAddCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<CartItemRemoveCommand,
             OperationResult<bool>>, CartItemRemoveCommandHandler>();
+
+        builder.Services.AddTransient<IRequestHandler<GetOrdersQuery,
+            OperationResult<IEnumerable<Order>>>, GetOrdersQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<GetOrderQuery,
+            OperationResult<Order>>, GetOrderQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<AddOrderCommand,
+            OperationResult<Order>>, AddOrderCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<ConfirmOrderCommand,
+            OperationResult<bool>>, ConfirmOrderCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<CancelOrderCommand,
+            OperationResult<bool>>, CancelOrderCommandHandler>();
+
+        builder.Services.AddTransient<IRequestHandler<GetCouponsQuery,
+            OperationResult<IEnumerable<Coupon>>>, GetCouponsQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<GetCouponQuery,
+            OperationResult<Coupon>>, GetCouponQueryHandler>();
+        builder.Services.AddTransient<IRequestHandler<ApplyCouponCommand,
+            OperationResult<Coupon>>, ApplyCouponCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<CreateCouponCommand,
+            OperationResult<Coupon>>, CreateCouponCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<DisableCouponCommand,
+            OperationResult<bool>>, DisableCouponCommandHandler>();
+        builder.Services.AddTransient<IRequestHandler<UpdateCouponCommand,
+            OperationResult<Coupon>>, UpdateCouponCommandHandler>();
     }
 }

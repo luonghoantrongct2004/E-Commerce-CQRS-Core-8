@@ -40,7 +40,7 @@ public class ProductUpdateEventHandler : INotificationHandler<ProductUpdateEvent
             else
             {
                 result.AddError(ErrorCode.NotFound,
-                       string.Format(ProductErrorMessage.ProductNotFound, notification.Id));
+                       string.Format(ProductErrorMessage.ProductNotFound(notification.Id)));
             }
         }
         catch (Exception ex)

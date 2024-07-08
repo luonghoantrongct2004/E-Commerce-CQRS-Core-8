@@ -1,4 +1,6 @@
-﻿namespace E.API.Controllers.V1;
+﻿using E.API.Contracts;
+
+namespace E.API.Controllers.V1;
 
 [ApiVersion("1.0")]
 [Route(ApiRoutes.BaseRoute)]

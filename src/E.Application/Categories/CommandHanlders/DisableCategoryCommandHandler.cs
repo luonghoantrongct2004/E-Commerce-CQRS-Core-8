@@ -13,10 +13,10 @@ public class DisableCategoryCommandHandler : IRequestHandler<DisableCategoryComm
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
-    private readonly CategoryServices _categoryServices;
+    private readonly CategoryService _categoryServices;
 
     public DisableCategoryCommandHandler(IUnitOfWork unitOfWork, 
-        IEventPublisher eventPublisher, CategoryServices categoryServices)
+        IEventPublisher eventPublisher, CategoryService categoryServices)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;

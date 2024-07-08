@@ -3,25 +3,25 @@ using E.Application.Identity;
 using E.Application.Models;
 using E.Application.Orders.Commands;
 using E.Application.Orders.Events;
-using E.Application.Products;
 using E.Application.Services.OrderServices;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
+using E.Domain.Entities.Orders;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace E.Application.Orders.CommandHandlers;
 
-public class ConfirmPurcharCommandHandler
-    : IRequestHandler<ConfirmPurcharCommand, OperationResult<bool>>
+public class AddOrderCommandHandler : IRequestHandler<AddOrderCommand,
+    OperationResult<Order>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
     private readonly OrderService _orderService;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public ConfirmPurcharCommandHandler(IUnitOfWork unitOfWork,
-        IEventPublisher eventPublisher, OrderService orderService,
+    public AddOrderCommandHandler(IUnitOfWork unitOfWork,
+        IEventPublisher eventPublisher, OrderService orderService, 
         IHttpContextAccessor httpContextAccessor)
     {
         _unitOfWork = unitOfWork;
@@ -30,10 +30,10 @@ public class ConfirmPurcharCommandHandler
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<OperationResult<bool>> Handle(ConfirmPurcharCommand request,
+    public async Task<OperationResult<Order>> Handle(AddOrderCommand request,
         CancellationToken cancellationToken)
     {
-        var result = new OperationResult<bool>();
+        var result = new OperationResult<Order>();
         try
         {
             await _unitOfWork.BeginTransactionAsync();
@@ -51,43 +51,22 @@ public class ConfirmPurcharCommandHandler
                 result.AddUnknownError("Invalid format in the token.");
                 return result;
             }
-            var order = await _unitOfWork.Orders.FirstOrDefaultAsync(
-                o => o.UserId == userId && o.Id == request.Id);
-            if (order == null)
-            {
-                result.AddError(ErrorCode.NotFound,
-                    OrderErrorMessage.OrderNotFound);
-                return result;
-            }
 
-            var orderDetail = order.OrderDetails.FirstOrDefault();
-            if (orderDetail == null)
-            {
-                result.AddError(ErrorCode.NotFound,
-                    OrderErrorMessage.OrderNotFound);
-                return result;
-            }
+            var order = _orderService.AddOrder(userId ,request.TotalPrice,
+                request.OrderDetails ,request.Note, request.PaymentMethod,
+                request.ContactPhone);
 
-            var productId = orderDetail.ProductId;
-            var product = await _unitOfWork.Products.FirstOrDefaultAsync(
-                p => p.Id == productId);
-            if (product == null)
-            {
-                result.AddError(ErrorCode.NotFound,
-                    ProductErrorMessage.ProductNotFound(request.Product.Id));
-                return result;
-            }
-            _orderService.ConfirmOrder(order, product);
-            _unitOfWork.Orders.Update(order);
-
+            await _unitOfWork.Orders.AddAsync(order);
             await _unitOfWork.CompleteAsync();
 
-            var confirmPurcharEvent = new ConfirmPurcharEvent(order,product);
-            await _eventPublisher.PublishAsync(confirmPurcharEvent);
+            var orderAddEvent = new AddOrderEvent(order.Id, order.UserId,
+                order.OrderDate, order.Note, order.PaymentMethod, order.PaymentDate,
+                order.ContactPhone, order.TotalPrice,order.StatusString, order.OrderDetails);
+            await _eventPublisher.PublishAsync(orderAddEvent);
 
             await _unitOfWork.CommitAsync();
 
-            result.Payload = true;
+            result.Payload = order;
         }
         catch (Exception e)
         {

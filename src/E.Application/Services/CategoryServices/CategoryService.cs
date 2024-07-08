@@ -2,11 +2,11 @@
 
 namespace E.Application.Services.CategoryServices;
 
-public class CategoryServices
+public class CategoryService
 {
     private readonly CategoryValidationService _validationService;
 
-    public CategoryServices(CategoryValidationService validationService)
+    public CategoryService(CategoryValidationService validationService)
     {
         _validationService = validationService;
     }

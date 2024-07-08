@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Coupons\QueryHandlers\" />
     <Folder Include="Orders\EventHandlers\" />
     <Folder Include="Orders\QueryHandlers\" />
   </ItemGroup>
