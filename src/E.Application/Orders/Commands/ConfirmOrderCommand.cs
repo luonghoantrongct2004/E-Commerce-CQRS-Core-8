@@ -4,8 +4,8 @@ using MediatR;
 
 namespace E.Application.Orders.Commands;
 
-public class ConfirmPurcharCommand : IRequest<OperationResult<bool>>
+public class ConfirmOrderCommand : IRequest<OperationResult<bool>>
 {
     public Guid Id { get; set; }
-    public Product Product { get; set; }
+    public Guid ProductId { get; set; }
 }

@@ -6,7 +6,6 @@ namespace E.Application.Orders.Commands;
 
 public class AddOrderCommand : IRequest<OperationResult<Order>>
 {
-    public Guid UserId { get; set; }
     public List<Orderdetail> OrderDetails { get; set; }
     public string? Note { get; set; }
     public string PaymentMethod { get; set; }

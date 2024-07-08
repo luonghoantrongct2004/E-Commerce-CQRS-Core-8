@@ -24,7 +24,7 @@ public class GetUserQueryHandler : IRequestHandler<GetUserQuery, OperationResult
         if (user is null)
         {
             result.AddError(ErrorCode.NotFound,
-                string.Format(UserErrorMessage.UserNotFound, request.UserId));
+                string.Format(UserErrorMessage.UserNotFound(request.UserId)));
             return result;
         }
         result.Payload = user;

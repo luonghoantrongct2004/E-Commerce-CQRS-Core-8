@@ -7,5 +7,5 @@ namespace E.Application.Orders.Commands;
 public class CancelOrderCommand : IRequest<OperationResult<bool>>
 {
     public Guid Id { get; set; }
-    public Product Product { get; set; }
+    public Guid ProductId { get; set; }
 }

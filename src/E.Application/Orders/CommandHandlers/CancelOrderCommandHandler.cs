@@ -74,7 +74,7 @@ public class CancelOrderCommandHandler :
             if (product == null)
             {
                 result.AddError(ErrorCode.NotFound,
-                    ProductErrorMessage.ProductNotFound(request.Product.Id));
+                    ProductErrorMessage.ProductNotFound(request.ProductId));
                 return result;
             }
             _orderService.CancelOrder(order, product);

@@ -12,6 +12,7 @@ using E.Domain.Entities.Carts;
 using E.Domain.Entities.Coupons;
 using E.Domain.Enum;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace E.Application.Coupons.CommandHandlers;
 
@@ -21,13 +22,16 @@ public class ApplyCouponCommandHandler : IRequestHandler<ApplyCouponCommand,
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEventPublisher _eventPublisher;
     private readonly CouponService _couponService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public ApplyCouponCommandHandler(IUnitOfWork unitOfWork,
-        IEventPublisher eventPublisher, CouponService couponService)
+        IEventPublisher eventPublisher, CouponService couponService,
+        IHttpContextAccessor httpContextAccessor)
     {
         _unitOfWork = unitOfWork;
         _eventPublisher = eventPublisher;
         _couponService = couponService;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<OperationResult<Coupon>> Handle(ApplyCouponCommand request,
@@ -39,8 +43,30 @@ public class ApplyCouponCommandHandler : IRequestHandler<ApplyCouponCommand,
         {
             await _unitOfWork.BeginTransactionAsync();
 
+            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst("IdentityId")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                result.AddError(ErrorCode.NotFound,
+                    UserErrorMessage.TokenNotFound);
+                return result;
+            }
+
+            if (!Guid.TryParse(userIdClaim, out var userId))
+            {
+                result.AddUnknownError("Invalid format in the token.");
+                return result;
+            }
+
             var cart = await _unitOfWork.Carts.FirstOrDefaultAsync(
-                cd => cd.UserId == request.UserId && cd.ProductId == request.ProductId);
+                cd => cd.UserId == userId && cd.ProductId == request.ProductId);
+
+            var user = await _unitOfWork.Users.GetByIdAsync(userId);
+            if (user == null)
+            {
+                result.AddError(ErrorCode.NotFound, UserErrorMessage.UserNotFound(userId));
+                return result;
+            }
+
             var validationResult = await ValidateRequestAsync(request, result, cart);
             if (validationResult != null)
             {
@@ -61,7 +87,7 @@ public class ApplyCouponCommandHandler : IRequestHandler<ApplyCouponCommand,
 
             await _unitOfWork.CompleteAsync();
 
-            var applyCouponEvent = new ApplyCouponEvent(coupon.Id,cart.UserId, cart.ProductId);
+            var applyCouponEvent = new ApplyCouponEvent(coupon.Id, cart.UserId, cart.ProductId);
             await _eventPublisher.PublishAsync(applyCouponEvent);
 
             await _unitOfWork.CommitAsync();
@@ -80,13 +106,6 @@ public class ApplyCouponCommandHandler : IRequestHandler<ApplyCouponCommand,
     private async Task<OperationResult<Coupon>> ValidateRequestAsync(
         ApplyCouponCommand request, OperationResult<Coupon> result, CartDetails cart)
     {
-        var user = await _unitOfWork.Users.GetByIdAsync(request.UserId);
-        if (user == null)
-        {
-            result.AddError(ErrorCode.NotFound, UserErrorMessage.UserNotFound(request.UserId));
-            return result;
-        }
-
         var product = await _unitOfWork.Products.GetByIdAsync(request.ProductId);
         if (product == null)
         {

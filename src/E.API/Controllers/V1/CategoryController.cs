@@ -1,4 +1,5 @@
-﻿using E.API.Contracts.Categories.Requests;
+﻿using E.API.Contracts;
+using E.API.Contracts.Categories.Requests;
 using E.API.Contracts.Categories.Responses;
 
 namespace E.API.Controllers.V1

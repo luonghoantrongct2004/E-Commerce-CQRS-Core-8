@@ -1,4 +1,5 @@
-﻿using E.API.Contracts.Users.Responses;
+﻿using E.API.Contracts;
+using E.API.Contracts.Users.Responses;
 
 namespace E.API.Controllers.V1;
 

@@ -40,7 +40,7 @@ public class UpdateUserCommandEventHandler : INotificationHandler<UserUpdateEven
             else
             {
                 result.AddError(ErrorCode.NotFound,
-                string.Format(UserErrorMessage.UserNotFound, notification.UserId));
+                string.Format(UserErrorMessage.UserNotFound(notification.UserId)));
             }
         }
         catch (Exception ex)

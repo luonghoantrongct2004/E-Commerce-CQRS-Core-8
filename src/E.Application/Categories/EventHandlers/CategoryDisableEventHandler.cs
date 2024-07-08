@@ -11,10 +11,10 @@ namespace E.Application.Categories.EventHandlers;
 public class CategoryDisableEventHandler : INotificationHandler<CategoryDisableEvent>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
-    private readonly CategoryServices _categoryServices;
+    private readonly CategoryService _categoryServices;
 
     public CategoryDisableEventHandler(IReadUnitOfWork readUnitOfWork, 
-        CategoryServices categoryServices)
+        CategoryService categoryServices)
     {
         _readUnitOfWork = readUnitOfWork;
         _categoryServices = categoryServices;

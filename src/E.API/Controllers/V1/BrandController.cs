@@ -1,4 +1,5 @@
-﻿using E.API.Contracts.Brands.Requests;
+﻿using E.API.Contracts;
+using E.API.Contracts.Brands.Requests;
 using E.API.Contracts.Brands.Responses;
 
 namespace E.API.Controllers.V1;
