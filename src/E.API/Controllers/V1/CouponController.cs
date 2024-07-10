@@ -2,9 +2,6 @@
 using E.API.Contracts.Coupons.Responses;
 
 namespace E.API.Controllers.V1;
-
-[Route(ApiRoutes.BaseRoute)]
-[ApiController]
 public class CouponController : BaseController
 {
     public CouponController(IMediator mediator, IMapper mapper,
@@ -61,7 +58,7 @@ public class CouponController : BaseController
         return NoContent();
     }
 
-    [HttpPut(ApiRoutes.Coupon.DisableCoupon)]
+    [HttpDelete(ApiRoutes.Coupon.DisableCoupon)]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Delete(Guid couponId)
     {

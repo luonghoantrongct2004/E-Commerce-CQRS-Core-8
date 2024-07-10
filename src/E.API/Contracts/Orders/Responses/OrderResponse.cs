@@ -1,6 +1,4 @@
-﻿using E.Domain.Entities.Orders;
-
-namespace E.API.Contracts.Orders.Responses;
+﻿namespace E.API.Contracts.Orders.Responses;
 
 public class OrderResponse
 {
@@ -15,5 +13,5 @@ public class OrderResponse
     public string ContactPhone { get; set; }
     public decimal TotalPrice { get; set; }
 
-    public ICollection<Orderdetail> OrderDetails { get; set; }
+    public ICollection<OrderDetail> OrderDetails { get; set; }
 }

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace E.Application.Services.OrderServices.OrderValidators;
 
-public class OrderDetailsValidator : AbstractValidator<Orderdetail>
+public class OrderDetailsValidator : AbstractValidator<OrderDetail>
 {
     public OrderDetailsValidator()
     {

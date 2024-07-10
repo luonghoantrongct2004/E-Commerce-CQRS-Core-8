@@ -27,7 +27,7 @@ public class MongoDbContext
     public IMongoCollection<UserMongo> Users => _database.GetCollection<UserMongo>("Users");
     public IMongoCollection<Order> Orders => _database.GetCollection<Order>("Orders");
     public IMongoCollection<Product> Products => _database.GetCollection<Product>("Products");
-    public IMongoCollection<Orderdetail> Orderdetails => _database.GetCollection<Orderdetail>("Orderdetails");
+    public IMongoCollection<OrderDetail> OrderDetails => _database.GetCollection<OrderDetail>("OrderDetails");
     public IMongoCollection<Category> Categories => _database.GetCollection<Category>("Categories");
     public IMongoCollection<Brand> Brands => _database.GetCollection<Brand>("Brands");
     public IMongoCollection<CartDetails> CartDetails => _database.GetCollection<CartDetails>("CartDetails");

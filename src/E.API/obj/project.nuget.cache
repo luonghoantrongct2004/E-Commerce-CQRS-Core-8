@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rbiNf6LNWIN95BD7c+XlzUIteiAJGsVaeVpoS/vlh1alGtk0Y4S1De3LIAVSjreAmMOiJqwKC8mFygT+VN7BNg==",
+  "dgSpecHash": "3xv2Jth9tfdtAwxFGAl9EpkJmBr1JJQW/C6RM/OH8+Tp5YY+ntMAgAboCWHZaLFr4bKKETMNw3DR7x5rLSoynw==",
   "success": true,
   "projectFilePath": "C:\\Users\\PREDATOR\\Downloads\\eCormmerce\\src\\E.API\\E.API.csproj",
   "expectedPackageFiles": [
@@ -61,6 +61,7 @@
     "C:\\Users\\PREDATOR\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.1.2\\microsoft.identitymodel.tokens.7.1.2.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
+    "C:\\Users\\PREDATOR\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\microsoft.visualstudio.azure.containers.tools.targets.1.19.5.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\PREDATOR\\.nuget\\packages\\mongodb.bson\\2.26.0\\mongodb.bson.2.26.0.nupkg.sha512",

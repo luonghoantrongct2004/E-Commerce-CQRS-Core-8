@@ -3,9 +3,6 @@ using E.API.Contracts.Products.Requests;
 using E.API.Contracts.Products.Responses;
 
 namespace E.API.Controllers.V1;
-
-[Route(ApiRoutes.BaseRoute)]
-[ApiController]
 public class ProductController : BaseController
 {
     public ProductController(IMediator mediator, IMapper mapper,

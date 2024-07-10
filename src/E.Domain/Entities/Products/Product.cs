@@ -39,5 +39,5 @@ public class Product : BaseEntity
     public Category? Category { get; set; }
     public Brand.Brand? Brand { get; set; }
     public IEnumerable<Comment.Comment>? Comments { get; set; }
-    public ICollection<Orderdetail> Orderdetails { get; set; } = new List<Orderdetail>();
+    public virtual IEnumerable<OrderDetail>? OrderDetails { get; set; }
 }

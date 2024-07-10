@@ -5,8 +5,6 @@ using E.API.Contracts.Carts.Responses;
 namespace E.API.Controllers.V1;
 
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-[Route(ApiRoutes.BaseRoute)]
-[ApiController]
 public class CartController : BaseController
 {
     public CartController(IMediator mediator, IMapper mapper,

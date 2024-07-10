@@ -255,7 +255,7 @@ namespace E.Infrastructure.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("E.Domain.Entities.Orders.Orderdetail", b =>
+            modelBuilder.Entity("E.Domain.Entities.Orders.OrderDetail", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -282,7 +282,7 @@ namespace E.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Orderdetails");
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("E.Domain.Entities.Products.Product", b =>
@@ -607,7 +607,7 @@ namespace E.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("E.Domain.Entities.Orders.Orderdetail", b =>
+            modelBuilder.Entity("E.Domain.Entities.Orders.OrderDetail", b =>
                 {
                     b.HasOne("E.Domain.Entities.Orders.Order", "Order")
                         .WithMany("OrderDetails")
@@ -616,7 +616,7 @@ namespace E.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("E.Domain.Entities.Products.Product", "Product")
-                        .WithMany("Orderdetails")
+                        .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -724,7 +724,7 @@ namespace E.Infrastructure.Migrations
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Orderdetails");
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("E.Domain.Entities.Users.DomainUser", b =>

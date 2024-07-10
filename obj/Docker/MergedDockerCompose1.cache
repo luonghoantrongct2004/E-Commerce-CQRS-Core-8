@@ -1,0 +1,47 @@
+name: dockercompose13997715586669930594
+services:
+  e.api:
+    build:
+      context: C:\Users\PREDATOR\Downloads\eCormmerce
+      dockerfile: src\E.API\Dockerfile
+    depends_on:
+      mongo:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ConnectionStrings__DefaultConnection: Server=localhost;Initial Catalog=E-Ecormmerce;MultipleActiveResultSets=true;TrustServerCertificate=True;Integrated Security=True;
+    image: eapi
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8080"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\PREDATOR\AppData\Roaming/Microsoft/UserSecrets
+        target: C:\Users\ContainerUser\AppData\Roaming\Microsoft\UserSecrets
+        read_only: true
+        bind:
+          create_host_path: true
+  mongo:
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: ""
+      MONGO_INITDB_ROOT_USERNAME: root
+    image: mongo:4.2
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 27017
+        published: "27017"
+        protocol: tcp
+networks:
+  default:
+    name: dockercompose13997715586669930594_default

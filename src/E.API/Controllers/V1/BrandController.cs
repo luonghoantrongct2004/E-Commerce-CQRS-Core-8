@@ -1,11 +1,7 @@
-﻿using E.API.Contracts;
-using E.API.Contracts.Brands.Requests;
+﻿using E.API.Contracts.Brands.Requests;
 using E.API.Contracts.Brands.Responses;
 
 namespace E.API.Controllers.V1;
-
-[Route(ApiRoutes.BaseRoute)]
-[ApiController]
 public class BrandController : BaseController
 {
     public BrandController(IMediator mediator, IMapper mapper,

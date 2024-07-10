@@ -8,7 +8,7 @@ namespace E.Application.Services.OrderServices;
 public class OrderDetailValidationService
 {
     private readonly OrderDetailsValidator _validator = new OrderDetailsValidator();
-    public void ValidateAndThrow(Orderdetail orderdetail)
+    public void ValidateAndThrow(OrderDetail orderdetail)
     {
         var validationResult = _validator.Validate(orderdetail);
         if (!validationResult.IsValid)

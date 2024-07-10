@@ -1,6 +1,7 @@
 ﻿using E.Domain.Entities.Orders;
 using E.Domain.Entities.Products;
 using E.Domain.Enum;
+using System.Collections;
 
 namespace E.Application.Services.OrderServices;
 
@@ -15,8 +16,8 @@ public class OrderService
         _validationService = validationService;
         _processingService = processingService;
     }
-    public Order AddOrder(Guid userId, decimal totalPrice,
-        List<Orderdetail> orderDetails, string contactPhone,
+    public Order AddOrder(ICollection<OrderDetail> orderDetail,
+        Guid userId, decimal totalPrice,string contactPhone,
         string note, string paymentMethod)
     {
         var objectToValidate = new Order
@@ -26,12 +27,13 @@ public class OrderService
             TotalPrice = totalPrice,
             OrderDate = DateTime.Now,
             Status = OrderStatus.Pending,
-            OrderDetails = orderDetails,
             ContactPhone = contactPhone,
             Note = note,
             PaymentDate = DateTime.Now,
-            PaymentMethod = paymentMethod
+            PaymentMethod = paymentMethod,
+            OrderDetails = orderDetail
         };
+
         _validationService.ValidateAndThrow(objectToValidate);
         return objectToValidate;
     }
