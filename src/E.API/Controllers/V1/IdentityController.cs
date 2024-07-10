@@ -3,9 +3,6 @@ using E.API.Contracts.Identities;
 using E.API.Extension;
 
 namespace E.API.Controllers.V1;
-
-[Route(ApiRoutes.BaseRoute)]
-[ApiController]
 public class IdentityController : BaseController
 {
     public IdentityController(IMediator mediator, IMapper mapper,

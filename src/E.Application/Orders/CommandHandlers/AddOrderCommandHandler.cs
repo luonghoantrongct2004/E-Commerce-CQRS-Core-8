@@ -52,8 +52,9 @@ public class AddOrderCommandHandler : IRequestHandler<AddOrderCommand,
                 return result;
             }
 
-            var order = _orderService.AddOrder(userId ,request.TotalPrice,
-                request.OrderDetails ,request.Note, request.PaymentMethod,
+            var order = _orderService.AddOrder(request.OrderDetails
+                ,userId ,request.TotalPrice
+                ,request.Note, request.PaymentMethod,
                 request.ContactPhone);
 
             await _unitOfWork.Orders.AddAsync(order);

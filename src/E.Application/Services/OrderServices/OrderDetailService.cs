@@ -11,10 +11,10 @@ public class OrderDetailService
         _validationService = validationService;
     }
 
-    public Orderdetail AddOrderDetail(Guid orderId, Guid productId,
+    public OrderDetail AddOrderDetail(Guid orderId, Guid productId,
         int quantity)
     {
-        var objectToValidate = new Orderdetail
+        var objectToValidate = new OrderDetail
         {
             Id = Guid.NewGuid(),
             OrderId = orderId,

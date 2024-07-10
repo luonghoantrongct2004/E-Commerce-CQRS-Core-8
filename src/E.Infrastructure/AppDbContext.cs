@@ -55,10 +55,7 @@ public class AppDbContext : IdentityDbContext<DomainUser, IdentityRole<Guid>, Gu
             .WithMany(u => u.Orders)
             .HasForeignKey(o => o.UserId);
 
-        modelBuilder.Entity<Orderdetail>()
-            .HasOne(od => od.Product)
-            .WithMany(p => p.Orderdetails)
-            .HasForeignKey(od => od.ProductId);
+        modelBuilder.Entity<OrderDetail>();
 
         modelBuilder.Entity<Coupon>()
             .Property(c => c.DiscountAmount)
@@ -72,7 +69,7 @@ public class AppDbContext : IdentityDbContext<DomainUser, IdentityRole<Guid>, Gu
     public DbSet<Order> Orders { get; set; }
     public DbSet<Product> Products { get; set; }
 
-    public DbSet<Orderdetail> Orderdetails { get; set; }
+    public DbSet<OrderDetail> OrderDetails { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Brand> Brands { get; set; }
     public DbSet<CartDetails> CartDetails { get; set; }

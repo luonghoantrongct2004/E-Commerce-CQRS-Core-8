@@ -53,7 +53,7 @@ public class DatabaseRegister : IWebApplicationBuilderRegistrar
         });
         builder.Services.ConfigureApplicationCookie(options =>
         {
-            options.ExpireTimeSpan = TimeSpan.FromHours(2);
+            options.ExpireTimeSpan = TimeSpan.FromDays(14);
             options.LoginPath = $"/login/";
             options.LogoutPath = $"/logout/";
             options.AccessDeniedPath = $"/Identity/Account/AccessDenied";

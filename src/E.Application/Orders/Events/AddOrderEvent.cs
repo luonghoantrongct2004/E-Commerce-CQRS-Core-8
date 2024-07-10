@@ -19,11 +19,11 @@ public class AddOrderEvent : BaseEntity, INotification
     [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
     public decimal TotalPrice { get; set; }
     public string Status { get; set; }
-    public ICollection<Orderdetail> OrderDetails { get; set; }
+    public ICollection<OrderDetail> OrderDetails { get; set; }
 
     public AddOrderEvent(Guid id ,Guid userId, DateTime orderDate, string? note,
         string paymentMethod, DateTime paymentDate, string contactPhone, decimal totalPrice,
-        string status,ICollection<Orderdetail> orderDetails)
+        string status,ICollection<OrderDetail> orderDetails)
     {
         Id = id;
         UserId = userId;

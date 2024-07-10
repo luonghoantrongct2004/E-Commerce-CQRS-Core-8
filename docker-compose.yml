@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  e.api:
+    image: ${DOCKER_REGISTRY-}eapi
+    build:
+      context: .
+      dockerfile: src\E.API\Dockerfile
+    ports:
+        - "8080:80"
+    depends_on:
+        - mongo
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ConnectionStrings__DefaultConnection=Server=localhost;Initial Catalog=E-Ecormmerce;MultipleActiveResultSets=true;TrustServerCertificate=True;Integrated Security=True;
+
+  mongo:
+    image: mongo:4.2
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=

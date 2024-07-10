@@ -31,6 +31,9 @@ namespace E.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
@@ -42,8 +45,11 @@ namespace E.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CouponId")
+                    b.Property<Guid?>("CouponId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("DiscountAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -73,6 +79,9 @@ namespace E.Infrastructure.Migrations
 
                     b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -125,6 +134,9 @@ namespace E.Infrastructure.Migrations
                     b.Property<decimal>("DiscountAmount")
                         .HasColumnType("decimal(18,0)");
 
+                    b.Property<decimal>("DiscountPercentage")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("ExpirationDate")
                         .HasColumnType("datetime2");
 
@@ -132,6 +144,9 @@ namespace E.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("MinAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.Property<int>("UsageLimit")
@@ -142,7 +157,7 @@ namespace E.Infrastructure.Migrations
                     b.ToTable("Coupons");
                 });
 
-            modelBuilder.Entity("E.Domain.Entities.Introductions.Introduction", b =>
+            modelBuilder.Entity("E.Domain.Entities.Introductions.Introduce", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -158,13 +173,16 @@ namespace E.Infrastructure.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Introduction");
+                    b.ToTable("Introduce");
                 });
 
             modelBuilder.Entity("E.Domain.Entities.News.New", b =>
@@ -183,6 +201,9 @@ namespace E.Infrastructure.Migrations
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("PublishedAt")
                         .HasColumnType("datetime2");
@@ -206,9 +227,6 @@ namespace E.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
@@ -218,26 +236,14 @@ namespace E.Infrastructure.Migrations
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("PaymentId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ShipDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ShipperId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ShippingAddress")
+                    b.Property<string>("StatusString")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Status");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,0)");
@@ -252,7 +258,7 @@ namespace E.Infrastructure.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("E.Domain.Entities.Orders.Orderdetail", b =>
+            modelBuilder.Entity("E.Domain.Entities.Orders.OrderDetail", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -279,7 +285,7 @@ namespace E.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Orderdetails");
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("E.Domain.Entities.Products.Product", b =>
@@ -311,6 +317,9 @@ namespace E.Infrastructure.Migrations
 
                     b.Property<string>("Images")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
@@ -371,6 +380,9 @@ namespace E.Infrastructure.Migrations
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -553,9 +565,7 @@ namespace E.Infrastructure.Migrations
                 {
                     b.HasOne("E.Domain.Entities.Coupons.Coupon", "Coupon")
                         .WithMany()
-                        .HasForeignKey("CouponId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CouponId");
 
                     b.HasOne("E.Domain.Entities.Products.Product", "Product")
                         .WithMany()
@@ -604,7 +614,7 @@ namespace E.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("E.Domain.Entities.Orders.Orderdetail", b =>
+            modelBuilder.Entity("E.Domain.Entities.Orders.OrderDetail", b =>
                 {
                     b.HasOne("E.Domain.Entities.Orders.Order", "Order")
                         .WithMany("OrderDetails")
@@ -613,7 +623,7 @@ namespace E.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("E.Domain.Entities.Products.Product", "Product")
-                        .WithMany("Orderdetails")
+                        .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -721,7 +731,7 @@ namespace E.Infrastructure.Migrations
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Orderdetails");
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("E.Domain.Entities.Users.DomainUser", b =>

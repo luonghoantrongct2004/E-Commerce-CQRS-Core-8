@@ -360,7 +360,7 @@ namespace E.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orderdetails",
+                name: "OrderDetails",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -372,15 +372,15 @@ namespace E.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orderdetails", x => x.Id);
+                    table.PrimaryKey("PK_OrderDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orderdetails_Orders_OrderId",
+                        name: "FK_OrderDetails_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orderdetails_Products_ProductId",
+                        name: "FK_OrderDetails_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -413,13 +413,13 @@ namespace E.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orderdetails_OrderId",
-                table: "Orderdetails",
+                name: "IX_OrderDetails_OrderId",
+                table: "OrderDetails",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orderdetails_ProductId",
-                table: "Orderdetails",
+                name: "IX_OrderDetails_ProductId",
+                table: "OrderDetails",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
@@ -511,7 +511,7 @@ namespace E.Infrastructure.Migrations
                 name: "News");
 
             migrationBuilder.DropTable(
-                name: "Orderdetails");
+                name: "OrderDetails");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");

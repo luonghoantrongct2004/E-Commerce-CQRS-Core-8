@@ -2,9 +2,6 @@
 using E.API.Contracts.Orders.Responses;
 
 namespace E.API.Controllers.V1;
-
-[Route(ApiRoutes.BaseRoute)]
-[ApiController]
 public class OrderController : BaseController
 {
     public OrderController(IMediator mediator, IMapper mapper,

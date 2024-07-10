@@ -29,4 +29,5 @@ public class ProductResponse : BaseEntity
     public Category? Category { get; set; }
     public E.Domain.Entities.Brand.Brand? Brand { get; set; }
     public IEnumerable<E.Domain.Entities.Comment.Comment>? Comments { get; set; }
+    public IEnumerable<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 }

@@ -1,0 +1,26 @@
+name: dockercompose13997715586669930594
+services:
+  e.api:
+    build:
+      context: C:\Users\PREDATOR\Downloads\eCormmerce
+      dockerfile: src\E.API\Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+    image: eapi
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\PREDATOR\AppData\Roaming/Microsoft/UserSecrets
+        target: C:\Users\ContainerUser\AppData\Roaming\Microsoft\UserSecrets
+        read_only: true
+        bind:
+          create_host_path: true
+networks:
+  default:
+    name: dockercompose13997715586669930594_default

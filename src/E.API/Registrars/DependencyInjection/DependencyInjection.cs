@@ -5,6 +5,7 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
     public void RegisterServices(WebApplicationBuilder builder)
     {
         builder.Services.AddSingleton<IdentityService>();
+        builder.Services.AddSingleton<UserService>();
         builder.Services.AddSingleton<BrandService>();
         builder.Services.AddSingleton<CategoryService>();
         builder.Services.AddSingleton<CartService>();
@@ -13,6 +14,7 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
         builder.Services.AddSingleton<IntroduceService>();
         builder.Services.AddSingleton<NewService>();
         builder.Services.AddSingleton<OrderService>();
+        builder.Services.AddSingleton<OrderDetailService>();
         builder.Services.AddSingleton<ProductService>();
 
         builder.Services.AddSingleton<UserValidationService>();
@@ -24,6 +26,8 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
         builder.Services.AddSingleton<IntroduceValidationService>();
         builder.Services.AddSingleton<NewValidationService>();
         builder.Services.AddSingleton<OrderValidationService>();
+        builder.Services.AddSingleton<OrderProcessingService>();
+        builder.Services.AddSingleton<OrderDetailValidationService>();
         builder.Services.AddSingleton<ProductValidationService>();
 
         builder.Services.AddScoped<IEventPublisher, InMemoryEventPublisher>();
