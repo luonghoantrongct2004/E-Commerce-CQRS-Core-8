@@ -1,9 +1,12 @@
-﻿namespace E.API.Registrars.DependencyInjection;
+﻿using E.DAL;
+
+namespace E.API.Registrars.DependencyInjection;
 
 public class DependencyInjection : IWebApplicationBuilderRegistrar
 {
     public void RegisterServices(WebApplicationBuilder builder)
     {
+        builder.Services.AddScoped<MongoDbInitializer>();
         builder.Services.AddSingleton<IdentityService>();
         builder.Services.AddSingleton<UserService>();
         builder.Services.AddSingleton<BrandService>();

@@ -1,0 +1,60 @@
+name: dockercompose13997715586669930594
+services:
+  e-api:
+    build:
+      context: C:\Users\PREDATOR\Downloads\eCormmerce
+      dockerfile: src/E.API/Dockerfile
+    container_name: ecommerce
+    depends_on:
+      ecommerce-mongo-server:
+        condition: service_started
+        required: true
+      ecommerce-sql-server:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: Server=localhost;Initial Catalog=E-Ecormmerce;User Id=hoantrong171124;Password=TrOnG*225#;TrustServerCertificate=True;
+    links:
+      - ecommerce-sql-server
+      - ecommerce-mongo-server
+    networks:
+      app-network: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "80"
+        protocol: tcp
+    restart: always
+  ecommerce-mongo-server:
+    container_name: shop-mongo-server
+    image: mongo:latest
+    networks:
+      app-network: null
+    ports:
+      - mode: ingress
+        target: 27017
+        published: "27018"
+        protocol: tcp
+    restart: always
+  ecommerce-sql-server:
+    cap_add:
+      - SYS_PTRACE
+    container_name: ecommerce-sql
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: TrOnG*225#
+    hostname: mssql
+    image: mcr.microsoft.com/mssql/server
+    networks:
+      app-network: null
+    ports:
+      - mode: ingress
+        target: 1433
+        published: "1433"
+        protocol: tcp
+    restart: always
+networks:
+  app-network:
+    name: dockercompose13997715586669930594_app-network
+    driver: bridge

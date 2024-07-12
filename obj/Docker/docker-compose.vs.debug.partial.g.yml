@@ -1,9 +1,8 @@
 version: '3.4'
 
 services:
-  e.api:
+  e-api:
     image: eapi:dev
-    container_name: "E.API"
     build:
       args:
         BUILD_CONFIGURATION: Debug
