@@ -1,23 +1,50 @@
-version: '3.4'
-
 services:
-  e.api:
-    image: ${DOCKER_REGISTRY-}eapi
+  # ASP.NET Core Web API Application
+  e-api:
     build:
       context: .
-      dockerfile: src\E.API\Dockerfile
+      dockerfile: src/E.API/Dockerfile
+    container_name: ecommerce
+    restart: always
     ports:
-        - "8080:80"
+      - "80:80"
+    links:
+      - ecommerce-sql-server
+      - ecommerce-mongo-server
+    networks:
+      - app-network
     depends_on:
-        - mongo
+      - ecommerce-sql-server
+      - ecommerce-mongo-server
     environment:
-        - ASPNETCORE_ENVIRONMENT=Development
-        - ConnectionStrings__DefaultConnection=Server=localhost;Initial Catalog=E-Ecormmerce;MultipleActiveResultSets=true;TrustServerCertificate=True;Integrated Security=True;
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=ecommerce-sql-server;Database=E-Ecormmerce;User Id=sa;Password=TrOnG*225#;TrustServerCertificate=True;
 
-  mongo:
-    image: mongo:4.2
+  # SQL Server
+  ecommerce-sql-server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    cap_add: [ 'SYS_PTRACE' ]
+    hostname: mssql
+    container_name: ecommerce-sql
+    restart: always
     ports:
-      - "27017:27017"
+      - "1433:1433"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=TrOnG*225#
+    networks:
+      - app-network
+
+  # MongoDB Server
+  ecommerce-mongo-server:
+    image: mongo:latest
+    container_name: ecommerce-mongo-server
+    restart: always
+    ports:
+      - "27018:27017"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

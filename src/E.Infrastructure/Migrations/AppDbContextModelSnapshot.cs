@@ -616,21 +616,17 @@ namespace E.Infrastructure.Migrations
 
             modelBuilder.Entity("E.Domain.Entities.Orders.OrderDetail", b =>
                 {
-                    b.HasOne("E.Domain.Entities.Orders.Order", "Order")
+                    b.HasOne("E.Domain.Entities.Orders.Order", null)
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("E.Domain.Entities.Products.Product", "Product")
+                    b.HasOne("E.Domain.Entities.Products.Product", null)
                         .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("E.Domain.Entities.Products.Product", b =>

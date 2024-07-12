@@ -1,0 +1,151 @@
+name: dockercompose13997715586669930594
+services:
+  e-api:
+    build:
+      context: C:\Users\PREDATOR\Downloads\eCormmerce
+      dockerfile: src/E.API/Dockerfile
+    container_name: ecommerce
+    depends_on:
+      ecommerce-mongo-server:
+        condition: service_started
+        required: true
+      ecommerce-sql-server:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: Server=localhost;Initial Catalog=E-Ecormmerce;User Id=hoantrong171124;Password=TrOnG*225#;TrustServerCertificate=True;
+    links:
+      - ecommerce-sql-server
+      - ecommerce-mongo-server
+    networks:
+      app-network: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "80"
+        protocol: tcp
+    restart: always
+  e.api:
+    build:
+      context: C:\Users\PREDATOR\Downloads\eCormmerce
+      dockerfile: Dockerfile
+      args:
+        BUILD_CONFIGURATION: Debug
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: E.API
+      target: base
+    container_name: E.API
+    entrypoint:
+      - C:\remote_debugger\x64\msvsmon.exe
+      - /noauth
+      - /anyuser
+      - /silent
+      - /nostatus
+      - /noclrwarn
+      - /nosecuritywarn
+      - /nofirewallwarn
+      - /nowowwarn
+      - /timeout:2147483646
+      - /LogDebuggeeOutputToStdOut
+    environment:
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      NUGET_FALLBACK_PACKAGES: ""
+      NUGET_PACKAGES: C:\.nuget\packages
+    image: eapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath c:\.nuget\packages  "C:\app\bin\Debug\net8.0\E.API.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: C:\remote_debugger\x64\utils\KillProcess.exe dotnet.exe
+      com.microsoft.visualstudio.debuggee.program: '"C:\Program Files\dotnet\dotnet.exe"'
+      com.microsoft.visualstudio.debuggee.workingdirectory: C:\app
+    networks:
+      default: null
+    volumes:
+      - type: bind
+        source: C:\Users\PREDATOR\Downloads\eCormmerce\src\E.API
+        target: C:\app
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\PREDATOR\Downloads\eCormmerce
+        target: C:\src
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\PREDATOR\onecoremsvsmon\17.8.20104.3419
+        target: C:\remote_debugger
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\PREDATOR\.nuget\packages\
+        target: c:\.nuget\packages
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\PREDATOR\AppData\Roaming/ASP.NET/Https
+        target: C:\Users\ContainerUser\AppData\Roaming\ASP.NET\Https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\PREDATOR\AppData\Roaming/Microsoft/UserSecrets
+        target: C:\Users\ContainerUser\AppData\Roaming\Microsoft\UserSecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\TokenService.Proxy\win10-x64\net6.0
+        target: C:\TokenService.Proxy
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\HotReloadProxy\win10-x64\net6.0
+        target: C:\HotReloadProxy
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\HotReload
+        target: C:\HotReloadAgent
+        read_only: true
+        bind:
+          create_host_path: true
+  ecommerce-mongo-server:
+    container_name: shop-mongo-server
+    image: mongo:latest
+    networks:
+      app-network: null
+    ports:
+      - mode: ingress
+        target: 27017
+        published: "27017"
+        protocol: tcp
+    restart: always
+  ecommerce-sql-server:
+    cap_add:
+      - SYS_PTRACE
+    container_name: ecommerce-sql
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: TrOnG*225#
+    hostname: mssql
+    image: mcr.microsoft.com/mssql/server
+    networks:
+      app-network: null
+    ports:
+      - mode: ingress
+        target: 1433
+        published: "1433"
+        protocol: tcp
+    restart: always
+networks:
+  app-network:
+    name: dockercompose13997715586669930594_app-network
+    driver: bridge
+  default:
+    name: dockercompose13997715586669930594_default

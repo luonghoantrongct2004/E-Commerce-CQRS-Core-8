@@ -1,8 +1,7 @@
 version: '3.4'
 
 services:
-  e.api:
-    container_name: "E.API"
+  e-api:
     build:
       args:
         BUILD_CONFIGURATION: Release
