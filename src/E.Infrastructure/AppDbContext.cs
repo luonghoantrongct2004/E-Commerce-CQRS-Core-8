@@ -7,6 +7,7 @@ using E.Domain.Entities.Introductions;
 using E.Domain.Entities.News;
 using E.Domain.Entities.Orders;
 using E.Domain.Entities.Products;
+using E.Domain.Entities.Token;
 using E.Domain.Entities.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -77,5 +78,6 @@ public class AppDbContext : IdentityDbContext<DomainUser, IdentityRole<Guid>, Gu
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Introduce> Introductions { get; set; }
     public DbSet<New> News { get; set; }
-    public DbSet<Introduce> Introduction { get; set; } = default!;
+    public DbSet<Introduce> Introduction { get; set; };
+    public DbSet<RefreshToken> Tokens { get; set; };
 }

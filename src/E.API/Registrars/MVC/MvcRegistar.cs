@@ -7,6 +7,16 @@ public class MvcRegistar : IWebApplicationBuilderRegistrar
     public void RegisterServices(WebApplicationBuilder builder)
     {
         builder.Services.AddControllers();
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("CorsPolicy",
+                builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+        });
+
         builder.Services.AddAuthorization();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddApiVersioning(config =>
