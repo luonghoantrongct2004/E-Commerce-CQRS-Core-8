@@ -2,6 +2,7 @@
 using E.Application.Enums;
 using E.Application.Identity.Commands;
 using E.Application.Models;
+using E.Application.Services.TokenServices;
 using E.Application.Services.UserServices;
 using E.DAL.EventPublishers;
 using E.DAL.UoW;
@@ -23,15 +24,19 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
     private readonly IdentityService _identityService;
     private OperationResult<IdentityUserDto> _result = new();
     private readonly IMapper _mapper;
+    private readonly RefreshTokenService _refreshToken;
 
-    public RegisterUserCommandHandler(IUnitOfWork unitOfWork, UserManager<DomainUser> userManager,
-        IdentityService identityService, IMapper mapper, IEventPublisher eventPublisher)
+    public RegisterUserCommandHandler(IUnitOfWork unitOfWork,
+        UserManager<DomainUser> userManager,
+        IdentityService identityService, IMapper mapper,
+        IEventPublisher eventPublisher, RefreshTokenService refreshToken)
     {
         _unitOfWork = unitOfWork;
         _userManager = userManager;
         _identityService = identityService;
         _mapper = mapper;
         _eventPublisher = eventPublisher;
+        _refreshToken = refreshToken;
     }
 
     public async Task<OperationResult<IdentityUserDto>> Handle(RegisterUserCommand request,
@@ -55,9 +60,12 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
 
             await _unitOfWork.CommitAsync();
 
+            var refreshToken = await _refreshToken.CreateRefreshTokenAsync(identity);
+
             _result.Payload = _mapper.Map<IdentityUserDto>(identity);
             _result.Payload.UserName = identity.Email;
             _result.Payload.Token = GetJwtString(identity);
+            _result.Payload.RefreshToken = refreshToken;
         }
         catch (Exception ex)
         {

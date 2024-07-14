@@ -12,4 +12,5 @@ public class IdentityUserDto
     public string? Address { get; set; }
     public string? CurrentCity { get; set; }
     public string Token { get; set; }
+    public string RefreshToken { get; set; }
 }

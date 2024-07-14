@@ -7,6 +7,7 @@ using E.Domain.Entities.Introductions;
 using E.Domain.Entities.News;
 using E.Domain.Entities.Orders;
 using E.Domain.Entities.Products;
+using E.Domain.Entities.Token;
 using E.Domain.Entities.Users;
 using E.Infrastructure.Repository.Interfaces;
 
@@ -24,4 +25,5 @@ public interface IReadUnitOfWork
     IReadRepository<Introduce> Introductions { get; }
     IReadRepository<New> News{ get; }
     IReadRepository<Order> Orders{ get; }
+    IReadRepository<RefreshToken> Tokens { get; }
 }

@@ -7,6 +7,7 @@ using E.Domain.Entities.Introductions;
 using E.Domain.Entities.News;
 using E.Domain.Entities.Orders;
 using E.Domain.Entities.Products;
+using E.Domain.Entities.Token;
 using E.Domain.Entities.Users;
 using E.Infrastructure.Repository.Interfaces;
 using E.Infrastructure.Repository.MongoRepositories;
@@ -26,6 +27,8 @@ public class ReadUnitOfWork : IReadUnitOfWork
     public IReadRepository<New> News { get; }
     public IReadRepository<Order> Orders { get; }
     public IReadRepository<CartDetails> Carts { get; }
+    public IReadRepository<RefreshToken> Tokens { get; }
+
 
     public ReadUnitOfWork(IMongoDatabase database)
     {
@@ -39,5 +42,6 @@ public class ReadUnitOfWork : IReadUnitOfWork
         News = new MongoRepository<New>(database, "News");
         Orders = new MongoRepository<Order>(database, "Orders");
         Carts = new MongoRepository<CartDetails>(database, "Carts");
+        Tokens = new MongoRepository<RefreshToken>(database, "Tokens");
     }
 }

@@ -1,6 +1,5 @@
 ﻿using E.Infrastructure.Repository.Interfaces;
 using MongoDB.Driver;
-using System.Collections;
 using System.Linq.Expressions;
 
 namespace E.Infrastructure.Repository.MongoRepositories;

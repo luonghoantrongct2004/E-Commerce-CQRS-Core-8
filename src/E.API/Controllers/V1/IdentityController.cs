@@ -1,8 +1,9 @@
-﻿using E.API.Contracts;
-using E.API.Contracts.Identities;
+﻿using E.API.Contracts.Identities;
 using E.API.Extension;
+using E.Application.Identites.Commands;
 
 namespace E.API.Controllers.V1;
+
 public class IdentityController : BaseController
 {
     public IdentityController(IMediator mediator, IMapper mapper,
@@ -34,6 +35,15 @@ public class IdentityController : BaseController
         var result = await _mediator.Send(command);
         if (result.IsError) return HandleErrorResponse(result.Errors);
         return Ok(_mapper.Map<IdentityUserDto>(result.Payload));
+    }
+
+    [HttpPost]
+    [Route(ApiRoutes.Identity.Logout)]
+    public async Task<IActionResult> Logout()
+    {
+        var result = await _mediator.Send(new LogoutCommand());
+        if (result.IsError) return HandleErrorResponse(result.Errors);
+        return NoContent();
     }
 
     [HttpPost]

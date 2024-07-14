@@ -7,60 +7,54 @@ public static class ApiRoutes
 
     public static class Identity
     {
-        public const string Base = "identity";
-        public const string Login = $"{Base}/login";
-        public const string Register = $"{Base}/register";
-        public const string ById = $"{Base}/{{userId}}";
-        public const string CurrentUser = $"{Base}/currentUser";
+        public const string Login = $"login";
+        public const string Logout = $"logout";
+        public const string Register = $"register";
+        public const string ById = $"{{userId}}";
+        public const string CurrentUser = $"currentUser";
     }
 
     public static class Brand
     {
-        public const string Base = "brand";
-        public const string Create = $"{Base}";
-        public const string Update = $"{Base}/{{brandId}}";
-        public const string Remove = $"{Base}/{{brandId}}";
+        public const string Create = $"";
+        public const string Update = $"{{brandId}}";
+        public const string Remove = $"{{brandId}}";
     }
     public static class Category
     {
-        public const string Base = "category";
-        public const string Create = $"{Base}";
-        public const string Update = $"{Base}/{{categoryId}}";
-        public const string Remove = $"{Base}/{{categoryId}}";
+        public const string Create = $"";
+        public const string Update = $"{{categoryId}}";
+        public const string Remove = $"{{categoryId}}";
     }
 
     public static class Product
     {
-        public const string Base = "product";
-        public const string Create = $"{Base}";
-        public const string Update = $"{Base}/{{productId}}";
-        public const string Remove = $"{Base}/{{productId}}";
+        public const string Create = $"";
+        public const string Update = $"{{productId}}";
+        public const string Remove = $"{{productId}}";
     }
 
     public static class Cart
     {
-        public const string Base = "cart";
-        public const string Gets = $"{Base}/{{userId}}";
-        public const string Add = $"{Base}/{{userId}}/{{productId}}";
-        public const string Remove = $"{Base}/{{cartId}}";
+        public const string Gets = $"{{userId}}";
+        public const string Add = $"{{userId}}/{{productId}}";
+        public const string Remove = $"{{cartId}}";
     }
     public static class Order
     {
-        public const string Base = "order";
-        public const string Get = $"{Base}/{{orderId}}";
-        public const string Gets = $"{Base}/orders";
-        public const string Add = $"{Base}";
-        public const string CancelOrder = $"{Base}/{{orderId}}/{{productId}}";
-        public const string ConfirmOrder = $"{Base}/{{orderId}}/{{productId}}";
+        public const string Get = $"{{orderId}}";
+        public const string Gets = $"orders";
+        public const string Add = $"";
+        public const string CancelOrder = $"{{orderId}}/{{productId}}";
+        public const string ConfirmOrder = $"{{orderId}}/{{productId}}";
     }
     public static class Coupon
     {
-        public const string Base = "coupon";
-        public const string Get = $"{Base}/{{couponId}}";
-        public const string Gets = $"{Base}/{{couponId}}";
-        public const string ApplyCoupon = $"{Base}/{{productId}}/{{couponId}}";
-        public const string CreateCoupon = $"{Base}";
-        public const string DisableCoupon = $"{Base}/{{couponId}}";
-        public const string UpdateCoupon = $"{Base}/{{couponId}}";
+        public const string Get = $"{{couponId}}";
+        public const string Gets = $"{{couponId}}";
+        public const string ApplyCoupon = $"{{productId}}/{{couponId}}";
+        public const string CreateCoupon = $"";
+        public const string DisableCoupon = $"{{couponId}}";
+        public const string UpdateCoupon = $"{{couponId}}";
     }
 }

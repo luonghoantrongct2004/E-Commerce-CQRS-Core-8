@@ -2,6 +2,7 @@
 using E.Application.Enums;
 using E.Application.Identity.Commands;
 using E.Application.Models;
+using E.Application.Services.TokenServices;
 using E.Application.Services.UserServices;
 using E.DAL.UoW;
 using E.Domain.Entities.Users;
@@ -20,14 +21,16 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, OperationResult
     private readonly IdentityService _identityService;
     private readonly IMapper _mapper;
     private OperationResult<IdentityUserDto> _result = new();
+    private readonly RefreshTokenService _refreshToken;
 
     public LoginCommandHandler(IUnitOfWork unitOfWork, UserManager<DomainUser> userManager,
-        IdentityService identityService, IMapper mapper)
+        IdentityService identityService, IMapper mapper, RefreshTokenService refreshToken)
     {
         _unitOfWork = unitOfWork;
         _userManager = userManager;
         _identityService = identityService;
         _mapper = mapper;
+        _refreshToken = refreshToken;
     }
 
     public async Task<OperationResult<IdentityUserDto>> Handle(LoginCommand request,
@@ -38,9 +41,12 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, OperationResult
         if (_result.IsError) return _result;
 
         var userProfile = await _unitOfWork.Users.FirstOrDefaultAsync(u => u.Id == identityUser.Id);
+        var refreshToken = await _refreshToken.CreateRefreshTokenAsync(userProfile);
+
         _result.Payload = _mapper.Map<IdentityUserDto>(userProfile);
         _result.Payload.UserName = identityUser.Email;
         _result.Payload.Token = GetJwtString(identityUser);
+        _result.Payload.RefreshToken = refreshToken;
 
         return _result;
     }

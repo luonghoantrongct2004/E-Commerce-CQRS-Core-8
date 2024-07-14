@@ -7,6 +7,7 @@ using E.Domain.Entities.Introductions;
 using E.Domain.Entities.News;
 using E.Domain.Entities.Orders;
 using E.Domain.Entities.Products;
+using E.Domain.Entities.Token;
 using E.Domain.Entities.Users;
 using E.Infrastructure.Repository.Interfaces;
 using E.Infrastructure.Repository.SqlRepositories;
@@ -27,6 +28,7 @@ public class UnitOfWork : IUnitOfWork
     private IRepository<Introduce>? _introductionRepository;
     private IRepository<New>? _newRepository;
     private IRepository<Order>? _orderRepository;
+    private IRepository<RefreshToken>? _tokenRepository;
     private IDbContextTransaction _transaction;
 
     public UnitOfWork(AppDbContext context)
@@ -44,6 +46,7 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<Introduce> Introductions => _introductionRepository ??= new SqlRepository<Introduce>(_context);
     public IRepository<New> News => _newRepository ??= new SqlRepository<New>(_context);
     public IRepository<Order> Orders => _orderRepository ??= new SqlRepository<Order>(_context);
+    public IRepository<RefreshToken> Tokens => _tokenRepository ??= new SqlRepository<RefreshToken>(_context);
 
     public async Task BeginTransactionAsync()
     {
