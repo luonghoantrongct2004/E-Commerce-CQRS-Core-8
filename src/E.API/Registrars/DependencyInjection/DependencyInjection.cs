@@ -1,4 +1,8 @@
-﻿using E.DAL;
+﻿using E.Application.Services.TokenServices;
+using E.Application.Token.CommandHandlers;
+using E.Application.Token.Commands;
+using E.DAL;
+using E.Domain.Entities.Token.Dto;
 
 namespace E.API.Registrars.DependencyInjection;
 
@@ -19,6 +23,7 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
         builder.Services.AddSingleton<OrderService>();
         builder.Services.AddSingleton<OrderDetailService>();
         builder.Services.AddSingleton<ProductService>();
+        builder.Services.AddScoped<RefreshTokenService>();
 
         builder.Services.AddSingleton<UserValidationService>();
         builder.Services.AddSingleton<BrandValidationService>();
@@ -115,5 +120,8 @@ public class DependencyInjection : IWebApplicationBuilderRegistrar
             OperationResult<bool>>, DisableCouponCommandHandler>();
         builder.Services.AddTransient<IRequestHandler<UpdateCouponCommand,
             OperationResult<Coupon>>, UpdateCouponCommandHandler>();
+
+        builder.Services.AddTransient<IRequestHandler<TokenCommand,
+            OperationResult<TokenDto>>,  TokenCommandHandler>();
     }
 }

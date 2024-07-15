@@ -78,6 +78,6 @@ public class AppDbContext : IdentityDbContext<DomainUser, IdentityRole<Guid>, Gu
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Introduce> Introductions { get; set; }
     public DbSet<New> News { get; set; }
-    public DbSet<Introduce> Introduction { get; set; };
-    public DbSet<RefreshToken> Tokens { get; set; };
+    public DbSet<Introduce> Introduction { get; set; }
+    public DbSet<RefreshToken> Tokens { get; set; }
 }

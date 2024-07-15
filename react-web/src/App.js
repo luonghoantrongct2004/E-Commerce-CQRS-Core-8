@@ -1,21 +1,24 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import BrandPage from './pages/BrandPage';
-import Navbar from './components/Layout/Navbar';
+import React, { useState } from 'react';
+import { BrandList } from './components/Brand/BrandList';
+import { BrandForm } from './components/Brand/BrandForm';
 import './styles/App.css';
 
 function App() {
+    const [selectedBrand, setSelectedBrand] = useState(null);
+
+    const handleEdit = (brand) => {
+        setSelectedBrand(brand);
+    }
+
+    const handleFormSubmit = () => {
+        setSelectedBrand(null);
+    }
+
     return (
-        <Router>
-            <div className="App">
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/brands" element={<BrandPage />} />
-                </Routes>
-            </div>
-        </Router>
+        <div>
+            <BrandForm selectBrand={selectedBrand} onFormSubmit={handleFormSubmit} />
+            <BrandList />
+        </div>
     );
 }
 
