@@ -6,7 +6,8 @@ using MediatR;
 
 namespace E.Application.Products.QueryHandlers;
 
-public class GetAllProductQueryHandler : IRequestHandler<GetAllProducts, OperationResult<IEnumerable<Product>>>
+public class GetAllProductQueryHandler : IRequestHandler<GetAllProducts
+    , OperationResult<IEnumerable<Product>>>
 {
     private readonly IReadUnitOfWork _readUnitOfWork;
 
@@ -15,7 +16,8 @@ public class GetAllProductQueryHandler : IRequestHandler<GetAllProducts, Operati
         _readUnitOfWork = readUnitOfWork;
     }
 
-    public async Task<OperationResult<IEnumerable<Product>>> Handle(GetAllProducts request, CancellationToken cancellationToken)
+    public async Task<OperationResult<IEnumerable<Product>>> Handle(GetAllProducts request
+        , CancellationToken cancellationToken)
     {
         var result = new OperationResult<IEnumerable<Product>>();
         try
