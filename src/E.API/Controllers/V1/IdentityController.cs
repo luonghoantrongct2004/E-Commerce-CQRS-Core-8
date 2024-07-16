@@ -1,6 +1,7 @@
 ﻿using E.API.Contracts.Identities;
 using E.API.Extension;
 using E.Application.Identites.Commands;
+using E.Application.Token.Commands;
 
 namespace E.API.Controllers.V1;
 
@@ -55,5 +56,17 @@ public class IdentityController : BaseController
 
         if (result.IsError) return HandleErrorResponse(result.Errors);
         return Ok(_mapper.Map<IdentityUser>(result.Payload));
+    }
+
+    [HttpPost]
+    [Route(ApiRoutes.Identity.RefreshToken)]
+    public async Task<IActionResult> RefreshToken([FromBody] TokenCommand command)
+    {
+        var result = await _mediator.Send(command);
+        if (result.IsError)
+        {
+            return BadRequest(result.Errors);
+        }
+        return Ok(result.Payload);
     }
 }

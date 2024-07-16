@@ -38,7 +38,7 @@ public class SqlRepository<T> : IRepository<T> where T : class
 
     public async Task<IEnumerable<T>> GetAllAsync()
     {
-        return await _dbSet.ToListAsync();
+        return await _dbSet.AsNoTracking().ToListAsync();
     }
 
     public void Update(T entity)

@@ -32,7 +32,7 @@ export const BrandList = ({onEdit}) => {
             <ul>
                 {
                     brands.map(brand => (
-                        <li key={brand.id}>
+                        <li key={brand.id} id={brand.id}>
                             {brand.brandName}
                             <button onClick={() => onEdit(brand)}>Edit</button>
                             <button onClick={() => handleDelete(brand.id)}>Delete</button>
