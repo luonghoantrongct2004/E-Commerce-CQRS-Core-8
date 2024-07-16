@@ -9,6 +9,7 @@ Hoan Trong ## E-Commerce Project
 ** Leveraging CQRS for Performance and Maintainability**
 
 Command Query Responsibility Segregation (CQRS): Separates read and write operations for better performance and scalability.
+
 ![image](https://github.com/user-attachments/assets/fab071ba-0dc8-47b7-90fe-5a9a2de7bf12)
 
 ✨ Technologies ✨ 
