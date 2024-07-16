@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/de5bf951-2be8-4160-8b67-61c6962d94b6)Hoan Trong ## E-Commerce Project
+Hoan Trong ## E-Commerce Project
 
 ** Built with ASP.NET Core 8 and Two Databases**
 
