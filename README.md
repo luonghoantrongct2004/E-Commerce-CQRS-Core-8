@@ -9,7 +9,7 @@ Docker: Enhance ability run any environment
 ** Leveraging CQRS for Performance and Maintainability**
 
 Command Query Responsibility Segregation (CQRS): Separates read and write operations for better performance and scalability.
-![image](https://github.com/luonghoantrongct2004/E-Cormmerce-CQRS-Core-8/assets/150529417/c1df78dc-8e1b-4767-aa94-339058a5a089)
+![image](https://github.com/user-attachments/assets/fab071ba-0dc8-47b7-90fe-5a9a2de7bf12)
 
 ✨ Technologies ✨ 
 
